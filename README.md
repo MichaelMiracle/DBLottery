@@ -1,2 +1,0 @@
-# DBLottery
-Yeah,baby!
