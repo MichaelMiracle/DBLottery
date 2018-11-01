@@ -481,6 +481,9 @@
         <activity
             android:name=".sport.community.activity.CommunityActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".lottery.LotteryMainActivity"
+            android:screenOrientation="portrait" />
 
         <!-- 开机自启动服务 -->
         <receiver android:name=".base.im.receiver.StartServiceReceiver">

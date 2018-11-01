@@ -18,6 +18,7 @@ import com.miracle.R;
 import com.miracle.base.AppConfig;
 import com.miracle.base.GOTO;
 import com.miracle.base.bean.UserBean;
+import com.miracle.base.fingerprint.FingerPrintDialog;
 import com.miracle.base.network.ZCallback;
 import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZResponse;
@@ -27,7 +28,6 @@ import com.miracle.base.util.Encryptor;
 import com.miracle.base.util.GsonUtil;
 import com.miracle.base.util.sqlite.SQLiteKey;
 import com.miracle.base.util.sqlite.SQLiteUtil;
-import com.miracle.michael.common.fingerprint.FingerPrintDialog;
 
 import retrofit2.Call;
 import retrofit2.Callback;
