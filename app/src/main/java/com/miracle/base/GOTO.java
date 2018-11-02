@@ -1,5 +1,6 @@
 package com.miracle.base;
 
+import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
@@ -11,27 +12,27 @@ import com.miracle.base.util.ToastUtil;
 
 public class GOTO {
 
-    public static void MainActivity() {
+    public static void MainActivity(Context context) {
         App.getApp().finishAllActivity();
-        ContextHolder.getContext().startActivity(new Intent(ContextHolder.getContext(), AppConfig.mainClass));
+        context.startActivity(new Intent(context, AppConfig.mainClass));
     }
 
 
-    public static void LoginActivity() {
-        ContextHolder.getContext().startActivity(new Intent(ContextHolder.getContext(), LoginActivity.class));
+    public static void LoginActivity(Context context) {
+        context.startActivity(new Intent(context, LoginActivity.class));
     }
 
 
-    public static void ChatActivity() {
+    public static void ChatActivity(Context context) {
         if (CommonUtils.getUser() == null) {
-            LoginActivity();
+            LoginActivity(context);
         } else if (TextUtils.isEmpty(AppConfig.groupId)) {
             ToastUtil.toast("聊天室登录中,请稍后再试");
         } else {
-            Intent intent = new Intent(ContextHolder.getContext(), ChatActivity.class);
+            Intent intent = new Intent(context, ChatActivity.class);
             intent.putExtra("chatType", com.miracle.base.im.Constant.CHATTYPE_GROUP);
             intent.putExtra("userId", AppConfig.groupId);
-            ContextHolder.getContext().startActivity(intent);
+            context.startActivity(intent);
         }
 
     }
