@@ -13,6 +13,7 @@ import com.miracle.R;
 import com.miracle.base.BaseFragment;
 import com.miracle.base.GOTO;
 import com.miracle.base.network.GlideApp;
+import com.miracle.base.network.RequestUtil;
 import com.miracle.base.network.ZCallback;
 import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZResponse;
@@ -64,12 +65,19 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding> {
         }
         myCircleAdapter.setNewData(null);
         myCircleAdapter.addData((MyCircleBean) null);
-        ZClient.getService(SportService.class).getMyCircleList().enqueue(new ZCallback<ZResponse<List<MyCircleBean>>>() {
+        RequestUtil.request1(ZClient.getService(SportService.class).getMyCircleList(),new ZCallback<ZResponse<List<MyCircleBean>>>("mycircle"){
             @Override
             public void onSuccess(ZResponse<List<MyCircleBean>> data) {
                 myCircleAdapter.addData(0, data.getData());
+
             }
         });
+//        ZClient.getService(SportService.class).getMyCircleList().enqueue(new ZCallback<ZResponse<List<MyCircleBean>>>() {
+//            @Override
+//            public void onSuccess(ZResponse<List<MyCircleBean>> data) {
+//                myCircleAdapter.addData(0, data.getData());
+//            }
+//        });
     }
 
     private void initBanner() {

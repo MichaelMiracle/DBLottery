@@ -2,8 +2,11 @@ package com.miracle.base.network;
 
 import android.app.Dialog;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 
+import com.miracle.base.util.GsonUtil;
 import com.miracle.base.util.ToastUtil;
+import com.miracle.base.util.sqlite.SQLiteUtil;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -13,8 +16,14 @@ public abstract class ZCallback<T> implements Callback<T> {
 
     private SwipeRefreshLayout swipeRefreshLayout;
     private Dialog dialog;
+    //缓存key
+    private String key;
 
     public ZCallback() {
+    }
+
+    public ZCallback(String key) {
+        this.key = key;
     }
 
     public ZCallback(SwipeRefreshLayout swipeRefreshLayout) {
@@ -31,6 +40,9 @@ public abstract class ZCallback<T> implements Callback<T> {
         if (body instanceof ZResponse) {
             ZResponse zResponse = (ZResponse) body;
             if (zResponse.getCode() == 200 || zResponse.getCode() == 0) {
+                if (!TextUtils.isEmpty(key)) {
+                    SQLiteUtil.saveString(key, GsonUtil.obj2Json(zResponse));
+                }
                 onSuccess(body);
                 onFinish();
             } else {
@@ -58,4 +70,7 @@ public abstract class ZCallback<T> implements Callback<T> {
         }
     }
 
+    public String getKey() {
+        return key;
+    }
 }
