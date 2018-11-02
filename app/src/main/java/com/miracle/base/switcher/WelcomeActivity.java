@@ -18,7 +18,6 @@ import com.miracle.R;
 import com.miracle.base.AppConfig;
 import com.miracle.base.GOTO;
 import com.miracle.base.bean.UserBean;
-import com.miracle.base.fingerprint.FingerPrintDialog;
 import com.miracle.base.network.ZCallback;
 import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZResponse;
@@ -28,6 +27,7 @@ import com.miracle.base.util.Encryptor;
 import com.miracle.base.util.GsonUtil;
 import com.miracle.base.util.sqlite.SQLiteKey;
 import com.miracle.base.util.sqlite.SQLiteUtil;
+import com.miracle.michael.common.fingerprint.FingerPrintDialog;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,13 +44,13 @@ import retrofit2.http.Path;
  */
 
 public class WelcomeActivity extends Activity {
-    private Context mContext;
+    private Context context;
     private String mUrl;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mContext = this;
+        context = this;
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -135,10 +135,10 @@ public class WelcomeActivity extends Activity {
                 @Override
                 public void onDismiss(DialogInterface dialog) {
                     if (fingerPrintDialog.isSuccess()) {
-                        GOTO.MainActivity(mContext);
+                        GOTO.MainActivity(context);
                         autoLogin();
                     } else {
-                        GOTO.LoginActivity(mContext);
+                        GOTO.LoginActivity(context);
                     }
                     finish();
                 }
@@ -146,7 +146,7 @@ public class WelcomeActivity extends Activity {
             fingerPrintDialog.show();
             return;
         }
-        GOTO.MainActivity(mContext);
+        GOTO.MainActivity(context);
         if (SQLiteUtil.getBoolean(SQLiteKey.AUTOLOGIN + CommonUtils.getUserId())) {
             autoLogin();
         }

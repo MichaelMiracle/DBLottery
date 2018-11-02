@@ -16,7 +16,7 @@ import android.widget.RelativeLayout;
 import com.miracle.R;
 import com.miracle.base.util.CommonUtils;
 import com.miracle.databinding.ActivityBaseBinding;
-import com.miracle.lottery.LotteryMainActivity;
+import com.miracle.michael.lottery.activity.LotteryMainActivity;
 import com.yanzhenjie.sofia.Sofia;
 
 public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatActivity implements View.OnClickListener {

@@ -8,7 +8,7 @@ android {
     dataBinding.enabled = true
     useLibrary 'org.apache.http.legacy'
     defaultConfig {
-        applicationId "com.miracle.lottery"
+        applicationId "com.miracle.michael.mdgame"
         resValue "string", "app_name", "Michael"
         minSdkVersion 16
         targetSdkVersion 26
@@ -83,7 +83,7 @@ dependencies {
 
     // Google firebase cloud messaging
     implementation 'com.google.firebase:firebase-messaging:11.4.0'
-
+//    implementation 'com.google.firebase:firebase-core:16.0.0'
     // bugly start
     implementation 'com.tencent.bugly:crashreport:2.6.6.1'
     implementation 'com.tencent.bugly:nativecrashreport:3.3.1'

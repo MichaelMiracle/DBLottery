@@ -60,6 +60,7 @@ public class App extends Application {
         initImagePicker();
     }
 
+
     private void initImagePicker() {
         ImagePicker imagePicker = ImagePicker.getInstance();
         imagePicker.setImageLoader(new ZDisplayer());   //设置图片加载器
