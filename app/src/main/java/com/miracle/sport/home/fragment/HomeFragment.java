@@ -9,14 +9,23 @@ import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.cache.CacheMode;
+import com.lzy.okgo.model.Response;
 import com.miracle.R;
 import com.miracle.base.BaseFragment;
 import com.miracle.base.Constant;
+import com.miracle.base.http.CacheConstant;
+import com.miracle.base.http.Common.EncryptCallback;
+import com.miracle.base.http.model.bean.PageResultForJob;
 import com.miracle.base.network.ZCallback;
 import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZResponse;
+import com.miracle.base.util.ToastUtil;
 import com.miracle.databinding.FragmentHomeBinding;
 import com.miracle.sport.SportService;
+import com.miracle.sport.common.constant.CacheContents;
+import com.miracle.sport.common.constant.UrlConstants;
 import com.miracle.sport.home.ServiceHome;
 import com.miracle.sport.home.adapter.ChannelPagerAdapter;
 import com.miracle.sport.home.bean.Channel;
@@ -26,6 +35,7 @@ import com.miracle.sport.home.util.PreUtils;
 import com.miracle.sport.home.util.UIUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
@@ -56,23 +66,57 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements O
     }
 
     private void reqData() {
-        ZClient.getService(SportService.class).getSearchKeys().enqueue(new ZCallback<ZResponse<List<ChannerlKey>>>() {
-            @Override
-            public void onSuccess(ZResponse<List<ChannerlKey>> data) {
-                mNetChannels = data.getData();
-                initChannelData();
-                initChannelFragments();
-                setListener();
-            }
 
-            @Override
-            public void onFailure(Call<ZResponse<List<ChannerlKey>>> call, Throwable t) {
-                super.onFailure(call, t);
-                initChannelData();
-                initChannelFragments();
-                setListener();
-            }
-        });
+//        HashMap<String, String> params = new HashMap<>();
+//        params.put("type", "zcsj");
+
+        OkGo.<PageResultForJob<ChannerlKey>>post(UrlConstants.POST_SPORT_TYPE)
+                .tag(this)
+//                .params(params,true)
+                .cacheKey(CacheContents.HOME_SPORT_TYPE)
+                .cacheMode(CacheMode.IF_NONE_CACHE_REQUEST)
+                .execute(new EncryptCallback<PageResultForJob<ChannerlKey>>() {
+                    @Override
+                    public void onSuccess(Response<PageResultForJob<ChannerlKey>> response) {
+                        mNetChannels = response.body().getData();
+                        initChannelData();
+                        initChannelFragments();
+                        setListener();
+                    }
+
+                    @Override
+                    public void onError(Response<PageResultForJob<ChannerlKey>> response) {
+                        super.onError(response);
+                        ToastUtil.toast(response.message());
+                    }
+
+                    @Override
+                    public void onCacheSuccess(Response<PageResultForJob<ChannerlKey>> response) {
+                        super.onCacheSuccess(response);
+                        mNetChannels = response.body().getData();
+                        initChannelData();
+                        initChannelFragments();
+                        setListener();
+                    }
+                });
+
+//        ZClient.getService(SportService.class).getSearchKeys().enqueue(new ZCallback<ZResponse<List<ChannerlKey>>>() {
+//            @Override
+//            public void onSuccess(ZResponse<List<ChannerlKey>> data) {
+//                mNetChannels = data.getData();
+//                initChannelData();
+//                initChannelFragments();
+//                setListener();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<ZResponse<List<ChannerlKey>>> call, Throwable t) {
+//                super.onFailure(call, t);
+//                initChannelData();
+//                initChannelFragments();
+//                setListener();
+//            }
+//        });
     }
 
     private void setListener() {
