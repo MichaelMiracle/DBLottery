@@ -10,7 +10,7 @@ public class AppConfig {
 
     //1(足球) 2(彩票) 3(棋牌,斗地主) 4(生活)
     public static String APP_TYPE = "2";
-    static Class mainClass = LotteryMainActivity.class;
+    static Class mainClass = SportMainActivity.class;
 
 
     public static Developer developer = Developer.Michael;
