@@ -22,7 +22,7 @@ public class RequestUtil {
      * @param callback
      */
     public static void request1(Call call, ZCallback callback) {
-        String key = callback.getKey();
+        String key = callback.getCachKey();
         if (TextUtils.isEmpty(key)) {
             call.enqueue(callback);
         } else {
@@ -42,7 +42,7 @@ public class RequestUtil {
      * @param callback
      */
     public static void request2(Call call, ZCallback callback) {
-        String key = callback.getKey();
+        String key = callback.getCachKey();
         if (TextUtils.isEmpty(key)) {
             call.enqueue(callback);
         } else {
@@ -61,7 +61,7 @@ public class RequestUtil {
         if (genericSuperclass instanceof ParameterizedType) {
             mGenericSuperclass = ((ParameterizedType) genericSuperclass).getActualTypeArguments()[0];
         } else {
-            mGenericSuperclass = Object.class;
+            mGenericSuperclass = ZResponse.class;
         }
         return GsonUtil.json2Obj(json, mGenericSuperclass);
     }

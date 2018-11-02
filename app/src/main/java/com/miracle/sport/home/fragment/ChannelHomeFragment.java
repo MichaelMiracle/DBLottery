@@ -6,17 +6,12 @@ import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.miracle.R;
-import com.miracle.base.AppConfig;
 import com.miracle.base.BaseFragment;
 import com.miracle.base.Constant;
-import com.miracle.base.network.PageLoadCallback;
 import com.miracle.base.network.PageLoadDataCallback;
 import com.miracle.base.network.ZClient;
 import com.miracle.databinding.FragmentCategoryHomeBinding;
-import com.miracle.michael.chess.adapter.ChessListAdapter;
 import com.miracle.sport.SportService;
-import com.miracle.sport.home.ServiceHome;
-import com.miracle.sport.home.activity.SimpleWebActivity;
 import com.miracle.sport.home.activity.SimpleWebCommentActivity;
 import com.miracle.sport.home.adapter.HomeListAdapter;
 

@@ -5,12 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.miracle.R;
 import com.miracle.base.adapter.RecyclerViewAdapter;
-import com.miracle.base.App;
-import com.miracle.base.util.CommonUtils;
-import com.miracle.base.util.NetStateUtils;
-import com.miracle.base.util.ToastUtil;
 
 import java.util.List;
 
@@ -20,7 +15,9 @@ import retrofit2.Response;
 
 /**
  * Created by NaOH on 2018/8/3 15:11 (星期五).
+ * Use ZPageLoadCallback instead.
  */
+@Deprecated
 public abstract class PageLoadCallback<T> implements Callback<T>, SwipeRefreshLayout.OnRefreshListener, BaseQuickAdapter.RequestLoadMoreListener {
 
     private RecyclerViewAdapter mAdapter;
@@ -29,11 +26,21 @@ public abstract class PageLoadCallback<T> implements Callback<T>, SwipeRefreshLa
     private boolean isLoadMore;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private Dialog dialog;
+    //缓存key
+    private String key;
+
 
     public PageLoadCallback(RecyclerViewAdapter adapter, RecyclerView recyclerView) {
         adapter.setOnLoadMoreListener(this, recyclerView);
         mAdapter = adapter;
     }
+
+    public PageLoadCallback(RecyclerViewAdapter adapter, RecyclerView recyclerView, String key) {
+        adapter.setOnLoadMoreListener(this, recyclerView);
+        mAdapter = adapter;
+        this.key = key;
+    }
+
     public PageLoadCallback(RecyclerViewAdapter adapter, RecyclerView recyclerView, Dialog dialog) {
         adapter.setOnLoadMoreListener(this, recyclerView);
         mAdapter = adapter;
@@ -117,7 +124,7 @@ public abstract class PageLoadCallback<T> implements Callback<T>, SwipeRefreshLa
 
     @Override
     public void onRefresh() {
-        if(mSwipeRefreshLayout != null && !mSwipeRefreshLayout.isRefreshing())
+        if (mSwipeRefreshLayout != null && !mSwipeRefreshLayout.isRefreshing())
             mSwipeRefreshLayout.setRefreshing(true);
 //        if (!NetStateUtils.isNetworkConnected(App.getApp())) {
 //            ToastUtil.toast(App.getApp(), CommonUtils.getString(R.string.no_net));

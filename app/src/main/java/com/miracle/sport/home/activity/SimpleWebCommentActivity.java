@@ -21,17 +21,11 @@ import com.miracle.base.util.CommonUtils;
 import com.miracle.base.util.ToastUtil;
 import com.miracle.base.util.sqlite.SQLiteKey;
 import com.miracle.base.util.sqlite.SQLiteUtil;
-import com.miracle.databinding.ActivityHomeWebBinding;
 import com.miracle.databinding.ActivityHomeWebCommentBinding;
 import com.miracle.michael.common.bean.ArticleDetailBean;
-import com.miracle.michael.common.bean.NewsDetailBean;
 import com.miracle.sport.SportService;
 import com.miracle.sport.home.adapter.ArticleListAdapter;
-import com.miracle.sport.home.adapter.HomeCommentListAdapter;
-import com.miracle.sport.home.bean.HomeCommentBean;
 import com.wx.goodview.GoodView;
-
-import java.util.List;
 
 import retrofit2.Call;
 
@@ -109,8 +103,8 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
             }
 
             @Override
-            public void onFinish() {
-                super.onFinish();
+            protected void onFinish(Call<ZResponse<ArticleDetailBean>> call) {
+                super.onFinish(call);
                 binding.swipeRefreshLayout.setRefreshing(false);
                 loadingDialog.dismiss();
             }

@@ -69,7 +69,6 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding> {
             @Override
             public void onSuccess(ZResponse<List<MyCircleBean>> data) {
                 myCircleAdapter.addData(0, data.getData());
-
             }
         });
 //        ZClient.getService(SportService.class).getMyCircleList().enqueue(new ZCallback<ZResponse<List<MyCircleBean>>>() {

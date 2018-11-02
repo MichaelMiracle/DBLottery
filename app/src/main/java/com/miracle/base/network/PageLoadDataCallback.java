@@ -2,14 +2,17 @@ package com.miracle.base.network;
 
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.miracle.R;
 import com.miracle.base.App;
 import com.miracle.base.adapter.RecyclerViewAdapter;
 import com.miracle.base.util.CommonUtils;
+import com.miracle.base.util.GsonUtil;
 import com.miracle.base.util.NetStateUtils;
 import com.miracle.base.util.ToastUtil;
+import com.miracle.base.util.sqlite.SQLiteUtil;
 import com.miracle.sport.home.bean.Football;
 import com.miracle.sport.home.bean.HomeBean;
 
@@ -30,9 +33,17 @@ public abstract class PageLoadDataCallback<T> implements Callback<T>, SwipeRefre
     private boolean isLoadMore;
     private SwipeRefreshLayout mSwipeRefreshLayout;
 
+    private String key;
+
     public PageLoadDataCallback(RecyclerViewAdapter adapter, RecyclerView recyclerView) {
         adapter.setOnLoadMoreListener(this, recyclerView);
         mAdapter = adapter;
+    }
+
+    public PageLoadDataCallback(RecyclerViewAdapter adapter, RecyclerView recyclerView, String key) {
+        adapter.setOnLoadMoreListener(this, recyclerView);
+        mAdapter = adapter;
+        this.key = key;
     }
 
     public void initSwipeRefreshLayout(SwipeRefreshLayout swipeRefreshLayout) {
@@ -53,6 +64,9 @@ public abstract class PageLoadDataCallback<T> implements Callback<T>, SwipeRefre
             switch (data.getCode()) {
                 case 200:
                     List<Football> data1 = ((HomeBean) data.getData()).getData();
+                    if (!TextUtils.isEmpty(key)) {
+                        SQLiteUtil.saveString(key, GsonUtil.obj2Json(data1));
+                    }
                     page++;
                     if (isLoadMore) {
                         mAdapter.addData(data1);
