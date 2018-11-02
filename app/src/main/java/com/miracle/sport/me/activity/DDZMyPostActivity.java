@@ -37,7 +37,7 @@ public class DDZMyPostActivity extends BaseActivity<SwipeRecyclerBinding> {
         callBack = new PageLoadCallback(mAdapter, binding.recyclerView,loadingDialog) {
             @Override
             public void requestAction(int page, int limit) {
-                ZClient.getService(SportService.class).getPostList(page,limit).enqueue(callBack);
+                ZClient.getService(SportService.class).getMyPostList(page,limit).enqueue(callBack);
             }
         };
         callBack.initSwipeRefreshLayout(binding.swipeRefreshLayout);

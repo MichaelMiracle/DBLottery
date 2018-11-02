@@ -61,7 +61,7 @@ public class RequestUtil {
         if (genericSuperclass instanceof ParameterizedType) {
             mGenericSuperclass = ((ParameterizedType) genericSuperclass).getActualTypeArguments()[0];
         } else {
-            mGenericSuperclass = ZResponse.class;
+            mGenericSuperclass = Object.class;
         }
         return GsonUtil.json2Obj(json, mGenericSuperclass);
     }

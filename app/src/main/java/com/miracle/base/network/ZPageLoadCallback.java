@@ -4,12 +4,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.miracle.R;
-import com.miracle.base.App;
 import com.miracle.base.adapter.RecyclerViewAdapter;
-import com.miracle.base.util.CommonUtils;
-import com.miracle.base.util.NetStateUtils;
-import com.miracle.base.util.ToastUtil;
 
 import java.util.List;
 
@@ -73,22 +68,24 @@ public abstract class ZPageLoadCallback<T> extends ZCallback<T> implements Swipe
         }
     }
 
+
     @Override
-    public void onFailure(Call<T> call, Throwable t) {
+    public void onFailure(Call call, Throwable t) {
         super.onFailure(call, t);
         mAdapter.loadMoreFail();
     }
+
 
     @Override
     public void onRefresh() {
         if (mSwipeRefreshLayout != null && !mSwipeRefreshLayout.isRefreshing())
             mSwipeRefreshLayout.setRefreshing(true);
-        if (!NetStateUtils.isNetworkConnected(App.getApp())) {
-            ToastUtil.toast(App.getApp(), CommonUtils.getString(R.string.no_net));
-            mSwipeRefreshLayout.setRefreshing(false);
-            onFailure(null, new Throwable("当前无网络"));
-            return;
-        }
+//        if (!NetStateUtils.isNetworkConnected(App.getApp())) {
+//            ToastUtil.toast(App.getApp(), CommonUtils.getString(R.string.no_net));
+//            mSwipeRefreshLayout.setRefreshing(false);
+//            onFailure(null, new Throwable("当前无网络"));
+//            return;
+//        }
         isLoadMore = false;
         page = 1;
         requestAction(page, pageSize);

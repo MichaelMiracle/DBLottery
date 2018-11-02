@@ -69,7 +69,7 @@ public abstract class ZCallback<T> implements Callback<T> {
                 onFailure(call, new Throwable(zResponse.getMessage()));
             } else {
                 saveCache(zResponse);
-                onSuccess(body);
+                onSuccess((T) zResponse);
                 onFinish(call);
             }
         } else {
@@ -98,7 +98,9 @@ public abstract class ZCallback<T> implements Callback<T> {
         if (mDialog != null) {
             mDialog.dismiss();
         }
-        call.cancel();
+        if (call != null) {
+            call.cancel();
+        }
     }
 
     private void saveCache(ZResponse zResponse) {
