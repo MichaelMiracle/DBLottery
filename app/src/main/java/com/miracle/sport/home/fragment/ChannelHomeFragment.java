@@ -5,25 +5,42 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.lzy.okgo.OkGo;
+import com.lzy.okgo.cache.CacheMode;
+import com.lzy.okgo.model.Response;
 import com.miracle.R;
 import com.miracle.base.BaseFragment;
 import com.miracle.base.Constant;
+import com.miracle.base.http.Common.EncryptCallback;
+import com.miracle.base.http.model.bean.ResultForJob;
 import com.miracle.base.network.PageLoadDataCallback;
+import com.miracle.base.network.RequestUtil;
 import com.miracle.base.network.ZClient;
+import com.miracle.base.network.ZPageLoadCallback;
+import com.miracle.base.network.ZPageLoadDataCallback;
+import com.miracle.base.network.ZResponse;
+import com.miracle.base.util.ToastUtil;
 import com.miracle.databinding.FragmentCategoryHomeBinding;
 import com.miracle.sport.SportService;
+import com.miracle.sport.common.constant.CacheContents;
+import com.miracle.sport.common.constant.UrlConstants;
 import com.miracle.sport.home.activity.SimpleWebCommentActivity;
 import com.miracle.sport.home.adapter.HomeListAdapter;
+import com.miracle.sport.home.bean.HomeBean;
+
+import java.util.HashMap;
+
+import okhttp3.CacheControl;
 
 /**
  * Created by Administrator on 2018/3/5.
  */
 
-public class ChannelHomeFragment extends BaseFragment<FragmentCategoryHomeBinding> {
+public class ChannelHomeFragment extends BaseFragment<FragmentCategoryHomeBinding>{
 
 
     private HomeListAdapter mAdapter;
-    private PageLoadDataCallback callBack;
+    private ZPageLoadDataCallback callBack;
 
     private int reqKey = 1;
 
@@ -53,12 +70,55 @@ public class ChannelHomeFragment extends BaseFragment<FragmentCategoryHomeBindin
     }
 
     private void initCallback() {
-        callBack = new PageLoadDataCallback(mAdapter, binding.recyclerView) {
+
+//        HashMap<String, String> params = new HashMap<>();
+//        params.put("class_id", reqKey+"");
+//        params.put("page", 1+"");
+//        params.put("pageSize", 10+"");
+//
+//        OkGo.<ResultForJob<HomeBean>>post(UrlConstants.POST_SPORT_LIST)
+//                .tag(this)
+//                .params(params,true)
+//                .cacheKey(CacheContents.HOME_SPORT_LIST+reqKey)
+//                .cacheMode(CacheMode.FIRST_CACHE_THEN_REQUEST)
+//                .execute(new EncryptCallback<ResultForJob<HomeBean>>() {
+//                    @Override
+//                    public void onSuccess(Response<ResultForJob<HomeBean>> response) {
+//                        mAdapter.setNewData(response.body().getData().getData());
+//                    }
+//
+//                    @Override
+//                    public void onError(Response<ResultForJob<HomeBean>> response) {
+//                        super.onError(response);
+//                        ToastUtil.toast("shib");
+//                    }
+//
+//                    @Override
+//                    public void onCacheSuccess(Response<ResultForJob<HomeBean>> response) {
+//                        super.onCacheSuccess(response);
+//                        mAdapter.setNewData(response.body().getData().getData());
+//                    }
+//                });
+
+//        callBack = new PageLoadDataCallback(mAdapter, binding.recyclerView) {
+//            @Override
+//            public void requestAction(int page, int limit) {
+//                ZClient.getService(SportService.class).getNewsList(reqKey, page, limit).enqueue(callBack);
+//            }
+//        };
+        callBack=new ZPageLoadDataCallback<ZResponse<HomeBean>>(mAdapter,binding.recyclerView) {
             @Override
-            public void requestAction(int page, int limit) {
-                ZClient.getService(SportService.class).getNewsList(reqKey, page, limit).enqueue(callBack);
+            public void requestAction(int page, int pageSize) {
+                RequestUtil.request1(ZClient.getService(SportService.class).getNewsList(reqKey, page, pageSize),callBack);
             }
         };
+//        callBack = new ZPageLoadCallback<ZResponse<HomeBean>>(mAdapter, binding.recyclerView) {
+//            @Override
+//            public void requestAction(int page, int pageSize) {
+//                RequestUtil.request1(ZClient.getService(SportService.class).getNewsList(reqKey, page, pageSize), callBack);
+//            }
+//        };
+        callBack.setCachKey("ChanneHomeFragment" + reqKey);
         callBack.initSwipeRefreshLayout(binding.swipeRefreshLayout);
     }
 
