@@ -67,6 +67,8 @@ public class LotteryF1 extends BaseFragment<F1LotteryBinding> {
         images.add("file:///android_asset/lottery/1.png");
         images.add("file:///android_asset/lottery/2.png");
         images.add("file:///android_asset/lottery/3.png");
+        images.add("file:///android_asset/lottery/4.png");
+        images.add("file:///android_asset/lottery/5.png");
         bannerBinding.banner.setImages(images).setImageLoader(new ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {
