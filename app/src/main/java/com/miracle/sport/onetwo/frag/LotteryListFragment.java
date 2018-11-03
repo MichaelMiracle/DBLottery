@@ -5,7 +5,6 @@ import android.view.View;
 
 import com.miracle.R;
 import com.miracle.base.BaseFragment;
-import com.miracle.base.network.PageLoadCallback;
 import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZPageLoadCallback;
 import com.miracle.base.network.ZResponse;
@@ -28,6 +27,8 @@ public class LotteryListFragment extends BaseFragment<ActivityLotteryDetailBindi
 
     public void setShowSingle(boolean isLoadSingle){
         this.isLoadSingle = isLoadSingle;
+        if(mAdapter != null)
+            mAdapter.setShowSingle(isLoadSingle);
     }
 
     @Override
@@ -37,20 +38,9 @@ public class LotteryListFragment extends BaseFragment<ActivityLotteryDetailBindi
 
     @Override
     public void initView() {
-//        lotteryCatData = (LotteryCatTitleItem) getIntent().getSerializableExtra(KEY_DATA);
-
-
         mAdapter = new LotteryCategoryListAdapter(mContext);
         binding.recyclerView.setAdapter(mAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-
-//        binding.lotteryZoushiTv1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent act = new Intent(mContext, LottoTrendActivity.class);
-//                startActivity(act);
-//            }
-//        });
     }
 
     @Override
@@ -69,10 +59,10 @@ public class LotteryListFragment extends BaseFragment<ActivityLotteryDetailBindi
 
     public void setLotteryCatData(LotteryCatTitleItem lotteryCatData) {
         this.lotteryCatData = lotteryCatData;
+        mAdapter.setShowSingle(isLoadSingle);
         if(isLoadSingle){
             binding.swipeRefreshLayout.setSize(0);
         }
-        mAdapter.setShowSingle(isLoadSingle);
 
 //        setTitle("" + lotteryCatData.getName());
         final int id = lotteryCatData.getId();
@@ -83,7 +73,6 @@ public class LotteryListFragment extends BaseFragment<ActivityLotteryDetailBindi
                     ZClient.getService(CPServer.class).lotteryCategoryList(1, 1, id).enqueue(this);
                 else
                     ZClient.getService(CPServer.class).lotteryCategoryList(page, limit, id).enqueue(this);
-
             }
 
             @Override
@@ -94,14 +83,18 @@ public class LotteryListFragment extends BaseFragment<ActivityLotteryDetailBindi
                 }else{
                 if (mAdapter.getData() != null && mAdapter.getData().size() > 0)
                     setUIStatus(ShowStat.NORMAL);
-//                    setShowNodata(false);
                 else
                     setUIStatus(ShowStat.NODATA);
-//                    setShowNodata(true);
                 }
             }
         };
         callback.initSwipeRefreshLayout(binding.swipeRefreshLayout);
+        loadData();
+    }
+
+    @Override
+    public void loadData() {
+        super.loadData();
         callback.onRefresh();
     }
 }

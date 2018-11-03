@@ -33,6 +33,9 @@ public class FragmentLotteryMain extends BaseFragment<FragmentCpMainTopBinding>{
     List<String> Mardatas = new ArrayList<String>();
     FragmentCpMainTopBinding topBinding;
 
+    LotteryListFragment fragment;
+    FragCpItemList subFrag;
+
     @Override
     public int getLayout() {
         return R.layout.fragment_cp_main;
@@ -40,35 +43,50 @@ public class FragmentLotteryMain extends BaseFragment<FragmentCpMainTopBinding>{
 
     @Override
     public void initView() {
-//        showTitle();
         Log.i("TAG", "initView: xxxxxxxxxxx 1");
+        setShowTitle(true);
+        setTitle(getString(R.string.tab_name_home));
+        getTitleBar().showLeft(false);
+
         topBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(), R.layout.fragment_cp_main_top, null, false);
-        final FragCpItemList subFrag = (FragCpItemList) getActivity().getSupportFragmentManager().findFragmentById(R.id.list_frag);
-        subFrag.setShowBanner(false);
-        subFrag.setCallBackListener(new CallBackListener<List<CpListItem>>() {
-            @Override
-            public void onStart() {
-
-            }
-
-            @Override
-            public void onFinish(List<CpListItem> data) {
-//                if(data != null && data.size() > 0)
-//                {
-                    setUIStatus(ShowStat.NORMAL);
-//                    topBinding.getRoot().setVisibility(View.VISIBLE);
-//                }else{
-//                    topBinding.getRoot().setVisibility(View.GONE);
-//                    setUIStatus(ShowStat.NODATA);
-//                }
-            }
-        });
-
         initBanner();
         initMard();
 //        initHSuserBar();
         initTicket();
+        initButtons();
 
+        fragment = (LotteryListFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.main_farg_newnum_frag);
+        fragment.setShowSingle(true);
+        LotteryCatTitleItem lotteryCatTitleItem = new LotteryCatTitleItem();
+        lotteryCatTitleItem.setId(1);
+        fragment.setLotteryCatData(lotteryCatTitleItem);
+
+        subFrag = (FragCpItemList) getActivity().getSupportFragmentManager().findFragmentById(R.id.list_frag);
+        subFrag.setShowBanner(false);
+        subFrag.setCallBackListener(new CallBackListener<List<CpListItem>>() {
+            @Override
+            public void onStart() {
+                if(subFrag.callBack.getPage() == 1)
+                    fragment.loadData();
+            }
+
+            @Override
+            public void onFinish(List<CpListItem> data) {
+                if(data != null && data.size() > 0)
+                {
+                    topBinding.getRoot().setVisibility(View.VISIBLE);
+                }else{
+                    topBinding.getRoot().setVisibility(View.GONE);
+                }
+            }
+        });
+
+        subFrag.mAdapter.addHeaderView(topBinding.getRoot());
+        subFrag.mAdapter.notifyDataSetChanged();
+        subFrag.binding.getRoot().requestLayout();
+    }
+
+    private void initButtons() {
         View.OnClickListener subTitleClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -102,20 +120,6 @@ public class FragmentLotteryMain extends BaseFragment<FragmentCpMainTopBinding>{
                 }
             }
         });
-
-        LotteryListFragment fragment = (LotteryListFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.main_farg_newnum_frag);
-        fragment.setShowSingle(true);
-        LotteryCatTitleItem lotteryCatTitleItem = new LotteryCatTitleItem();
-        lotteryCatTitleItem.setId(1);
-        fragment.setLotteryCatData(lotteryCatTitleItem);
-
-//        RecyclerView main_farg_rv = topBinding.getRoot().findViewById(R.id.main_farg_rv);
-//        main_farg_rv.setAdapter();
-
-        Log.i("TAG", "initView: xxxxxxxxxxx 4");
-        subFrag.mAdapter.addHeaderView(topBinding.getRoot());
-        subFrag.mAdapter.notifyDataSetChanged();
-//        subFrag.binding.getRoot().requestLayout();
     }
 
     private void initTicket() {

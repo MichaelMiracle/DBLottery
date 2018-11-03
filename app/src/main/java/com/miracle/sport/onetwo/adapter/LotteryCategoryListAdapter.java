@@ -56,6 +56,7 @@ public class LotteryCategoryListAdapter extends RecyclerViewAdapter<LotteryCatLi
             helper.getView(R.id.tvLdName).setVisibility(View.GONE);
             helper.getView(R.id.tvLdTime).setVisibility(View.GONE);
             helper.getView(R.id.tvLdNum).setVisibility(View.GONE);
+            helper.getView(R.id.item_top_continer).setVisibility(View.GONE);
         }
         String[] hostNumArr = item.getHost_num().split(" ");
         String[] firstNumArr = item.getFirst_num().split(" ");

@@ -13,12 +13,14 @@ import android.view.ViewGroup;
 
 import com.miracle.R;
 import com.miracle.base.network.INetStatusUI;
+import com.miracle.base.view.TitleBar;
 import com.miracle.databinding.FragmentBaseBinding;
 
 public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment implements View.OnClickListener ,INetStatusUI {
     public Context mContext;
     public B binding;
     public FragmentBaseBinding mBaseBinding;
+    public boolean isShowTitle;
 
     public enum ShowStat{
         LOADING,
@@ -111,5 +113,24 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment i
 
     public void loadData(){
 
+    }
+
+    public void setShowTitle(boolean isShowTitle){
+        this.isShowTitle = isShowTitle;
+        if(mBaseBinding != null && mBaseBinding.titlebarFrag != null){
+            if(isShowTitle)
+                mBaseBinding.getRoot().findViewById(R.id.titlebar_frag).setVisibility(View.VISIBLE);
+            else
+                mBaseBinding.getRoot().findViewById(R.id.titlebar_frag).setVisibility(View.GONE);
+
+        }
+    }
+
+    public void setTitle(String title){
+        ((TitleBar)mBaseBinding.getRoot().findViewById(R.id.titlebar_frag)).setTitle(title);
+    }
+
+    public TitleBar getTitleBar(){
+        return ((TitleBar)mBaseBinding.getRoot().findViewById(R.id.titlebar_frag));
     }
 }

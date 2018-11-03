@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.miracle.R;
 import com.miracle.base.adapter.RecyclerViewAdapter;
@@ -27,6 +26,5 @@ public class CpListItemAdapter extends RecyclerViewAdapter<CpListItem> {
         helper.setText(R.id.tvauthor, context.getString(R.string.app_name));
         if(!TextUtils.isEmpty(item.getThumb()))
             GlideApp.with(context).load(item.getThumb()).placeholder(R.mipmap.defaule_img).into((ImageView) helper.getView(R.id.ivThumb));
-        //TODO kong图片
     }
 }

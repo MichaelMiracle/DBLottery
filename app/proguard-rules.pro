@@ -21,9 +21,21 @@
 #-renamesourcefileattribute SourceFile
 
 #-optimizationpasses 5
-#
+###
 #-verbose
-#-dontwarn **
-##
+##-dontwarn **
+####
 #-keepattributes SourceFile,LineNumberTable
 #-dontobfuscate
+##
+##
+#-keepclasseswithmembernames class * {
+#    native <methods>;
+#}
+##-keep class ** {*;}
+## keep everything in this package from being removed or renamed
+#-keep class com.hyphenate.** { *; }
+## keep everything in this package from being renamed only
+#-keepnames class com.hyphenate.** { *; }
+#
+#-keep class com.superrtc.** {*;}

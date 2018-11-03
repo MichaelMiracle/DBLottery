@@ -33,7 +33,7 @@ import retrofit2.Call;
 
 public class FragCpItemList extends com.miracle.base.BaseFragment<FragmentCategoryDetailBinding> implements BaseQuickAdapter.OnItemClickListener {
     public CpListItemAdapter mAdapter;
-    private ZPageLoadCallback callBack;
+    public ZPageLoadCallback callBack;
     private com.youth.banner.Banner banner;
     boolean showBanner = true;
     public String reqKey = "wycp";
@@ -94,6 +94,8 @@ public class FragCpItemList extends com.miracle.base.BaseFragment<FragmentCatego
             @Override
             public void requestAction(int page, int pageSize) {
                 ZClient.getService(CPServer.class).cpList(page, pageSize, "cp", reqKey).enqueue(this);
+                if(callBackListener != null)
+                    callBackListener.onStart();
             }
 
             @Override

@@ -176,6 +176,7 @@
                         android:padding="2dp"
                         android:clickable="false"
                         android:focusable="false"
+                        android:src="@mipmap/icon_happypoker"
                          />
 
                     <!--android:src="@mipmap/icon_homemain_oprea_kaijiang"-->
@@ -216,6 +217,7 @@
                 android:background="#ddd"></View>
 
             <LinearLayout
+                android:visibility="gone"
                 android:layout_marginTop="4dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -326,6 +328,7 @@
                     android:background="@drawable/ebpay_circular_bg2"
                     android:textSize="12sp"
                     android:padding="4dp"
+                    android:visibility="gone"
                     android:textColor="#800"
                     android:layout_width="70dp"
                     android:layout_height="28dp" />

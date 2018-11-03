@@ -43,8 +43,13 @@ public abstract class ZPageLoadCallback<T> extends ZCallback<T> implements Swipe
         mSwipeRefreshLayout = swipeRefreshLayout;
     }
 
+    public int getPage() {
+        return page;
+    }
 
-
+    public int getPageSize() {
+        return pageSize;
+    }
 
     /**
      * 自定义每页请求的数量
