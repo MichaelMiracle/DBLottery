@@ -58,7 +58,7 @@ public class HotPostFragment extends BaseFragment<FragmentHotpostBinding> {
         callBack = new ZPageLoadCallback<ZResponse<List<PostBean>>>(mAdapter, binding.recyclerView) {
             @Override
             public void requestAction(int page, int pageSize) {
-                RequestUtil.request1(ZClient.getService(SportService.class).getPostList("rm", circleId, page, pageSize), callBack);
+                RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getPostList("rm", circleId, page, pageSize), callBack);
             }
         };
         callBack.setCachKey("HotPostFragment");

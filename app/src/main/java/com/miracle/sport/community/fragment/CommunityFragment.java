@@ -65,7 +65,7 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding> {
         }
         myCircleAdapter.setNewData(null);
         myCircleAdapter.addData((MyCircleBean) null);
-        RequestUtil.request1(ZClient.getService(SportService.class).getMyCircleList(),new ZCallback<ZResponse<List<MyCircleBean>>>("mycircle"){
+        RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getMyCircleList(), new ZCallback<ZResponse<List<MyCircleBean>>>("mycircle") {
             @Override
             public void onSuccess(ZResponse<List<MyCircleBean>> data) {
                 myCircleAdapter.addData(0, data.getData());
@@ -90,7 +90,6 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding> {
             public void displayImage(Context context, Object path, ImageView imageView) {
                 imageView.setScaleType(ImageView.ScaleType.FIT_XY);
                 GlideApp.with(ContextHolder.getContext()).load(path).placeholder(R.mipmap.defaule_img).into(imageView);
-
             }
         }).start();
 

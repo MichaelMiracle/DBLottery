@@ -21,7 +21,7 @@ public class RequestUtil {
      * @param call
      * @param callback
      */
-    public static void request1(Call call, ZCallback callback) {
+    public static void cacheUpdate(Call call, ZCallback callback) {
         String key = callback.getCachKey();
         if (TextUtils.isEmpty(key)) {
             call.enqueue(callback);
@@ -41,7 +41,7 @@ public class RequestUtil {
      * @param call
      * @param callback
      */
-    public static void request2(Call call, ZCallback callback) {
+    public static void cachePrior(Call call, ZCallback callback) {
         String key = callback.getCachKey();
         if (TextUtils.isEmpty(key)) {
             call.enqueue(callback);
