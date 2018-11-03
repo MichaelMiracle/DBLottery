@@ -14,12 +14,13 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.miracle.R;
+import com.miracle.base.network.INetStatusUI;
 import com.miracle.base.util.CommonUtils;
 import com.miracle.databinding.ActivityBaseBinding;
 import com.miracle.michael.lottery.activity.LotteryMainActivity;
 import com.yanzhenjie.sofia.Sofia;
 
-public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatActivity implements View.OnClickListener {
+public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatActivity implements View.OnClickListener, INetStatusUI {
 
     protected Context mContext;
     protected B binding;

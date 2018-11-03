@@ -42,4 +42,5 @@ public class ZPlaceHolder extends LinearLayout {
         binding.ivEmpty.setVisibility(VISIBLE);
         binding.tvMessage.setText("加载失败，点击重试");
     }
+
 }

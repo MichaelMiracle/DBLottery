@@ -111,15 +111,8 @@ public class FragClubePostSCAndHot extends HandleFragment<FragClubePostBinding> 
     }
 
     @Override
-    protected void onErrClick() {
-        setUIStatus(ShowStat.LOADING);
-        reqData();
+    public void loadData() {
+        super.loadData();
+        uiHandler.sendEmptyMessage(1);
     }
-
-    @Override
-    protected void onNodataClick() {
-        setUIStatus(ShowStat.LOADING);
-        reqData();
-    }
-
 }

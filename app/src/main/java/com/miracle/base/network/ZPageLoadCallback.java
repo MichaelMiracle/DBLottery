@@ -27,6 +27,11 @@ public abstract class ZPageLoadCallback<T> extends ZCallback<T> implements Swipe
         mAdapter = adapter;
     }
 
+    public ZPageLoadCallback(RecyclerViewAdapter adapter, RecyclerView recyclerView, INetStatusUI netStatusUI) {
+        this(adapter, recyclerView);
+        setNetStatusUI(netStatusUI);
+    }
+
 
     /**
      * 配置SwipeRefreshLayout,刷新自动请求数据
@@ -37,6 +42,8 @@ public abstract class ZPageLoadCallback<T> extends ZCallback<T> implements Swipe
         swipeRefreshLayout.setOnRefreshListener(this);
         mSwipeRefreshLayout = swipeRefreshLayout;
     }
+
+
 
 
     /**
@@ -75,6 +82,21 @@ public abstract class ZPageLoadCallback<T> extends ZCallback<T> implements Swipe
         ToastUtil.toast(t.getMessage());
         onFinish(call);
         mAdapter.loadMoreFail();
+
+        checkBaseActUIStatus();
+        checkINetUIStatus();
+    }
+
+    private void checkINetUIStatus() {
+        if (mNetStatusUI == null) return;
+        if (mAdapter.getData().isEmpty()) {
+            mNetStatusUI.showError();
+        } else {
+            mNetStatusUI.showContent();
+        }
+    }
+
+    private void checkBaseActUIStatus() {
         if (mBaseActivity == null) return;
         if (mAdapter.getData().isEmpty()) {
             mBaseActivity.showError();
@@ -85,14 +107,27 @@ public abstract class ZPageLoadCallback<T> extends ZCallback<T> implements Swipe
 
     @Override
     public void handlePlaceHolder(int code) {
-        if (mBaseActivity == null) return;
-        if (code == 200) {
-            mBaseActivity.showContent();
-        } else {
-            if (mAdapter.getData().isEmpty()) {
-                mBaseActivity.showEmpty();
-            } else {
+        if (mBaseActivity != null){
+            if (code == 200) {
                 mBaseActivity.showContent();
+            } else {
+                if (mAdapter.getData().isEmpty()) {
+                    mBaseActivity.showEmpty();
+                } else {
+                    mBaseActivity.showContent();
+                }
+            }
+        }
+
+        if (mNetStatusUI != null) {
+            if (code == 200) {
+                mNetStatusUI.showContent();
+            } else {
+                if (mAdapter.getData().isEmpty()) {
+                    mNetStatusUI.showEmpty();
+                } else {
+                    mNetStatusUI.showContent();
+                }
             }
         }
     }

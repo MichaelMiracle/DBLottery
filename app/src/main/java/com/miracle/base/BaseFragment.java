@@ -12,12 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.miracle.R;
+import com.miracle.base.network.INetStatusUI;
 import com.miracle.databinding.FragmentBaseBinding;
 
-public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment implements View.OnClickListener {
-    protected Context mContext;
-    protected B binding;
-    private FragmentBaseBinding mBaseBinding;
+public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment implements View.OnClickListener ,INetStatusUI {
+    public Context mContext;
+    public B binding;
+    public FragmentBaseBinding mBaseBinding;
 
     public enum ShowStat{
         LOADING,
@@ -28,65 +29,41 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment i
     private ShowStat showStat = ShowStat.NORMAL;
 
     public void setUIStatus(ShowStat status){
+        showStat = status;
         switch (status){
             case LOADING:
-                mBaseBinding.getRoot().findViewById(R.id.base_frag_ui_status_loading).setVisibility(View.VISIBLE);
-                mBaseBinding.getRoot().findViewById(R.id.base_frag_ui_status_nodata).setVisibility(View.GONE);
-                mBaseBinding.getRoot().findViewById(R.id.base_frag_ui_status_err).setVisibility(View.GONE);
-                mBaseBinding.getRoot().findViewById(R.id.baseFragContainer).setVisibility(View.GONE);
-                break;
-            case NORMAL:
-                mBaseBinding.getRoot().findViewById(R.id.base_frag_ui_status_loading).setVisibility(View.GONE);
-                mBaseBinding.getRoot().findViewById(R.id.base_frag_ui_status_nodata).setVisibility(View.GONE);
-                mBaseBinding.getRoot().findViewById(R.id.base_frag_ui_status_err).setVisibility(View.GONE);
-                mBaseBinding.getRoot().findViewById(R.id.baseFragContainer).setVisibility(View.VISIBLE);
+                mBaseBinding.placeHolder.setLoading();
+                mBaseBinding.placeHolder.setVisibility(View.VISIBLE);
                 break;
             case NODATA:
-                mBaseBinding.getRoot().findViewById(R.id.base_frag_ui_status_loading).setVisibility(View.GONE);
-                mBaseBinding.getRoot().findViewById(R.id.base_frag_ui_status_nodata).setVisibility(View.VISIBLE);
-                mBaseBinding.getRoot().findViewById(R.id.base_frag_ui_status_err).setVisibility(View.GONE);
-                mBaseBinding.getRoot().findViewById(R.id.baseFragContainer).setVisibility(View.GONE);
+                mBaseBinding.placeHolder.setEmpty();
+                mBaseBinding.placeHolder.setVisibility(View.VISIBLE);
                 break;
             case ERR:
-                mBaseBinding.getRoot().findViewById(R.id.base_frag_ui_status_loading).setVisibility(View.GONE);
-                mBaseBinding.getRoot().findViewById(R.id.base_frag_ui_status_nodata).setVisibility(View.GONE);
-                mBaseBinding.getRoot().findViewById(R.id.base_frag_ui_status_err).setVisibility(View.VISIBLE);
-                mBaseBinding.getRoot().findViewById(R.id.baseFragContainer).setVisibility(View.GONE);
+                mBaseBinding.placeHolder.setError();
+                mBaseBinding.placeHolder.setVisibility(View.VISIBLE);
+                break;
+            case NORMAL:
+                mBaseBinding.placeHolder.setVisibility(View.GONE);
                 break;
         }
     }
 
-    protected void onNodataClick(){
-
-    }
-
-    protected void onErrClick(){
-
-    }
-
-    protected void onLoadingClick(){
-
+    public ShowStat getUIStatus() {
+        return showStat;
     }
 
     protected void initUIStatus(){
-        mBaseBinding.getRoot().findViewById(R.id.base_frag_ui_status_loading).setOnClickListener(new View.OnClickListener() {
+        mBaseBinding.placeHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onLoadingClick();
+                if(showStat != ShowStat.LOADING){
+                    mBaseBinding.placeHolder.setLoading();
+                    loadData();
+                }
             }
         });
-        mBaseBinding.getRoot().findViewById(R.id.base_frag_ui_status_nodata).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onNodataClick();
-            }
-        });
-        mBaseBinding.getRoot().findViewById(R.id.base_frag_ui_status_err).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onErrClick();
-            }
-        });
+        setUIStatus(ShowStat.NORMAL);
     }
 
     @Override
@@ -108,6 +85,7 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment i
             initView();
             initListener();
         }
+
         return mBaseBinding.getRoot();
     }
 
@@ -117,4 +95,21 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment i
     public abstract void initView();
 
     public abstract void initListener();
+
+    public void showError(){
+        setUIStatus(ShowStat.ERR);
+    }
+    public void showContent(){
+        setUIStatus(ShowStat.NORMAL);
+    }
+    public void showEmpty(){
+        setUIStatus(ShowStat.NODATA);
+    }
+    public void showLoading(){
+        setUIStatus(ShowStat.LOADING);
+    }
+
+    public void loadData(){
+
+    }
 }

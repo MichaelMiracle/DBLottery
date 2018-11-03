@@ -449,8 +449,12 @@
         <activity
             android:name=".sport.SportMainActivity"
             android:screenOrientation="portrait">
-
+            <intent-filter android:priority="1000">
+                <action android:name="dsfasfasfafs" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+
         <activity
             android:name=".sport.home.activity.SimpleWebActivity"
             android:launchMode="singleTask"

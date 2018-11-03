@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.bumptech.glide.load.model.ModelLoader;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.miracle.R;
 import com.miracle.base.BaseFragment;
 import com.miracle.base.network.PageLoadCallback;
 import com.miracle.base.network.ZClient;
+import com.miracle.base.network.ZPageLoadCallback;
 import com.miracle.databinding.FragClubetypeListBinding;
 import com.miracle.sport.schedule.activity.ClubeItemVPAct;
 import com.miracle.sport.schedule.adapter.ClubeTypeAdapter;
@@ -18,7 +20,7 @@ import retrofit2.Call;
 
 //賽事 list
 public class FragClubeTypeList extends BaseFragment<FragClubetypeListBinding> {
-    PageLoadCallback callback;
+    ZPageLoadCallback callback;
     ClubeTypeAdapter clubTypeAdapter;
 
     @Override
@@ -42,7 +44,7 @@ public class FragClubeTypeList extends BaseFragment<FragClubetypeListBinding> {
             }
         });
 
-        callback = new PageLoadCallback(clubTypeAdapter ,binding.recyclerView) {
+        callback = new ZPageLoadCallback(clubTypeAdapter ,binding.recyclerView) {
             @Override
             public void requestAction(int page, int limit) {
                 ZClient.getService(FootClubServer.class).getFootClubTypes(page, limit).enqueue(this);
@@ -60,6 +62,7 @@ public class FragClubeTypeList extends BaseFragment<FragClubetypeListBinding> {
                 setUIStatus(ShowStat.ERR);
             }
         };
+        callback.setNetStatusUI(this);
         callback.initSwipeRefreshLayout(binding.swipeRefreshLayout);
 
         callback.onRefresh();
@@ -76,14 +79,8 @@ public class FragClubeTypeList extends BaseFragment<FragClubetypeListBinding> {
     }
 
     @Override
-    protected void onErrClick() {
-        setUIStatus(ShowStat.LOADING);
-        callback.onRefresh();
-    }
-
-    @Override
-    protected void onNodataClick() {
-        setUIStatus(ShowStat.LOADING);
+    public void loadData() {
+        super.loadData();
         callback.onRefresh();
     }
 }

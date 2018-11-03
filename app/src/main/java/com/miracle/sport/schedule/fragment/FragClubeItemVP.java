@@ -75,18 +75,6 @@ public class FragClubeItemVP extends HandleFragment<FragClubeitmeVpBinding> {
     }
 
     @Override
-    protected void onErrClick() {
-        setUIStatus(ShowStat.LOADING);
-        reqData();
-    }
-
-    @Override
-    protected void onNodataClick() {
-        setUIStatus(ShowStat.LOADING);
-        reqData();
-    }
-
-    @Override
     public void initListener() {
 
     }

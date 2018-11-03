@@ -114,7 +114,7 @@ public class LotteryF7 extends BaseFragment<F7LotteryBinding> implements DDTrend
 
     private final OkHttpClient client = new OkHttpClient();
 
-    private void loadData() {
+    public void loadData() {
         // 根据01/30.xml 或者是01/50.xm可以调整数字
         String url = "http://mobile.9188.com/data/app/zst/01/30.xml";
 

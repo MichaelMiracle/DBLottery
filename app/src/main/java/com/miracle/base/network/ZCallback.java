@@ -20,12 +20,17 @@ public abstract class ZCallback<T> implements Callback<T> {
     protected String mCachKey;
 
     protected BaseActivity mBaseActivity;
+    protected INetStatusUI mNetStatusUI;
 
     public ZCallback() {
     }
 
     public ZCallback(BaseActivity baseActivity) {
         mBaseActivity = baseActivity;
+    }
+
+    public ZCallback(INetStatusUI netStnatusUI) {
+        mNetStatusUI = netStnatusUI;
     }
 
     public ZCallback(String cachKey) {
@@ -40,6 +45,13 @@ public abstract class ZCallback<T> implements Callback<T> {
         mDialog = dialog;
     }
 
+    public INetStatusUI getNetStatusUI() {
+        return mNetStatusUI;
+    }
+
+    public void setNetStatusUI(INetStatusUI mNetStatusUI) {
+        this.mNetStatusUI = mNetStatusUI;
+    }
 
     public BaseActivity getBaseActivity() {
         return mBaseActivity;
@@ -99,6 +111,13 @@ public abstract class ZCallback<T> implements Callback<T> {
         } else {
             mBaseActivity.showEmpty();
         }
+
+        if (mNetStatusUI == null) return;
+        if (code == 200) {
+            mNetStatusUI.showContent();
+        } else {
+            mNetStatusUI.showEmpty();
+        }
     }
 
     protected abstract void onSuccess(T zResponse);
@@ -111,6 +130,9 @@ public abstract class ZCallback<T> implements Callback<T> {
             mBaseActivity.showError();
         }
 
+        if (mNetStatusUI != null) {
+            mNetStatusUI.showError();
+        }
     }
 
     protected void onFinish(Call<T> call) {

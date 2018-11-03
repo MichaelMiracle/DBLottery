@@ -92,19 +92,12 @@ public class FragClubePostJF extends HandleFragment<FragClubePostBinding> {
     }
 
     public void reqData() {
+        loadData();
+    }
+
+    @Override
+    public void loadData() {
+        super.loadData();
         uiHandler.sendEmptyMessage(1);
     }
-
-    @Override
-    protected void onErrClick() {
-        setUIStatus(ShowStat.LOADING);
-        reqData();
-    }
-
-    @Override
-    protected void onNodataClick() {
-        setUIStatus(ShowStat.LOADING);
-        reqData();
-    }
-
 }
