@@ -68,7 +68,7 @@ public class CircleFragment extends BaseFragment<RecyclerBinding> {
         @Override
         public void onSuccess(ZResponse data) {
             ToastUtil.toast(data.getMessage());
-            ((CircleActivity) getActivity()).reqData();
+            ((CircleActivity) getActivity()).loadData();
         }
     };
 
