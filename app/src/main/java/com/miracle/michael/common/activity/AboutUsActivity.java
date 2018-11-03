@@ -31,6 +31,11 @@ public class AboutUsActivity extends BaseActivity<ActivityAboutUsBinding> {
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
 
     }

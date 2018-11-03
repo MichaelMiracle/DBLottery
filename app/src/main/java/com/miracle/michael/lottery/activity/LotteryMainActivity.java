@@ -38,6 +38,11 @@ public class LotteryMainActivity extends BaseActivity<ActivityLotteryMainBinding
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvContactCustomerService:

@@ -61,6 +61,11 @@ public class DDZMyCollectionsActivity extends BaseActivity<SwipeRecyclerBinding>
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
 
     }

@@ -1,6 +1,5 @@
 package com.miracle.michael.common.activity;
 
-import android.app.ProgressDialog;
 import android.databinding.DataBindingUtil;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -35,7 +34,6 @@ import static android.widget.ListPopupWindow.MATCH_PARENT;
  */
 public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
     private PopupWindow popupWindow;
-    private ProgressDialog dialogLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +47,9 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
     @Override
     public void initView() {
+        showContent();
         hideTitle();
-        dialogLogin = new ProgressDialog(mContext);
-        dialogLogin.setMessage("登录中...");
+        loadingDialog.setMessage("登录中...");
         initPopupWindow();
     }
 
@@ -60,6 +58,11 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
         binding.tvForget.setOnClickListener(this);
         binding.tvRegister.setOnClickListener(this);
         binding.btLogin.setOnClickListener(this);
+    }
+
+    @Override
+    public void loadData() {
+
     }
 
 
@@ -117,8 +120,8 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
     }
 
     private void login() {
-        dialogLogin.show();
-        ZClient.getService(ZService.class).login(binding.etAccount.getText(), binding.etPassword.getText()).enqueue(new ZCallback<ZResponse<UserBean>>(dialogLogin) {
+        loadingDialog.show();
+        ZClient.getService(ZService.class).login(binding.etAccount.getText(), binding.etPassword.getText()).enqueue(new ZCallback<ZResponse<UserBean>>(loadingDialog) {
             @Override
             public void onSuccess(ZResponse<UserBean> data) {
                 CommonUtils.EMLogin(binding.etAccount.getText(), binding.etPassword.getText());
@@ -126,7 +129,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
                 AppConfig.USER_ID = String.valueOf(user.getUserId());
                 SQLiteUtil.saveString(SQLiteKey.USER, GsonUtil.obj2Json(user));
                 SQLiteUtil.saveEncryptedString(SQLiteKey.PASSWORD, binding.etPassword.getText());
-                SQLiteUtil.saveBoolean(SQLiteKey.AUTOLOGIN+CommonUtils.getUserId(), true);
+                SQLiteUtil.saveBoolean(SQLiteKey.AUTOLOGIN + CommonUtils.getUserId(), true);
                 GOTO.MainActivity(mContext);
                 finish();
             }

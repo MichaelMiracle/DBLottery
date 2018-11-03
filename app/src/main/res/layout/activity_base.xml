@@ -9,14 +9,19 @@
         <com.miracle.base.view.TitleBar
             android:id="@+id/titleBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-             />
+            android:layout_height="wrap_content" />
+
+        <com.miracle.base.view.ZPlaceHolder
+            android:id="@+id/placeHolder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
         <LinearLayout
             android:id="@+id/baseContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" />
+            android:orientation="vertical"
+            android:visibility="gone" />
 
     </LinearLayout>
 </layout>

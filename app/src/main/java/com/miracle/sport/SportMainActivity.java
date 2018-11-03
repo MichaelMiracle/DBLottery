@@ -23,6 +23,7 @@ public class SportMainActivity extends BaseActivity<ActivitySportMainBinding> {
 
     @Override
     public void initView() {
+        showContent();
         hideTitle();
         binding.zRadiogroup.setUp(getSupportFragmentManager(), R.id.container, new HomeFragment(), new FragClubeTypeChannelVP(), new CommunityFragment(), new MeFragment());
     }
@@ -32,6 +33,11 @@ public class SportMainActivity extends BaseActivity<ActivitySportMainBinding> {
         binding.tvContactCustomerService.setOnClickListener(this);
         binding.rlGroupChat.setOnClickListener(this);
         ZClient.getService(SportService.class).dislike(2, 0);
+    }
+
+    @Override
+    public void loadData() {
+
     }
 
     @Override

@@ -36,6 +36,11 @@ public class FootballMainActivity extends BaseActivity<ActivityFootballMainBindi
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvContactCustomerService:

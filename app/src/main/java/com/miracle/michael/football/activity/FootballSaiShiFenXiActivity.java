@@ -59,6 +59,11 @@ public class FootballSaiShiFenXiActivity extends BaseActivity<SwipeRecyclerBindi
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
 
     }

@@ -59,6 +59,11 @@ public class FootballMeActivity extends BaseActivity<ActivityFootballMeBinding> 
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         reqData();

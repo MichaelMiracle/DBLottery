@@ -8,7 +8,6 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.EditText;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.miracle.R;
@@ -24,10 +23,7 @@ import com.miracle.base.util.sqlite.SQLiteUtil;
 import com.miracle.databinding.ActivityHomeWebBinding;
 import com.miracle.michael.common.bean.NewsDetailBean;
 import com.miracle.sport.SportService;
-import com.miracle.sport.home.ServiceHome;
 import com.miracle.sport.home.adapter.HomeCommentListAdapter;
-import com.miracle.sport.home.adapter.HomeListAdapter;
-import com.miracle.sport.home.bean.HomeBean;
 import com.miracle.sport.home.bean.HomeCommentBean;
 import com.wx.goodview.GoodView;
 
@@ -222,6 +218,11 @@ public class SimpleWebActivity extends BaseActivity<ActivityHomeWebBinding> {
                }
             }
         });
+
+    }
+
+    @Override
+    public void loadData() {
 
     }
 

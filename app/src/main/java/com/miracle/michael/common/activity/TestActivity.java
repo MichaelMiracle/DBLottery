@@ -105,6 +105,11 @@ public class TestActivity extends BaseActivity<ActivityTestBinding> {
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
 
     }

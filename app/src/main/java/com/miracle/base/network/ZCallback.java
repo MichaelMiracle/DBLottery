@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 
+import com.miracle.base.BaseActivity;
 import com.miracle.base.util.GsonUtil;
 import com.miracle.base.util.ToastUtil;
 import com.miracle.base.util.sqlite.SQLiteUtil;
@@ -18,8 +19,13 @@ public abstract class ZCallback<T> implements Callback<T> {
     protected Dialog mDialog;
     protected String mCachKey;
 
+    protected BaseActivity mBaseActivity;
 
     public ZCallback() {
+    }
+
+    public ZCallback(BaseActivity baseActivity) {
+        mBaseActivity = baseActivity;
     }
 
     public ZCallback(String cachKey) {
@@ -34,6 +40,14 @@ public abstract class ZCallback<T> implements Callback<T> {
         mDialog = dialog;
     }
 
+
+    public BaseActivity getBaseActivity() {
+        return mBaseActivity;
+    }
+
+    public void setBaseActivity(BaseActivity baseActivity) {
+        mBaseActivity = baseActivity;
+    }
 
     public SwipeRefreshLayout getSwipeRefreshLayout() {
         return mSwipeRefreshLayout;
@@ -68,12 +82,22 @@ public abstract class ZCallback<T> implements Callback<T> {
             if (code != 200 && code != 0) {
                 onFailure(call, new Throwable(zResponse.getMessage()));
             } else {
+                handlePlaceHolder(code);
                 saveCache(zResponse);
                 onSuccess((T) zResponse);
                 onFinish(call);
             }
         } else {
             onFailure(call, new Throwable("返回数据格式不正确！"));
+        }
+    }
+
+    private void handlePlaceHolder(int code) {
+        if (mBaseActivity == null) return;
+        if (code == 200) {
+            mBaseActivity.showContent();
+        } else {
+            mBaseActivity.showEmpty();
         }
     }
 

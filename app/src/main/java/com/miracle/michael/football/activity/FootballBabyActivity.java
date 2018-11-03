@@ -59,6 +59,11 @@ public class FootballBabyActivity extends BaseActivity<ActivityFootballBabyBindi
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
 
     }

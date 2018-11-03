@@ -20,6 +20,8 @@ import com.miracle.sport.me.adapter.MyCircleAdapter;
 
 import java.util.List;
 
+import retrofit2.Call;
+
 public class DDZMyCircleActivity extends BaseActivity<SwipeRecyclerBinding> {
 
     private MyCircleAdapter mAdapter;
@@ -46,30 +48,37 @@ public class DDZMyCircleActivity extends BaseActivity<SwipeRecyclerBinding> {
     @Override
     public void onResume() {
         super.onResume();
-        reqMyCircle();
+        loadData();
     }
 
-    private void reqMyCircle() {
-        ZClient.getService(SportService.class).getMyCircleList().enqueue(new ZCallback<ZResponse<List<MyCircleBean>>>(binding.swipeRefreshLayout) {
-            @Override
-            public void onSuccess(ZResponse<List<MyCircleBean>> data) {
-                mAdapter.setNewData(data.getData());
-            }
-        });
-    }
 
     @Override
     public void initListener() {
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                reqMyCircle();
+                loadData();
             }
         });
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 startActivity(new Intent(mContext, CommunityActivity.class).putExtra("MyCircle", mAdapter.getItem(position)));
+            }
+        });
+    }
+
+    @Override
+    public void loadData() {
+        ZClient.getService(SportService.class).getMyCircleList().enqueue(new ZCallback<ZResponse<List<MyCircleBean>>>(binding.swipeRefreshLayout) {
+            @Override
+            public void onSuccess(ZResponse<List<MyCircleBean>> data) {
+                mAdapter.setNewData(data.getData());
+            }
+
+            @Override
+            protected void onFinish(Call<ZResponse<List<MyCircleBean>>> call) {
+                super.onFinish(call);
             }
         });
     }

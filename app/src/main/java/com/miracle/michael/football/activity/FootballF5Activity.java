@@ -64,6 +64,11 @@ public class FootballF5Activity extends BaseActivity<SwipeRecyclerBinding> {
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         callBack.onRefresh();

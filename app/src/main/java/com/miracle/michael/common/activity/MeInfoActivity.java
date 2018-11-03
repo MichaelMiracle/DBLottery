@@ -93,6 +93,11 @@ public class MeInfoActivity extends BaseActivity<ActivityMeInfoBinding> {
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.ivHeadImg:

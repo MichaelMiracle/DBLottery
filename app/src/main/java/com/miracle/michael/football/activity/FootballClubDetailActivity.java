@@ -66,6 +66,11 @@ public class FootballClubDetailActivity extends BaseActivity<ActivityClubDataBin
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
 
     }

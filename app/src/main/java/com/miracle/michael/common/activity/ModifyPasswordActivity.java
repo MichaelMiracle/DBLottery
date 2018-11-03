@@ -38,6 +38,11 @@ public class ModifyPasswordActivity extends BaseActivity<ActivityModifypasswordB
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btModifyPassword:

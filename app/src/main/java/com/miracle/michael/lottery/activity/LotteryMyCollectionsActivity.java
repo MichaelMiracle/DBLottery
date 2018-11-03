@@ -61,6 +61,11 @@ public class LotteryMyCollectionsActivity extends BaseActivity<SwipeRecyclerBind
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
 
     }

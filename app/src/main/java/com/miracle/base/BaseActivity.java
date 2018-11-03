@@ -42,12 +42,19 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
         loadingDialog = new ProgressDialog(mContext);
         loadingDialog.setMessage("加载中...");
 
+        mBaseBinding.placeHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mBaseBinding.placeHolder.setLoading();
+                loadData();
+            }
+        });
         //设置状态栏颜色
 //        Sofia.with(this).statusBarBackground(CommonUtils.getColor(R.color.titlebar_color)).statusBarDarkFont();
 //        setStatusBarColor();
         initView();
         initListener();
-
+        loadData();
     }
 
     public abstract int getLayout();
@@ -56,6 +63,32 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
 
     public abstract void initListener();
 
+    public abstract void loadData();
+
+    public void showContent() {
+        mBaseBinding.placeHolder.setVisibility(View.GONE);
+        mBaseBinding.baseContainer.setVisibility(View.VISIBLE);
+    }
+
+    public void showPlaceHolder() {
+        mBaseBinding.placeHolder.setVisibility(View.VISIBLE);
+        mBaseBinding.baseContainer.setVisibility(View.GONE);
+    }
+
+    public void showLoading() {
+        mBaseBinding.placeHolder.setLoading();
+        showPlaceHolder();
+    }
+
+    public void showEmpty() {
+        mBaseBinding.placeHolder.setEmpty();
+        showPlaceHolder();
+    }
+
+    public void showError() {
+        mBaseBinding.placeHolder.setError();
+        showPlaceHolder();
+    }
 
     protected void hideTitle() {
         mBaseBinding.titleBar.setVisibility(View.GONE);
@@ -123,14 +156,14 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
         }
     }
 
-    public void showLoadingDialog(){
-        if(null != loadingDialog){
+    public void showLoadingDialog() {
+        if (null != loadingDialog) {
             loadingDialog.show();
         }
     }
 
-    public void dismissLoadingDialog(){
-        if(null != loadingDialog){
+    public void dismissLoadingDialog() {
+        if (null != loadingDialog) {
             loadingDialog.dismiss();
         }
     }
@@ -138,7 +171,7 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(null != loadingDialog){
+        if (null != loadingDialog) {
             loadingDialog.dismiss();
             loadingDialog = null;
         }

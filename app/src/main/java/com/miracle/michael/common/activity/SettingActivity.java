@@ -14,7 +14,6 @@ import com.miracle.R;
 import com.miracle.base.App;
 import com.miracle.base.BaseActivity;
 import com.miracle.base.GOTO;
-import com.miracle.base.bean.UserBean;
 import com.miracle.base.util.CommonUtils;
 import com.miracle.base.util.ToastUtil;
 import com.miracle.base.util.sqlite.SQLiteKey;
@@ -91,6 +90,11 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
                 fingerprintLogin = isChecked;
             }
         });
+    }
+
+    @Override
+    public void loadData() {
+
     }
 
     private static final class SHandler extends Handler {

@@ -36,6 +36,11 @@ public class DDZMainActivity extends BaseActivity<ActivityDdzMainBinding> {
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tvContactCustomerService:

@@ -40,6 +40,11 @@ public class ClubeItemVPAct extends BaseActivity {
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
 
     }

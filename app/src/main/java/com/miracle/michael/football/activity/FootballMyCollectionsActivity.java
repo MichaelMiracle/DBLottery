@@ -61,6 +61,11 @@ public class FootballMyCollectionsActivity extends BaseActivity<SwipeRecyclerBin
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
 
     }

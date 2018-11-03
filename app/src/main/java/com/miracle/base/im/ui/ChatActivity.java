@@ -1,16 +1,14 @@
 package com.miracle.base.im.ui;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.View;
 
 import com.hyphenate.easeui.ui.EaseChatFragment;
 import com.miracle.R;
+import com.miracle.base.BaseActivity;
 import com.miracle.base.im.runtimepermissions.PermissionsManager;
 import com.miracle.databinding.EmActivityChatBinding;
-import com.yanzhenjie.sofia.Sofia;
-import com.miracle.base.BaseActivity;
 
 /**
  * chat activity，EaseChatFragment was used {@link #}
@@ -58,6 +56,11 @@ public class ChatActivity extends BaseActivity<EmActivityChatBinding> {
 
     @Override
     public void initListener() {
+
+    }
+
+    @Override
+    public void loadData() {
 
     }
 

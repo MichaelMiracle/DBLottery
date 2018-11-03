@@ -23,8 +23,6 @@ import com.miracle.databinding.ActivityFootballDrawerBinding;
 import com.miracle.michael.chess.fragment.ChessF1;
 import com.miracle.michael.chess.fragment.ChessF2;
 import com.miracle.michael.common.bean.DrawerItemBean;
-import com.miracle.michael.football.fragment.FootballF1;
-import com.miracle.michael.football.fragment.FootballF3;
 
 import java.util.Arrays;
 
@@ -131,6 +129,11 @@ public class ChessDrawerMainActivity extends BaseActivity<ActivityFootballDrawer
                 binding.drawerLayout.closeDrawers();
             }
         });
+    }
+
+    @Override
+    public void loadData() {
+
     }
 
     @Override

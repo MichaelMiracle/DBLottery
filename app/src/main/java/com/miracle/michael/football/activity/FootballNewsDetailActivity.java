@@ -94,6 +94,11 @@ public class FootballNewsDetailActivity extends BaseActivity<ActivitySimpleWebBi
         });
     }
 
+    @Override
+    public void loadData() {
+
+    }
+
     private ZCallback<ZResponse> likeCallback = new ZCallback<ZResponse>() {
         @Override
         public void onSuccess(ZResponse data) {

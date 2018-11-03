@@ -138,6 +138,11 @@ public class LotteryDrawerMainActivity extends BaseActivity<ActivityLotteryDrawe
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.llMe:

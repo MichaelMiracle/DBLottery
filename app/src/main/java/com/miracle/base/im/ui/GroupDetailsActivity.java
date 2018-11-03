@@ -12,8 +12,6 @@
  * limitations under the License.
  */
 package com.miracle.base.im.ui;
-import com.miracle.base.BaseActivity;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -54,8 +52,8 @@ import com.hyphenate.easeui.widget.EaseSwitchButton;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
 import com.miracle.R;
+import com.miracle.base.BaseActivity;
 import com.miracle.databinding.EmActivityGroupDetailsBinding;
-import com.yanzhenjie.sofia.Sofia;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -207,6 +205,11 @@ public class GroupDetailsActivity extends BaseActivity<EmActivityGroupDetailsBin
 
 	@Override
 	public void initListener() {
+
+	}
+
+	@Override
+	public void loadData() {
 
 	}
 

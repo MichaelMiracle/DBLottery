@@ -87,6 +87,11 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding> {
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
 
     }

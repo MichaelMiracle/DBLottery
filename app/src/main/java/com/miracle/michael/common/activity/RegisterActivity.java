@@ -56,6 +56,7 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> {
 
     @Override
     public void initView() {
+        showContent();
         setTitle("注册");
         reGetVerifyCode = CommonUtils.getString(R.string.reGetVerifyCode);
         timer = new MyCountDownTimer(60000, 1000);
@@ -69,6 +70,11 @@ public class RegisterActivity extends BaseActivity<ActivityRegisterBinding> {
     public void initListener() {
         binding.btRegister.setOnClickListener(this);
         binding.btVerify.setOnClickListener(this);
+    }
+
+    @Override
+    public void loadData() {
+
     }
 
 

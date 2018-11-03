@@ -137,6 +137,11 @@ public class FootballDrawerMainActivity extends BaseActivity<ActivityFootballDra
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.llMe:

@@ -34,10 +34,10 @@ public class DDZMyPostActivity extends BaseActivity<SwipeRecyclerBinding> {
     }
 
     private void initCallback() {
-        callBack = new PageLoadCallback(mAdapter, binding.recyclerView,loadingDialog) {
+        callBack = new PageLoadCallback(mAdapter, binding.recyclerView, loadingDialog) {
             @Override
             public void requestAction(int page, int limit) {
-                ZClient.getService(SportService.class).getMyPostList(page,limit).enqueue(callBack);
+                ZClient.getService(SportService.class).getMyPostList(page, limit).enqueue(callBack);
             }
         };
         callBack.initSwipeRefreshLayout(binding.swipeRefreshLayout);
@@ -46,8 +46,7 @@ public class DDZMyPostActivity extends BaseActivity<SwipeRecyclerBinding> {
     @Override
     public void onResume() {
         super.onResume();
-        mAdapter.setNewData(null);
-        callBack.onRefresh();
+        loadData();
     }
 
 
@@ -59,6 +58,12 @@ public class DDZMyPostActivity extends BaseActivity<SwipeRecyclerBinding> {
                 startActivity(new Intent(mContext, PostDetailActivity.class).putExtra("id", mAdapter.getItem(position).getId()));
             }
         });
+    }
+
+    @Override
+    public void loadData() {
+        mAdapter.setNewData(null);
+        callBack.onRefresh();
     }
 
     @Override

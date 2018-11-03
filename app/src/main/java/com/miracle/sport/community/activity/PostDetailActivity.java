@@ -110,6 +110,11 @@ public class PostDetailActivity extends BaseActivity<ActivityPostDetailBinding> 
         });
     }
 
+    @Override
+    public void loadData() {
+
+    }
+
     private ZCallback<ZResponse> likeCallback = new ZCallback<ZResponse>() {
         @Override
         public void onSuccess(ZResponse data) {

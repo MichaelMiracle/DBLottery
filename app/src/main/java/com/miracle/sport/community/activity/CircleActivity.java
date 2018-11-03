@@ -77,6 +77,11 @@ public class CircleActivity extends BaseActivity<ActivityCircleBinding> {
     }
 
     @Override
+    public void loadData() {
+
+    }
+
+    @Override
     public void onClick(View v) {
 
     }

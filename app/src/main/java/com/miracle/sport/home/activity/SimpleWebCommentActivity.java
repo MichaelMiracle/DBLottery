@@ -268,6 +268,11 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
 
     }
 
+    @Override
+    public void loadData() {
+
+    }
+
 //    private ZCallback<String> likeCallback = new ZCallback<ZResponse>() {
 //        @Override
 //        public void onSuccess(ZResponse data) {
