@@ -26,9 +26,11 @@ import com.miracle.sport.common.constant.CacheContents;
 import com.miracle.sport.common.constant.UrlConstants;
 import com.miracle.sport.home.activity.SimpleWebCommentActivity;
 import com.miracle.sport.home.adapter.HomeListAdapter;
+import com.miracle.sport.home.bean.Football;
 import com.miracle.sport.home.bean.HomeBean;
 
 import java.util.HashMap;
+import java.util.List;
 
 import okhttp3.CacheControl;
 
@@ -40,7 +42,7 @@ public class ChannelHomeFragment extends BaseFragment<FragmentCategoryHomeBindin
 
 
     private HomeListAdapter mAdapter;
-    private ZPageLoadDataCallback callBack;
+    private ZPageLoadCallback callBack;
 
     private int reqKey = 1;
 
@@ -106,7 +108,7 @@ public class ChannelHomeFragment extends BaseFragment<FragmentCategoryHomeBindin
 //                ZClient.getService(SportService.class).getNewsList(reqKey, page, limit).enqueue(callBack);
 //            }
 //        };
-        callBack=new ZPageLoadDataCallback<ZResponse<HomeBean>>(mAdapter,binding.recyclerView) {
+        callBack=new ZPageLoadCallback<ZResponse<List<Football>>>(mAdapter,binding.recyclerView) {
             @Override
             public void requestAction(int page, int pageSize) {
                 RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getNewsList(reqKey, page, pageSize),callBack);

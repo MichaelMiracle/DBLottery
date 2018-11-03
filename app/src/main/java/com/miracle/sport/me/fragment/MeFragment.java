@@ -90,7 +90,7 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.llMe:
-                if (userInfo == null) {
+                if (CommonUtils.getUser() == null) {
                     GOTO.LoginActivity(mContext);
                 } else {
                     GOTO.MeInfoActivity(mContext,userInfo);
@@ -100,7 +100,7 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
                 GOTO.FootballSaiShiFenXiActivity(mContext);
                 break;
             case R.id.ibBailManage:
-                if (userInfo == null) {
+                if (CommonUtils.getUser() == null) {
                     GOTO.LoginActivity(mContext);
                 } else {
 //                    GOTO.LotteryMyCollectionsActivity();
@@ -108,7 +108,7 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
                 }
                 break;
             case R.id.ibmyCircle:
-                if (userInfo == null) {
+                if (CommonUtils.getUser() == null) {
                     GOTO.LoginActivity(mContext);
                 } else {
 //                    GOTO.LotteryMyCollectionsActivity();
@@ -116,7 +116,7 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
                 }
                 break;
             case R.id.ibmyPost:
-                if (userInfo == null) {
+                if (CommonUtils.getUser() == null) {
                     GOTO.LoginActivity(mContext);
                 } else {
 //                    GOTO.LotteryMyCollectionsActivity();
@@ -124,7 +124,7 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
                 }
                 break;
             case R.id.ibmyReply:
-                if (userInfo == null) {
+                if (CommonUtils.getUser() == null) {
                     GOTO.LoginActivity(mContext);
                 } else {
 //                    GOTO.LotteryMyCollectionsActivity();
@@ -142,7 +142,7 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
                 GOTO.CustomerServiceActivity(mContext);
                 break;
             case R.id.ibShare:
-                if (userInfo == null) {
+                if (CommonUtils.getUser() == null) {
                     GOTO.LoginActivity(mContext);
                 } else {
                     Intent sendIntent = new Intent();

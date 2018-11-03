@@ -1,5 +1,6 @@
 package com.miracle.base.network;
 
+import com.miracle.base.AppConfig;
 import com.miracle.base.bean.MyCollectionBean;
 import com.miracle.base.bean.QQWechatBean;
 import com.miracle.base.bean.UserBean;

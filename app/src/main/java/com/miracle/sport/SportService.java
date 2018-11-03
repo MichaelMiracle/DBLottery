@@ -106,8 +106,8 @@ public interface SportService {
      * 首页列表
      */
     @Headers({"BaseUrl:zh"})
-    @POST("home/sport/sportlist")
-    Call<ZResponse<HomeBean>> getNewsList(@Query("class_id") int class_id, @Query("page") int page, @Query("pageSize") int pageSize);
+    @POST("home/Goodcaipiao/flashList")
+    Call<ZResponse<List<Football>>> getNewsList(@Query("class_id") int class_id, @Query("page") int page, @Query("pageSize") int pageSize);
     //    Call<ZResponse<List<Football>>> getNewsList(@Query("class_id") int class_id, @Query("page") int page, @Query("pageSize") int pageSize);
 
     /**
@@ -121,7 +121,7 @@ public interface SportService {
      * 列表详情
      */
     @Headers({"BaseUrl:zh"})
-    @POST("home/comment/detail")
+    @POST("home/Goodcaipiao/flashDetail")
     Call<ZResponse<ArticleDetailBean>> getCommentDetail(@Query("id") int id);
 
     /**
@@ -129,21 +129,21 @@ public interface SportService {
      * @POST("home/sport/click")
      */
     @Headers({"BaseUrl:zh"})
-    @POST("home/comment/click")
-    Call<ZResponse<String>> setClickClass(@Query("createid") int createid, @Query("click") int click, @Query("type") String type);
+    @POST("home/Goodcaipiao/click")
+    Call<ZResponse<String>> setClickClass(@Query("create_id") int createid, @Query("click") int click, @Query("type") String type);
 
     /**
      * 收藏接口
      */
     @Headers({"BaseUrl:zh"})
-    @POST("home/sport/collect")
-    Call<ZResponse<String>> likeOrDislike(@Query("createid") int createid, @Query("type") String type);
+    @POST("home/Goodcaipiao/collect")
+    Call<ZResponse<String>> likeOrDislike(@Query("create_id") int createid, @Query("type") String type);
 
     /**
      * 我的收藏接口
      */
     @Headers({"BaseUrl:zh"})
-    @POST("home/sport/myCollect")
+    @POST("home/Goodcaipiao/myCollect")
     Call<ZResponse<List<Football>>> getMycollections(@Query("page") int page, @Query("pageSize") int pageSize);
 
     /**
@@ -157,8 +157,8 @@ public interface SportService {
      * 发评论
      */
     @Headers({"BaseUrl:zh"})
-    @POST("home/comment/sendComment")
-    Call<ZResponse<String>> sendCommentCommet(@Query("id") int id, @Query("content") String content,@Query("to_user_id") String to_user_id,@Query("type") String type);
+    @POST("home/Goodcaipiao/sendComment")
+    Call<ZResponse<String>> sendCommentCommet(@Query("create_id") int id, @Query("content") String content,@Query("to_user_id") String to_user_id,@Query("type") String type);
 
     /**
      * 获取评论列表

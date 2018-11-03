@@ -13,6 +13,7 @@ public class ArticleCommentBean {
     private String img;
     private int create_id;
     private int click_num;
+    private int comment_click_num;
     private int click;
     private int child_count;
     private List<CommentChildBean> child;
@@ -79,6 +80,14 @@ public class ArticleCommentBean {
 
     public void setClick_num(int click_num) {
         this.click_num = click_num;
+    }
+
+    public int getComment_click_num() {
+        return comment_click_num;
+    }
+
+    public void setComment_click_num(int comment_click_num) {
+        this.comment_click_num = comment_click_num;
     }
 
     public int getClick() {

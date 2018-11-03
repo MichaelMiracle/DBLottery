@@ -70,7 +70,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements O
 //        HashMap<String, String> params = new HashMap<>();
 //        params.put("type", "zcsj");
 
-        OkGo.<PageResultForJob<ChannerlKey>>post(UrlConstants.POST_SPORT_TYPE)
+        OkGo.<PageResultForJob<ChannerlKey>>post(UrlConstants.POST_GOOD_CAIPIAO)
                 .tag(this)
 //                .params(params,true)
                 .cacheKey(CacheContents.HOME_SPORT_TYPE)
