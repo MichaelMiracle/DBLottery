@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.miracle.base.adapter.RecyclerViewAdapter;
+import com.miracle.base.util.ToastUtil;
 
 import java.util.List;
 
@@ -71,10 +72,30 @@ public abstract class ZPageLoadCallback<T> extends ZCallback<T> implements Swipe
 
     @Override
     public void onFailure(Call call, Throwable t) {
-        super.onFailure(call, t);
+        ToastUtil.toast(t.getMessage());
+        onFinish(call);
         mAdapter.loadMoreFail();
+        if (mBaseActivity == null) return;
+        if (mAdapter.getData().isEmpty()) {
+            mBaseActivity.showError();
+        } else {
+            mBaseActivity.showContent();
+        }
     }
 
+    @Override
+    public void handlePlaceHolder(int code) {
+        if (mBaseActivity == null) return;
+        if (code == 200) {
+            mBaseActivity.showContent();
+        } else {
+            if (mAdapter.getData().isEmpty()) {
+                mBaseActivity.showEmpty();
+            } else {
+                mBaseActivity.showContent();
+            }
+        }
+    }
 
     @Override
     public void onRefresh() {

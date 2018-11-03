@@ -92,7 +92,7 @@ public abstract class ZCallback<T> implements Callback<T> {
         }
     }
 
-    private void handlePlaceHolder(int code) {
+    public void handlePlaceHolder(int code) {
         if (mBaseActivity == null) return;
         if (code == 200) {
             mBaseActivity.showContent();
@@ -107,6 +107,10 @@ public abstract class ZCallback<T> implements Callback<T> {
     public void onFailure(Call<T> call, Throwable t) {
         ToastUtil.toast(t.getMessage());
         onFinish(call);
+        if (mBaseActivity != null) {
+            mBaseActivity.showError();
+        }
+
     }
 
     protected void onFinish(Call<T> call) {
