@@ -109,7 +109,7 @@ public class ChannelHomeFragment extends BaseFragment<FragmentCategoryHomeBindin
         callBack=new ZPageLoadDataCallback<ZResponse<HomeBean>>(mAdapter,binding.recyclerView) {
             @Override
             public void requestAction(int page, int pageSize) {
-                RequestUtil.request1(ZClient.getService(SportService.class).getNewsList(reqKey, page, pageSize),callBack);
+                RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getNewsList(reqKey, page, pageSize),callBack);
             }
         };
 //        callBack = new ZPageLoadCallback<ZResponse<HomeBean>>(mAdapter, binding.recyclerView) {
