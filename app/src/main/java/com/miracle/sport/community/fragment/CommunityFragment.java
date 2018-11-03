@@ -63,11 +63,12 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding> {
         if (TextUtils.isEmpty(CommonUtils.getUserId())) {
             return;
         }
-        myCircleAdapter.setNewData(null);
-        myCircleAdapter.addData((MyCircleBean) null);
+
         RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getMyCircleList(), new ZCallback<ZResponse<List<MyCircleBean>>>("mycircle") {
             @Override
             public void onSuccess(ZResponse<List<MyCircleBean>> data) {
+                myCircleAdapter.setNewData(null);
+                myCircleAdapter.addData((MyCircleBean) null);
                 myCircleAdapter.addData(0, data.getData());
             }
         });
@@ -81,10 +82,11 @@ public class CommunityFragment extends BaseFragment<FragmentCommunityBinding> {
 
     private void initBanner() {
         images = new ArrayList<>();
-        images.add("file:///android_asset/football/16.jpg");
-        images.add("file:///android_asset/football/17.jpg");
-        images.add("file:///android_asset/football/19.jpg");
-        images.add("file:///android_asset/football/20.jpg");
+        images.add("file:///android_asset/lottery/1.png");
+        images.add("file:///android_asset/lottery/2.png");
+        images.add("file:///android_asset/lottery/3.png");
+        images.add("file:///android_asset/lottery/4.png");
+        images.add("file:///android_asset/lottery/5.png");
         binding.banner.setImages(images).setImageLoader(new ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {

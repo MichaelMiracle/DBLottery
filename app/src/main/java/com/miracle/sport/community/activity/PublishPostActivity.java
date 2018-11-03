@@ -58,6 +58,7 @@ public class PublishPostActivity extends BaseActivity<ActivityPublishPostBinding
 
     @Override
     public void initView() {
+        showContent();
         setTitle("发帖");
         rxPermission = new RxPermissions(this);
         requestPermissions();

@@ -15,7 +15,6 @@ import com.miracle.sport.SportService;
 import com.miracle.sport.common.view.CommentBar;
 import com.miracle.sport.community.adapter.PostCommentAdapter;
 import com.miracle.sport.community.adapter.PostDetailImagesAdapter;
-import com.miracle.sport.community.bean.PostCommentBean;
 import com.miracle.sport.community.bean.PostDetailBean;
 
 import java.util.List;
@@ -29,6 +28,7 @@ public class PostDetailActivity extends BaseActivity<ActivityPostDetailBinding> 
     private PostDetailImagesAdapter mAdater;
 
     private PostCommentAdapter pAdapter;
+    private PostDetailBean mData;
 
     @Override
     public int getLayout() {
@@ -41,21 +41,10 @@ public class PostDetailActivity extends BaseActivity<ActivityPostDetailBinding> 
         id = getIntent().getIntExtra("id", 0);
         binding.recyclerView.setAdapter(mAdater = new PostDetailImagesAdapter());
         binding.rvComment.setAdapter(pAdapter = new PostCommentAdapter());
-        reqPostDetail();
-        reqCommentList();
-    }
-
-    private void reqPostDetail() {
-        ZClient.getService(SportService.class).getPostDetail(id).enqueue(new ZCallback<ZResponse<PostDetailBean>>() {
-            @Override
-            public void onSuccess(ZResponse<PostDetailBean> data) {
-                setData(data.getData());
-            }
-        });
     }
 
     private void setData(PostDetailBean data) {
-        binding.tvCircle.setText(data.getName());
+        binding.tvCircle.setText(data.getSq_name());
         binding.tvTitle.setText(data.getTitle());
         binding.tvContent.setText(data.getContent());
         binding.commentBar.setCommentNum(data.getComment_num());
@@ -65,6 +54,7 @@ public class PostDetailActivity extends BaseActivity<ActivityPostDetailBinding> 
         if (thumb != null && !thumb.isEmpty()) {
             mAdater.setNewData(thumb);
         }
+        pAdapter.setNewData(data.getComment());
     }
 
     @Override
@@ -72,25 +62,25 @@ public class PostDetailActivity extends BaseActivity<ActivityPostDetailBinding> 
         binding.commentBar.setCBListener(new CommentBar.CBListener() {
             @Override
             public void send(String content) {
-                ZClient.getService(SportService.class).sendPostComment(id, content).enqueue(new ZCallback<ZResponse<List<PostCommentBean>>>() {
+                ZClient.getService(SportService.class).sendPostComment(id, 0, 1, content).enqueue(new ZCallback<ZResponse>() {
                     @Override
-                    public void onSuccess(ZResponse<List<PostCommentBean>> data) {
+                    public void onSuccess(ZResponse data) {
                         ToastUtil.toast(data.getMessage());
                         binding.commentBar.clearContent();
-                        reqPostDetail();
-                        reqCommentList();
-                        CommonUtils.hideSoftInput(mContext,binding.getRoot());
+                        loadData();
+                        CommonUtils.hideSoftInput(mContext, binding.getRoot());
                     }
                 });
             }
 
             @Override
             public void onLikeClick() {
-                ZClient.getService(SportService.class).likePost(id, 1).enqueue(new ZCallback<ZResponse>() {
+
+                ZClient.getService(SportService.class).likePost(id, mData.getClick() == 1 ? 0 : 1, 1).enqueue(new ZCallback<ZResponse>() {
                     @Override
                     public void onSuccess(ZResponse data) {
                         ToastUtil.toast(data.getMessage());
-                        reqPostDetail();
+                        loadData();
                     }
                 });
             }
@@ -112,25 +102,22 @@ public class PostDetailActivity extends BaseActivity<ActivityPostDetailBinding> 
 
     @Override
     public void loadData() {
-
+        ZClient.getService(SportService.class).getPostDetail(id).enqueue(new ZCallback<ZResponse<PostDetailBean>>(this) {
+            @Override
+            public void onSuccess(ZResponse<PostDetailBean> data) {
+                setData(mData = data.getData());
+            }
+        });
     }
 
     private ZCallback<ZResponse> likeCallback = new ZCallback<ZResponse>() {
         @Override
         public void onSuccess(ZResponse data) {
             ToastUtil.toast(data.getMessage());
-            reqCommentList();
+            loadData();
         }
     };
 
-    private void reqCommentList() {
-        ZClient.getService(SportService.class).getPostCommentList(id).enqueue(new ZCallback<ZResponse<List<PostCommentBean>>>() {
-            @Override
-            public void onSuccess(ZResponse<List<PostCommentBean>> data) {
-                pAdapter.setNewData(data.getData());
-            }
-        });
-    }
 
     @Override
     public void onClick(View v) {

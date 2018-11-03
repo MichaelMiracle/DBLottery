@@ -8,6 +8,7 @@
     <ImageView
         android:id="@+id/ivCircleLogo"
         android:layout_width="60dp"
+        android:layout_marginRight="@dimen/dp_10"
         android:layout_height="60dp"
         android:scaleType="fitXY" />
 

@@ -23,6 +23,7 @@ public class PostListAdapter extends RecyclerViewAdapter<PostBean> {
     public PostListAdapter() {
         super(R.layout.item_post);
         params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        params.setMargins(2,0,2,0);
     }
 
     @Override
