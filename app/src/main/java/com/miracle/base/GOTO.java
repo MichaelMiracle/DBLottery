@@ -19,10 +19,13 @@ import com.miracle.michael.common.activity.ModifyPasswordActivity;
 import com.miracle.michael.common.activity.RegisterActivity;
 import com.miracle.michael.common.activity.SettingActivity;
 import com.miracle.michael.common.activity.TestActivity;
+import com.miracle.michael.common.bean.ArticleDetailBean;
+import com.miracle.michael.common.bean.NewsDetailBean;
 import com.miracle.michael.football.activity.FootballMeActivity;
 import com.miracle.michael.football.activity.FootballMyCollectionsActivity;
 import com.miracle.michael.football.activity.FootballSaiShiFenXiActivity;
 import com.miracle.michael.lottery.activity.LotteryMyCollectionsActivity;
+import com.miracle.sport.home.activity.CommentListActivity;
 
 public class GOTO {
     public static void WelcomeActivity(Context context) {
@@ -72,6 +75,10 @@ public class GOTO {
 
     public static void FootballMeActivity(Context context,UserInfoBean userInfo) {
         context.startActivity(new Intent(context, FootballMeActivity.class).putExtra(Constant.USER_INFO, userInfo));
+    }
+
+    public static void CommentListActivity(Context context,ArticleDetailBean newsDetailBean) {
+        context.startActivity(new Intent(context, CommentListActivity.class).putExtra(Constant.COMMENT_LIST, newsDetailBean));
     }
 
     public static void ModifyPasswordActivity(Context context) {

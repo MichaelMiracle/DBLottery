@@ -1,8 +1,9 @@
 package com.miracle.michael.common.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ArticleCommentBean {
+public class ArticleCommentBean implements Serializable {
 
 
     private int comment_id;

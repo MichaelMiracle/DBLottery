@@ -1,9 +1,11 @@
 package com.miracle.michael.common.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Michael on 2018/10/17 15:32 (星期三)
  */
-public class NewsDetailBean {
+public class NewsDetailBean implements Serializable {
 
     /**
      * id : 1

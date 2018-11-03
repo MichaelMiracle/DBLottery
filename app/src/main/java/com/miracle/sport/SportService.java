@@ -1,7 +1,9 @@
 package com.miracle.sport;
 
 import com.miracle.base.network.ZResponse;
+import com.miracle.michael.common.bean.ArticleCommentBean;
 import com.miracle.michael.common.bean.ArticleDetailBean;
+import com.miracle.michael.common.bean.CommentChildBean;
 import com.miracle.michael.common.bean.NewsDetailBean;
 import com.miracle.sport.community.bean.CircleBean;
 import com.miracle.sport.community.bean.MyCircleBean;
@@ -17,6 +19,7 @@ import java.util.List;
 
 import okhttp3.MultipartBody;
 import retrofit2.Call;
+import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
@@ -154,11 +157,18 @@ public interface SportService {
     Call<ZResponse<String>> sendHomeCommet(@Query("createid") int createid, @Query("content") String content);
 
     /**
+     * 评论列表list
+     */
+    @Headers({"BaseUrl:zh"})
+    @POST("home/Goodcaipiao/commentList")
+    Call<ZResponse<List<ArticleCommentBean>>> getCommetList(@Query("id") int id, @Query("page") int page, @Query("pageSize") int pageSize);
+
+    /**
      * 发评论
      */
     @Headers({"BaseUrl:zh"})
     @POST("home/Goodcaipiao/sendComment")
-    Call<ZResponse<String>> sendCommentCommet(@Query("create_id") int id, @Query("content") String content,@Query("to_user_id") String to_user_id,@Query("type") String type);
+    Call<ZResponse<ArticleCommentBean>> sendCommentCommet(@Query("create_id") int id, @Query("content") String content, @Query("to_user_id") String to_user_id, @Query("type") String type);
 
     /**
      * 获取评论列表

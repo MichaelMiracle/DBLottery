@@ -34,6 +34,7 @@ public interface Constant {
 
     String USER_ID = "";
     String USER_INFO = "user_info";
+    String COMMENT_LIST = "comment_list";
     String APPID = "";
     String TITLE = "title";
     String REQKEY = "reqKey";

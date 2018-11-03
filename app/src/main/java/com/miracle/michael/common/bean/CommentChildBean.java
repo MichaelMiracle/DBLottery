@@ -1,6 +1,8 @@
 package com.miracle.michael.common.bean;
 
-public class CommentChildBean {
+import java.io.Serializable;
+
+public class CommentChildBean implements Serializable {
 
 
     /**

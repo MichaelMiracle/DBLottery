@@ -1,11 +1,12 @@
 package com.miracle.michael.common.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Michael on 2018/10/17 15:32 (星期三)
  */
-public class ArticleDetailBean {
+public class ArticleDetailBean implements Serializable {
 
     /**
      * id : 1
