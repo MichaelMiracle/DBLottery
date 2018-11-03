@@ -1,1 +1,1 @@
-include ':app', ':easeui', ':hmspush', ':okgo'
+include ':app', ':easeui', ':hmspush', ':okgo', ':marqueelibrary'
