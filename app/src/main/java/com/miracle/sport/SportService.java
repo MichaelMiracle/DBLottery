@@ -102,7 +102,7 @@ public interface SportService {
      * 首页title 类型
      */
     @Headers({"BaseUrl:zh"})
-    @POST("home/sport/type")
+    @POST("home/Goodcaipiao/type")
     Call<ZResponse<List<ChannerlKey>>> getSearchKeys();
 
     /**

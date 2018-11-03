@@ -18,6 +18,7 @@ import com.miracle.base.Constant;
 import com.miracle.base.http.CacheConstant;
 import com.miracle.base.http.Common.EncryptCallback;
 import com.miracle.base.http.model.bean.PageResultForJob;
+import com.miracle.base.network.RequestUtil;
 import com.miracle.base.network.ZCallback;
 import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZResponse;
@@ -70,35 +71,45 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements O
 //        HashMap<String, String> params = new HashMap<>();
 //        params.put("type", "zcsj");
 
-        OkGo.<PageResultForJob<ChannerlKey>>post(UrlConstants.POST_GOOD_CAIPIAO)
-                .tag(this)
-//                .params(params,true)
-                .cacheKey(CacheContents.HOME_SPORT_TYPE)
-                .cacheMode(CacheMode.IF_NONE_CACHE_REQUEST)
-                .execute(new EncryptCallback<PageResultForJob<ChannerlKey>>() {
-                    @Override
-                    public void onSuccess(Response<PageResultForJob<ChannerlKey>> response) {
-                        mNetChannels = response.body().getData();
-                        initChannelData();
-                        initChannelFragments();
-                        setListener();
-                    }
+//        OkGo.<PageResultForJob<ChannerlKey>>post(UrlConstants.POST_GOOD_CAIPIAO)
+//                .tag(this)
+////                .params(params,true)
+//                .cacheKey(CacheContents.HOME_SPORT_TYPE)
+//                .cacheMode(CacheMode.IF_NONE_CACHE_REQUEST)
+//                .execute(new EncryptCallback<PageResultForJob<ChannerlKey>>() {
+//                    @Override
+//                    public void onSuccess(Response<PageResultForJob<ChannerlKey>> response) {
+//                        mNetChannels = response.body().getData();
+//                        initChannelData();
+//                        initChannelFragments();
+//                        setListener();
+//                    }
+//
+//                    @Override
+//                    public void onError(Response<PageResultForJob<ChannerlKey>> response) {
+//                        super.onError(response);
+//                        ToastUtil.toast(response.message());
+//                    }
+//
+//                    @Override
+//                    public void onCacheSuccess(Response<PageResultForJob<ChannerlKey>> response) {
+//                        super.onCacheSuccess(response);
+//                        mNetChannels = response.body().getData();
+//                        initChannelData();
+//                        initChannelFragments();
+//                        setListener();
+//                    }
+//                });
 
-                    @Override
-                    public void onError(Response<PageResultForJob<ChannerlKey>> response) {
-                        super.onError(response);
-                        ToastUtil.toast(response.message());
-                    }
-
-                    @Override
-                    public void onCacheSuccess(Response<PageResultForJob<ChannerlKey>> response) {
-                        super.onCacheSuccess(response);
-                        mNetChannels = response.body().getData();
-                        initChannelData();
-                        initChannelFragments();
-                        setListener();
-                    }
-                });
+        RequestUtil.cachePrior(ZClient.getService(SportService.class).getSearchKeys(), new ZCallback<ZResponse<List<ChannerlKey>>>("CHANNER1key") {
+            @Override
+            protected void onSuccess(ZResponse<List<ChannerlKey>> zResponse) {
+                mNetChannels = zResponse.getData();
+                initChannelData();
+                initChannelFragments();
+                setListener();
+            }
+        });
 
 //        ZClient.getService(SportService.class).getSearchKeys().enqueue(new ZCallback<ZResponse<List<ChannerlKey>>>() {
 //            @Override

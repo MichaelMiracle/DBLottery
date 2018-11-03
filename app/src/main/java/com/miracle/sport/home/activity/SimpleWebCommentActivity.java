@@ -102,11 +102,11 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
 
     /**对评论点赞*/
     private void reqClick(final int position){
-        ZClient.getService(SportService.class).setClickClass(mAdapter.getItem(position).getComment_id(),1,"1").enqueue(new ZCallback<ZResponse<String>>() {
+        ZClient.getService(SportService.class).setClickClass(mAdapter.getItem(position).getComment_id(),1,"0").enqueue(new ZCallback<ZResponse<String>>() {
             @Override
             public void onSuccess(ZResponse<String> data) {
-               int clickNum = mAdapter.getItem(position).getClick_num();
-                mAdapter.getItem(position).setClick_num(clickNum+1);
+               int clickNum = mAdapter.getItem(position).getComment_click_num();
+                mAdapter.getItem(position).setComment_click_num(clickNum+1);
                 mAdapter.getItem(position).setClick(1);
                 mAdapter.notifyDataSetChanged();
             }
@@ -114,7 +114,7 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
     }
     /**对文章点赞*/
     private void  reqClassClick(){
-        ZClient.getService(SportService.class).setClickClass(id,1,"0").enqueue(new ZCallback<ZResponse<String>>() {
+        ZClient.getService(SportService.class).setClickClass(id,1,"1").enqueue(new ZCallback<ZResponse<String>>() {
             @Override
             public void onSuccess(ZResponse<String> data) {
                 goodView.setImage(getResources().getDrawable(R.mipmap.good_checked_big));
@@ -318,7 +318,7 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
 //                        }
 //                    });
                     final EditText editText = binding.includeSendComment.etCommentContent;
-                    ZClient.getService(SportService.class).sendCommentCommet(sendId,editText.getText().toString(),toUser,type).enqueue(new ZCallback<ZResponse<ArticleCommentBean>>() {
+                    ZClient.getService(SportService.class).sendCommentCommet(sendId,editText.getText().toString(),toUser,type).enqueue(new ZCallback<ZResponse<ArticleCommentBean>>(this) {
                         @Override
                         public void onSuccess(ZResponse<ArticleCommentBean> data) {
                             ToastUtil.toast("评论成功");
