@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.miracle.R;
 import com.miracle.base.adapter.RecyclerViewAdapter;
 import com.miracle.base.network.GlideApp;
+import com.miracle.base.util.CommonUtils;
 import com.miracle.base.util.TimeUtils;
 import com.miracle.michael.common.bean.ArticleCommentBean;
 import com.miracle.michael.common.bean.ArticleDetailBean;
@@ -56,6 +57,12 @@ public class ArticleListAdapter extends RecyclerViewAdapter<ArticleCommentBean> 
             ((ChildListView)helper.getView(R.id.commentList)).setDatas(item.getChild());
         }
 
+        if(CommonUtils.getUserId().equals(item.getUser_id())){
+            helper.setGone(R.id.im_delete,true);
+        }else{
+            helper.setGone(R.id.im_delete,false);
+        }
+
 
         helper.setText(R.id.tvAuthor,item.getContent());
         helper.setText(R.id.im_click_num,item.getComment_click_num()+"");
@@ -80,6 +87,7 @@ public class ArticleListAdapter extends RecyclerViewAdapter<ArticleCommentBean> 
                      .error(R.mipmap.empty)
                      .into((ImageView) helper.getView(R.id.iv));
          helper.addOnClickListener(R.id.im_click_num);
+         helper.addOnClickListener(R.id.im_delete);
          helper.addOnClickListener(R.id.tvAuthor);
          helper.addOnClickListener(R.id.im_comment_num);
 

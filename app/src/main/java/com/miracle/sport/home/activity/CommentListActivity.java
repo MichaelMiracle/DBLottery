@@ -18,6 +18,7 @@ import com.miracle.base.network.ZPageLoadCallback;
 import com.miracle.base.network.ZResponse;
 import com.miracle.base.util.CommonUtils;
 import com.miracle.base.util.ToastUtil;
+import com.miracle.base.view.CommonDialog;
 import com.miracle.databinding.SwipeRecyclerCommentBinding;
 import com.miracle.michael.common.bean.ArticleCommentBean;
 import com.miracle.michael.common.bean.ArticleDetailBean;
@@ -26,6 +27,8 @@ import com.miracle.sport.home.adapter.ArticleListAdapter;
 import com.wx.goodview.GoodView;
 
 import java.util.List;
+
+import retrofit2.Call;
 
 public class CommentListActivity extends BaseActivity<SwipeRecyclerCommentBinding> {
 
@@ -37,6 +40,8 @@ public class CommentListActivity extends BaseActivity<SwipeRecyclerCommentBindin
 
     private int commentId;
     private String toUser = "";
+    private CommonDialog commonDialog;
+    private int deletePosition;
 
     @Override
     public int getLayout() {
@@ -46,6 +51,7 @@ public class CommentListActivity extends BaseActivity<SwipeRecyclerCommentBindin
     @Override
     public void initView() {
         setTitle("评论列表");
+        initDialog();
         articleDetailBean = (ArticleDetailBean) getIntent().getSerializableExtra(Constant.COMMENT_LIST);
         binding.recyclerView.setAdapter(mAdapter = new ArticleListAdapter(mContext));
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
@@ -80,6 +86,19 @@ public class CommentListActivity extends BaseActivity<SwipeRecyclerCommentBindin
         binding.imgSend.setOnClickListener(this);
     }
 
+    private void initDialog() {
+        commonDialog = new CommonDialog(this);
+        commonDialog.setMessage("您确定删除这条评论吗?");
+        commonDialog.setBtListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLoadingDialog();
+                reqClickDelete(deletePosition);
+                commonDialog.dismiss();
+            }
+        });
+    }
+
     @Override
     public void onResume() {
         super.onResume();
@@ -109,6 +128,24 @@ public class CommentListActivity extends BaseActivity<SwipeRecyclerCommentBindin
                 goodView.show(binding.commentClick);
                 articleDetailBean.setClick(1);
                 binding.commentClick.setImageResource(R.mipmap.good_checked_big);
+            }
+        });
+    }
+
+    /**对评论点赞*/
+    private void reqClickDelete(final int position){
+        ZClient.getService(SportService.class).setClickDelete(articleDetailBean.getId(),mAdapter.getItem(position).getComment_id(),"1").enqueue(new ZCallback<ZResponse<String>>(this) {
+            @Override
+            public void onSuccess(ZResponse<String> data) {
+                mAdapter.remove(position);
+                binding.tvCommentCount.setText(mAdapter.getItemCount()+"");
+                mAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            protected void onFinish(Call<ZResponse<String>> call) {
+                super.onFinish(call);
+                dismissLoadingDialog();
             }
         });
     }
@@ -186,6 +223,11 @@ public class CommentListActivity extends BaseActivity<SwipeRecyclerCommentBindin
 
 //                        ToastUtil.toast("评论");
                         break;
+
+                    case R.id.im_delete:
+                        deletePosition = position;
+                        commonDialog.show();
+                        break;
                 }
 
             }
@@ -228,6 +270,7 @@ public class CommentListActivity extends BaseActivity<SwipeRecyclerCommentBindin
                 if(TextUtils.isEmpty(binding.etCommentContent.getText())){
                     ToastUtil.toast("内容不能空");
                 }else{
+                    showLoadingDialog();
 //                    ZClient.getService(SportService.class).sendHomeCommet(id , binding.includeSendComment.etCommentContent.getText().toString()).enqueue(new ZCallback<ZResponse<String>>(loadingDialog) {
 //                        @Override
 //                        public void onSuccess(ZResponse<String> data) {
@@ -242,6 +285,7 @@ public class CommentListActivity extends BaseActivity<SwipeRecyclerCommentBindin
                         @Override
                         public void onSuccess(ZResponse<ArticleCommentBean> data) {
                             ToastUtil.toast("评论成功");
+                            binding.tvCommentCount.setText(mAdapter.getItemCount()+"");
                             commentId = 0;
                             toUser = "";
                             editText.setText("");

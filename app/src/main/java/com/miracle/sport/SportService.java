@@ -134,6 +134,14 @@ public interface SportService {
     Call<ZResponse<String>> setClickClass(@Query("create_id") int createid, @Query("click") int click, @Query("type") String type);
 
     /**
+     * 删除评论
+     * @POST("home/sport/click")
+     */
+    @Headers({"BaseUrl:zh"})
+    @POST("home/Goodcaipiao/deleteComment")
+    Call<ZResponse<String>> setClickDelete( @Query("id") int id,@Query("create_id") int createid, @Query("type") String type);
+
+    /**
      * 收藏接口
      */
     @Headers({"BaseUrl:zh"})

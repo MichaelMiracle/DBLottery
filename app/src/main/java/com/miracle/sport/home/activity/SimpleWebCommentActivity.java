@@ -21,6 +21,7 @@ import com.miracle.base.util.CommonUtils;
 import com.miracle.base.util.ToastUtil;
 import com.miracle.base.util.sqlite.SQLiteKey;
 import com.miracle.base.util.sqlite.SQLiteUtil;
+import com.miracle.base.view.CommonDialog;
 import com.miracle.databinding.ActivityHomeWebCommentBinding;
 import com.miracle.michael.common.bean.ArticleCommentBean;
 import com.miracle.michael.common.bean.ArticleDetailBean;
@@ -40,6 +41,8 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
     private ArticleDetailBean newsDetailBean;
     private int commentId;
     private String toUser = "";
+    private CommonDialog commonDialog;
+    private int deletePosition;
 
 
     @Override
@@ -49,8 +52,9 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
 
     @Override
     public void initView() {
-//        showLoadingDialog();
+        showLoadingDialog();
         setTitle("资讯详情");
+        initDialog();
         id = getIntent().getIntExtra("id", 0);
         binding.webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -76,6 +80,19 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
 
 //        setContentView(webView);
 //        binding.webView.loadUrl(mUrl);
+    }
+
+    private void initDialog() {
+        commonDialog = new CommonDialog(this);
+        commonDialog.setMessage("您确定删除这条评论吗?");
+        commonDialog.setBtListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showLoadingDialog();
+                reqClickDelete(deletePosition);
+                commonDialog.dismiss();
+            }
+        });
     }
 
     @Override
@@ -122,6 +139,25 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
                 goodView.show(binding.includeSendComment.commentClick);
                 newsDetailBean.setClick(1);
                 binding.includeSendComment.commentClick.setImageResource(R.mipmap.good_checked_big);
+            }
+        });
+    }
+
+    /**删除评论*/
+    private void reqClickDelete(final int position){
+        ZClient.getService(SportService.class).setClickDelete(id,mAdapter.getItem(position).getComment_id(),"1").enqueue(new ZCallback<ZResponse<String>>(this) {
+            @Override
+            public void onSuccess(ZResponse<String> data) {
+                mAdapter.remove(position);
+                mAdapter.notifyDataSetChanged();
+                binding.includeSendComment.tvCommentCount.setText(mAdapter.getItemCount()+"");
+                ToastUtil.toast(data.getMessage().toString());
+            }
+
+            @Override
+            protected void onFinish(Call<ZResponse<String>> call) {
+                super.onFinish(call);
+                dismissLoadingDialog();
             }
         });
     }
@@ -204,6 +240,11 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
 
 //                        ToastUtil.toast("评论");
                         break;
+                    case R.id.im_delete:
+                        deletePosition = position;
+                        commonDialog.show();
+//                        reqClickDelete(position);
+                        break;
                 }
 
             }
@@ -246,7 +287,6 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
         ZClient.getService(SportService.class).getCommentDetail(id).enqueue(new ZCallback<ZResponse<ArticleDetailBean>>(this) {
             @Override
             public void onSuccess(ZResponse<ArticleDetailBean> data) {
-                dismissLoadingDialog();
                 binding.cbRight.setChecked(data.getData().getCoin() == 1);
                 binding.tvTitle.setText(data.getData().getTitle());
                 binding.webView.loadDataWithBaseURL(null, CommonUtils.getHtmlData(data.getData().getContent()), "text/html", "utf-8", null);
@@ -264,6 +304,7 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
             @Override
             protected void onFinish(Call<ZResponse<ArticleDetailBean>> call) {
                 super.onFinish(call);
+                dismissLoadingDialog();
                 binding.swipeRefreshLayout.setRefreshing(false);
                 loadingDialog.dismiss();
             }
