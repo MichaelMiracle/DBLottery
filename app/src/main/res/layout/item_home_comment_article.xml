@@ -63,7 +63,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:drawableLeft="@mipmap/add_channels_close_press"
-            android:text="    "
+            android:text="删除"
             android:gravity="center"
             android:drawablePadding="5dp"
             />
