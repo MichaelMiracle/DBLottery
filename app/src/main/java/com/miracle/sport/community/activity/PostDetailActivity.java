@@ -58,11 +58,7 @@ public class PostDetailActivity extends BaseActivity<ActivityPostDetailBinding> 
         }
         pAdapter.setNewData(data.getComment());
 
-
-        if (data.getComment_num() > 10) {
-            binding.tvCheckMore.setVisibility(View.VISIBLE);
-        }
-
+        binding.tvCheckMore.setVisibility(data.getComment_num() > 10 ? View.VISIBLE : View.GONE);
     }
 
     @Override
@@ -76,7 +72,7 @@ public class PostDetailActivity extends BaseActivity<ActivityPostDetailBinding> 
                     public void onSuccess(ZResponse data) {
                         ToastUtil.toast(data.getMessage());
                         binding.commentBar.clearContent();
-                        loadData();
+                        reqData();
                         CommonUtils.hideSoftInput(mContext, binding.getRoot());
                     }
                 });
@@ -89,14 +85,14 @@ public class PostDetailActivity extends BaseActivity<ActivityPostDetailBinding> 
                     @Override
                     public void onSuccess(ZResponse data) {
                         ToastUtil.toast(data.getMessage());
-                        loadData();
+                        reqData();
                     }
                 });
             }
 
             @Override
             public void onCommentClick() {
-
+                GOTO.PostCommentListActivity(mContext, id);
             }
         });
         pAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
@@ -112,6 +108,9 @@ public class PostDetailActivity extends BaseActivity<ActivityPostDetailBinding> 
 
     @Override
     public void loadData() {
+    }
+
+    private void reqData() {
         ZClient.getService(SportService.class).getPostDetail(id).enqueue(new ZCallback<ZResponse<PostDetailBean>>(this) {
             @Override
             public void onSuccess(ZResponse<PostDetailBean> data) {
@@ -120,11 +119,17 @@ public class PostDetailActivity extends BaseActivity<ActivityPostDetailBinding> 
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        reqData();
+    }
+
     private ZCallback<ZResponse> likeCallback = new ZCallback<ZResponse>() {
         @Override
         public void onSuccess(ZResponse data) {
             ToastUtil.toast(data.getMessage());
-            loadData();
+            reqData();
         }
     };
 

@@ -33,6 +33,7 @@ public class PostCommentListActivity extends BaseActivity<SwipeRecyclerBinding> 
 
     @Override
     public void initView() {
+        setTitle("评论列表");
         id = getIntent().getIntExtra(Constant.POST_ID, 0);
         binding.recyclerView.setAdapter(mAdapter = new PostCommentAdapter());
         initCallback();

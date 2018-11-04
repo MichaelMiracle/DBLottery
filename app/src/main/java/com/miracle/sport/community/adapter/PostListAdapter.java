@@ -54,7 +54,7 @@ public class PostListAdapter extends RecyclerViewAdapter<PostBean> {
             for (String url : thumbs) {
                 ImageView imageView = new ImageView(ContextHolder.getContext());
                 imageView.setLayoutParams(params);
-                imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 GlideApp.with(ContextHolder.getContext()).load(url)
                         .placeholder(R.mipmap.defaule_img)
                         .error(R.mipmap.empty)
