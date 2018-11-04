@@ -195,7 +195,7 @@
                             android:layout_height="wrap_content"
                             android:clickable="false"
                             android:focusable="false"
-                            android:text="大神推号"
+                            android:text="双色走势"
                             android:textColor="#000"
                             android:textSize="16sp" />
 
@@ -205,7 +205,7 @@
                             android:layout_height="wrap_content"
                             android:clickable="false"
                             android:focusable="false"
-                            android:text="跟大神，有好运"
+                            android:text="看走势，有好运"
                             android:textColor="#666" />
                     </LinearLayout>
                 </LinearLayout>

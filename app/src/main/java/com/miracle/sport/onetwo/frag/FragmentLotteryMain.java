@@ -92,18 +92,21 @@ public class FragmentLotteryMain extends BaseFragment<FragmentCpMainTopBinding>{
     }
 
     private void initButtons() {
-//        View.OnClickListener subTitleClick = new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
+        View.OnClickListener subTitleClick = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 //                if(getActivity() instanceof MainActivity)
 //                {
 //                    MainActivity mainActivity = (MainActivity) getActivity();
 ////                    mainActivity.switchTabIndex(2);
 //                }
-//            }
-//        };
+                Intent intent = new Intent(getActivity(), OneFragActivity.class);
+                intent.putExtra(OneFragActivity.EXTRA_KEY_FRAG_CLASS, LotteryChartFragment.class);
+                startActivity(intent);
+            }
+        };
 //        topBinding.mainFragMore1.setOnClickListener(subTitleClick);
-//        topBinding.mainFragMore2.setOnClickListener(subTitleClick);
+        topBinding.mainLl2.setOnClickListener(subTitleClick);
 
         //
         topBinding.getRoot().findViewById(R.id.main_farg_tryrand).setOnClickListener(new View.OnClickListener() {
