@@ -4,12 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.miracle.base.bean.UserBean;
 import com.miracle.base.bean.UserInfoBean;
 import com.miracle.base.im.ui.ChatActivity;
 import com.miracle.base.switcher.WelcomeActivity;
 import com.miracle.base.util.CommonUtils;
-import com.miracle.base.util.ContextHolder;
 import com.miracle.base.util.ToastUtil;
+import com.miracle.base.util.sqlite.SQLiteKey;
+import com.miracle.base.util.sqlite.SQLiteUtil;
 import com.miracle.michael.common.activity.AboutUsActivity;
 import com.miracle.michael.common.activity.CircleTurntableActivity;
 import com.miracle.michael.common.activity.CustomerServiceActivity;
@@ -20,7 +22,6 @@ import com.miracle.michael.common.activity.RegisterActivity;
 import com.miracle.michael.common.activity.SettingActivity;
 import com.miracle.michael.common.activity.TestActivity;
 import com.miracle.michael.common.bean.ArticleDetailBean;
-import com.miracle.michael.common.bean.NewsDetailBean;
 import com.miracle.michael.football.activity.FootballMeActivity;
 import com.miracle.michael.football.activity.FootballMyCollectionsActivity;
 import com.miracle.michael.football.activity.FootballSaiShiFenXiActivity;
@@ -69,15 +70,15 @@ public class GOTO {
         context.startActivity(new Intent(context, CircleTurntableActivity.class));
     }
 
-    public static void MeInfoActivity(Context context,UserInfoBean userInfo) {
+    public static void MeInfoActivity(Context context, UserInfoBean userInfo) {
         context.startActivity(new Intent(context, MeInfoActivity.class).putExtra(Constant.USER_INFO, userInfo));
     }
 
-    public static void FootballMeActivity(Context context,UserInfoBean userInfo) {
+    public static void FootballMeActivity(Context context, UserInfoBean userInfo) {
         context.startActivity(new Intent(context, FootballMeActivity.class).putExtra(Constant.USER_INFO, userInfo));
     }
 
-    public static void CommentListActivity(Context context,ArticleDetailBean newsDetailBean) {
+    public static void CommentListActivity(Context context, ArticleDetailBean newsDetailBean) {
         context.startActivity(new Intent(context, CommentListActivity.class).putExtra(Constant.COMMENT_LIST, newsDetailBean));
     }
 
@@ -98,6 +99,10 @@ public class GOTO {
             LoginActivity(context);
         } else if (TextUtils.isEmpty(AppConfig.groupId)) {
             ToastUtil.toast("聊天室登录中,请稍后再试");
+            UserBean user = CommonUtils.getUser();
+            if (user == null)
+                return;
+            CommonUtils.EMLogin(user.getUsername(), SQLiteUtil.getEncryptedString(SQLiteKey.PASSWORD));
         } else {
             Intent intent = new Intent(context, ChatActivity.class);
             intent.putExtra("chatType", com.miracle.base.im.Constant.CHATTYPE_GROUP);
