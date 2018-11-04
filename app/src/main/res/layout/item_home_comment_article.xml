@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/tools"
     android:background="@drawable/bottom_line"
     android:orientation="vertical"
     android:padding="10dp">
@@ -56,11 +56,17 @@
             android:text="600"
             android:gravity="center"
             android:drawablePadding="5dp"
+            android:paddingRight="16dp"
             />
-
-
-
-
+        <TextView
+            android:id="@+id/im_delete"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:drawableLeft="@mipmap/add_channels_close_press"
+            android:text="    "
+            android:gravity="center"
+            android:drawablePadding="5dp"
+            />
 
     </LinearLayout>
 
