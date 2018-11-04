@@ -26,7 +26,7 @@ public class PostCommentAdapter extends RecyclerViewAdapter<PostDetailBean.Comme
 
     @Override
     protected void convert(BaseViewHolder helper, PostDetailBean.CommentBean item) {
-        helper.addOnClickListener(R.id.tvLike);
+        helper.addOnClickListener(R.id.llLike);
         helper.setText(R.id.tvName, item.getNickname());
         helper.setText(R.id.tvContent, item.getContent());
         helper.setText(R.id.tvTime, item.getAdd_time());

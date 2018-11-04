@@ -5,6 +5,8 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.miracle.R;
 import com.miracle.base.BaseActivity;
+import com.miracle.base.Constant;
+import com.miracle.base.GOTO;
 import com.miracle.base.network.ZCallback;
 import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZResponse;
@@ -38,7 +40,7 @@ public class PostDetailActivity extends BaseActivity<ActivityPostDetailBinding> 
     @Override
     public void initView() {
         setTitle("详情");
-        id = getIntent().getIntExtra("id", 0);
+        id = getIntent().getIntExtra(Constant.POST_ID, 0);
         binding.recyclerView.setAdapter(mAdater = new PostDetailImagesAdapter());
         binding.rvComment.setAdapter(pAdapter = new PostCommentAdapter());
     }
@@ -55,10 +57,17 @@ public class PostDetailActivity extends BaseActivity<ActivityPostDetailBinding> 
             mAdater.setNewData(thumb);
         }
         pAdapter.setNewData(data.getComment());
+
+
+        if (data.getComment_num() > 10) {
+            binding.tvCheckMore.setVisibility(View.VISIBLE);
+        }
+
     }
 
     @Override
     public void initListener() {
+        binding.tvCheckMore.setOnClickListener(this);
         binding.commentBar.setCBListener(new CommentBar.CBListener() {
             @Override
             public void send(String content) {
@@ -93,8 +102,9 @@ public class PostDetailActivity extends BaseActivity<ActivityPostDetailBinding> 
         pAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.tvLike) {
-                    ZClient.getService(SportService.class).likePostComment(pAdapter.getItem(position).getComment_id(), 1, "pl").enqueue(likeCallback);
+                if (view.getId() == R.id.llLike) {
+                    PostDetailBean.CommentBean item = pAdapter.getItem(position);
+                    ZClient.getService(SportService.class).likePost(item.getComment_id(), item.getClick() == 1 ? 0 : 1, 0).enqueue(likeCallback);
                 }
             }
         });
@@ -121,6 +131,10 @@ public class PostDetailActivity extends BaseActivity<ActivityPostDetailBinding> 
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()) {
+            case R.id.tvCheckMore:
+                GOTO.PostCommentListActivity(this, id);
+                break;
+        }
     }
 }

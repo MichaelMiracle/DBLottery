@@ -101,8 +101,18 @@
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rvComment"
                         android:layout_width="match_parent"
+                        android:layout_marginBottom="50dp"
                         android:layout_height="wrap_content"
                         app:layoutManager="android.support.v7.widget.LinearLayoutManager" />
+
+                    <TextView
+                        android:id="@+id/tvCheckMore"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center"
+                        android:padding="@dimen/dp_10"
+                        android:text="查看更多" />
                 </RelativeLayout>
 
             </LinearLayout>

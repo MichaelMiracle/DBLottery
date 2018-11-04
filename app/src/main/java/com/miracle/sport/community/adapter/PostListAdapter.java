@@ -8,6 +8,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.miracle.R;
 import com.miracle.base.adapter.RecyclerViewAdapter;
 import com.miracle.base.network.GlideApp;
+import com.miracle.base.util.CommonUtils;
 import com.miracle.base.util.ContextHolder;
 import com.miracle.sport.community.bean.PostBean;
 
@@ -19,23 +20,32 @@ import java.util.List;
 public class PostListAdapter extends RecyclerViewAdapter<PostBean> {
 
     private LinearLayout.LayoutParams params;
+    private int colorLike;
+    private int colorDislike;
 
     public PostListAdapter() {
         super(R.layout.item_post);
         params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
-        params.setMargins(2,0,2,0);
+        params.setMargins(2, 0, 2, 0);
+        colorLike = CommonUtils.getColor(R.color.red_ball);
+        colorDislike = CommonUtils.getColor(R.color.main_color_grey);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, PostBean item) {
         helper.addOnClickListener(R.id.tvLike);
 
+        helper.setText(R.id.tvUserName, item.getNickname());
+        GlideApp.with(ContextHolder.getContext()).load(item.getImg()).placeholder(R.mipmap.defaule_img).into((ImageView) helper.getView(R.id.ivUserImg));
+
         helper.setText(R.id.tvTitle, item.getTitle());
-        helper.setText(R.id.tvTime, item.getAdd_time());
-        helper.setText(R.id.tvLike, item.getClick_num() + "");
         helper.setText(R.id.tvComment, item.getComment_num() + "");
+        helper.setText(R.id.tvTime, item.getAdd_time());
+        helper.setTextColor(R.id.tvLike, item.getClick() == 1 ? colorLike : colorDislike);
+        helper.setText(R.id.tvLikeCount, item.getClick_num() + "");
         helper.setText(R.id.tvCircleName, item.getName());
-        helper.setText(R.id.tvAuthorName, item.getNickname());
+
+
         LinearLayout container = helper.getView(R.id.llPics);
         container.removeAllViews();
         List<String> thumbs = item.getThumb();

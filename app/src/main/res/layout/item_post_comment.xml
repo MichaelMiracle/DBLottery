@@ -3,19 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/bottom_line"
-    android:orientation="vertical"
-    android:padding="@dimen/dp_10">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:gravity="center_vertical"
-        android:layout_height="30dp">
+        android:paddingLeft="@dimen/dp_10">
 
         <com.miracle.base.view.CircleImageView
             android:id="@+id/ivHead"
-            android:layout_marginRight="@dimen/dp_10"
             android:layout_width="30dp"
-            android:layout_height="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginRight="@dimen/dp_10"
             android:src="@mipmap/default_head" />
 
         <TextView
@@ -25,29 +25,42 @@
             android:layout_weight="1"
             android:gravity="center_vertical" />
 
-        <com.miracle.base.view.IconFontTextView
-            android:id="@+id/tvLike"
-            android:layout_width="wrap_content"
-            android:textColor="@color/main_color_grey"
-            android:layout_height="wrap_content"
-            android:text="@string/icon_like" />
+        <LinearLayout
+            android:id="@+id/llLike"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:paddingRight="@dimen/dp_10">
 
-        <TextView
-            android:id="@+id/tvLikeCount"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            <com.miracle.base.view.IconFontTextView
+                android:id="@+id/tvLike"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:text="@string/icon_like"
+                android:textColor="@color/main_color_grey" />
+
+            <TextView
+                android:id="@+id/tvLikeCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
     </LinearLayout>
 
     <TextView
         android:id="@+id/tvContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10" />
+        android:layout_margin="@dimen/dp_10" />
 
     <TextView
         android:id="@+id/tvTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:layout_marginRight="@dimen/dp_10"
+        android:layout_marginBottom="@dimen/dp_10"
         android:gravity="end" />
 </LinearLayout>

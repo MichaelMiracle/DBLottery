@@ -24,13 +24,31 @@ public class PostBean {
     private int id;
     private String title;
     private String content;
+    private int click;
     private int click_num;
     private int comment_num;
     private int total;
     private String add_time;
     private String nickname;
+    private String img;
     private String name;
     private List<String> thumb;
+
+    public int getClick() {
+        return click;
+    }
+
+    public void setClick(int click) {
+        this.click = click;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
 
     public int getId() {
         return id;

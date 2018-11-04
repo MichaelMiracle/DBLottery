@@ -26,6 +26,8 @@ import com.miracle.michael.football.activity.FootballMeActivity;
 import com.miracle.michael.football.activity.FootballMyCollectionsActivity;
 import com.miracle.michael.football.activity.FootballSaiShiFenXiActivity;
 import com.miracle.michael.lottery.activity.LotteryMyCollectionsActivity;
+import com.miracle.sport.community.activity.PostCommentListActivity;
+import com.miracle.sport.community.activity.PostDetailActivity;
 import com.miracle.sport.home.activity.CommentListActivity;
 
 public class GOTO {
@@ -109,7 +111,13 @@ public class GOTO {
             intent.putExtra("userId", AppConfig.groupId);
             context.startActivity(intent);
         }
+    }
 
+    public static void PostDetailActivity(Context context, int id) {
+        context.startActivity(new Intent(context, PostDetailActivity.class).putExtra(Constant.POST_ID, id));
+    }
+    public static void PostCommentListActivity(Context context, int id) {
+        context.startActivity(new Intent(context, PostCommentListActivity.class).putExtra(Constant.POST_ID, id));
     }
 
 }

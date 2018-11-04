@@ -1,11 +1,11 @@
 package com.miracle.sport.community.fragment;
 
-import android.content.Intent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.miracle.R;
 import com.miracle.base.BaseFragment;
+import com.miracle.base.GOTO;
 import com.miracle.base.network.RequestUtil;
 import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZPageLoadCallback;
@@ -13,7 +13,6 @@ import com.miracle.base.network.ZResponse;
 import com.miracle.databinding.FragmentHotpostBinding;
 import com.miracle.sport.SportService;
 import com.miracle.sport.community.activity.CommunityActivity;
-import com.miracle.sport.community.activity.PostDetailActivity;
 import com.miracle.sport.community.adapter.PostListAdapter;
 import com.miracle.sport.community.bean.PostBean;
 
@@ -74,7 +73,7 @@ public class HotPostFragment extends BaseFragment<FragmentHotpostBinding> {
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent(mContext, PostDetailActivity.class).putExtra("id", mAdapter.getItem(position).getId()));
+                GOTO.PostDetailActivity(getActivity(),mAdapter.getItem(position).getId());
             }
         });
     }

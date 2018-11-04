@@ -7,7 +7,6 @@ import com.miracle.michael.common.bean.NewsDetailBean;
 import com.miracle.sport.community.bean.CircleBean;
 import com.miracle.sport.community.bean.MyCircleBean;
 import com.miracle.sport.community.bean.PostBean;
-import com.miracle.sport.community.bean.PostCommentBean;
 import com.miracle.sport.community.bean.PostDetailBean;
 import com.miracle.sport.home.bean.ChannerlKey;
 import com.miracle.sport.home.bean.Football;
@@ -62,8 +61,8 @@ public interface SportService {
      * 帖子评论列表
      */
     @Headers({"BaseUrl:zh"})
-    @POST("home/Goodcaipiao/commentList")
-    Call<ZResponse<List<PostCommentBean>>> getPostCommentList(@Query("createid") int id);
+    @POST("home/Goodcaipiao/tieziCommentList")
+    Call<ZResponse<List<PostDetailBean.CommentBean>>> getPostCommentList(@Query("id") int id, @Query("page") int page, @Query("pageSize") int pageSize);
 
     /**
      * 帖子发评论
@@ -71,22 +70,18 @@ public interface SportService {
      */
     @Headers({"BaseUrl:zh"})
     @POST("home/Goodcaipiao/sendTieziComment")
-    Call<ZResponse> sendPostComment(@Query("id") int id,@Query("to_user_id") int to_user_id,@Query("type") int type, @Query("content") String content);
+    Call<ZResponse> sendPostComment(@Query("id") int id, @Query("to_user_id") int to_user_id, @Query("type") int type, @Query("content") String content);
 
 
     /**
      * 帖子点赞
+     *
+     * @param type 1帖子，0评论
      */
     @Headers({"BaseUrl:zh"})
     @POST("home/Goodcaipiao/clickTiezi")
     Call<ZResponse> likePost(@Query("create_id") int create_id, @Query("click") int click, @Query("type") int type);
 
-    /**
-     * 帖子评论点赞
-     */
-    @Headers({"BaseUrl:zh"})
-    @POST("home/Goodcaipiao/sportClick")
-    Call<ZResponse> likePostComment(@Query("createid") int createid, @Query("click") int click, @Query("type") String type);
 
     /**
      * 取消点赞
@@ -127,6 +122,7 @@ public interface SportService {
 
     /**
      * 评论点赞
+     *
      * @POST("home/sport/click")
      */
     @Headers({"BaseUrl:zh"})

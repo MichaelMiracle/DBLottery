@@ -1,18 +1,22 @@
 package com.miracle.sport.community.fragment;
 
-import android.content.Intent;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.miracle.R;
 import com.miracle.base.BaseFragment;
-import com.miracle.base.network.PageLoadCallback;
+import com.miracle.base.GOTO;
+import com.miracle.base.network.RequestUtil;
 import com.miracle.base.network.ZClient;
+import com.miracle.base.network.ZPageLoadCallback;
+import com.miracle.base.network.ZResponse;
 import com.miracle.databinding.FragmentHotpostBinding;
 import com.miracle.sport.SportService;
 import com.miracle.sport.community.activity.CommunityActivity;
-import com.miracle.sport.community.activity.PostDetailActivity;
 import com.miracle.sport.community.adapter.PostListAdapter;
+import com.miracle.sport.community.bean.PostBean;
+
+import java.util.List;
 
 /**
  * Created by Michael on 2018/10/29 14:07 (星期一)
@@ -21,7 +25,7 @@ public class LatestPostFragment extends BaseFragment<FragmentHotpostBinding> {
 
 
     private PostListAdapter mAdapter;
-    private PageLoadCallback callBack;
+    private ZPageLoadCallback callBack;
     private Integer circleId;
 
     private boolean isCommunityActivity;
@@ -43,12 +47,14 @@ public class LatestPostFragment extends BaseFragment<FragmentHotpostBinding> {
     }
 
     private void initCallback() {
-        callBack = new PageLoadCallback(mAdapter, binding.recyclerView) {
+        callBack = new ZPageLoadCallback<ZResponse<List<PostBean>>>(mAdapter, binding.recyclerView) {
             @Override
             public void requestAction(int page, int pageSize) {
-                ZClient.getService(SportService.class).getPostList(null, circleId, page, pageSize).enqueue(callBack);
+                RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getPostList(null, circleId, page, pageSize), this);
             }
         };
+        callBack.setCachKey("LatestPostFragment");
+
         if (isCommunityActivity) {
             callBack.setSwipeRefreshLayout(((CommunityActivity) getActivity()).getSwipeRefreshLayout());
         } else {
@@ -61,7 +67,7 @@ public class LatestPostFragment extends BaseFragment<FragmentHotpostBinding> {
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent(mContext, PostDetailActivity.class).putExtra("id", mAdapter.getItem(position).getId()));
+                GOTO.PostDetailActivity(getActivity(), mAdapter.getItem(position).getId());
             }
         });
     }
