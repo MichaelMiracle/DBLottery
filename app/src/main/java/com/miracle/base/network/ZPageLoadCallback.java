@@ -51,6 +51,10 @@ public abstract class ZPageLoadCallback<T> extends ZCallback<T> implements Swipe
         return pageSize;
     }
 
+    public void setPage(int page) {
+        this.page = page;
+    }
+
     /**
      * 自定义每页请求的数量
      *

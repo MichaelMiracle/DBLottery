@@ -95,6 +95,7 @@ dependencies {
     // ---DB
     implementation 'org.litepal.android:core:1.6.1'
     implementation project(':marqueelibrary')
+    compile project(path: ':boommenu')
 }
 // ADD THIS AT THE BOTTOM
 apply plugin: 'com.google.gms.google-services'

@@ -7,6 +7,7 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.constraint.Placeholder;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.RelativeLayout;
 import com.miracle.R;
 import com.miracle.base.network.INetStatusUI;
 import com.miracle.base.util.CommonUtils;
+import com.miracle.base.view.ZPlaceHolder;
 import com.miracle.databinding.ActivityBaseBinding;
 import com.miracle.michael.lottery.activity.LotteryMainActivity;
 import com.yanzhenjie.sofia.Sofia;
@@ -46,8 +48,10 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
         mBaseBinding.placeHolder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mBaseBinding.placeHolder.setLoading();
-                loadData();
+                if(mBaseBinding.placeHolder.getStatus() != ZPlaceHolder.STATUS_LOADING) {
+                    mBaseBinding.placeHolder.setLoading();
+                    loadData();
+                }
             }
         });
         //设置状态栏颜色

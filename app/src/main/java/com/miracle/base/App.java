@@ -29,6 +29,8 @@ import com.miracle.base.util.ZDisplayer;
 import com.miracle.base.util.sqlite.SQLiteKey;
 import com.miracle.base.util.sqlite.SQLiteUtil;
 
+import org.litepal.LitePal;
+
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Stack;
@@ -182,6 +184,11 @@ public class App extends Application {
             }
         });
         initTypeFace();
+        initLitePalDB();
+    }
+
+    public void initLitePalDB(){
+        LitePal.initialize(this);
     }
 
 

@@ -14,6 +14,7 @@
         <com.miracle.base.view.ZPlaceHolder
             android:id="@+id/placeHolder"
             android:layout_width="match_parent"
+            android:visibility="gone"
             android:layout_height="match_parent" />
 
         <LinearLayout
@@ -21,7 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
     </LinearLayout>
 </layout>

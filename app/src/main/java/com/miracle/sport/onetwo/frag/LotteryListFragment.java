@@ -24,7 +24,6 @@ public class LotteryListFragment extends BaseFragment<ActivityLotteryDetailBindi
     LotteryCategoryListAdapter mAdapter;
     ZPageLoadCallback<ZResponse<List<LotteryCatListItem>>> callback;
 
-
     public void setShowSingle(boolean isLoadSingle){
         this.isLoadSingle = isLoadSingle;
         if(mAdapter != null)
@@ -57,6 +56,11 @@ public class LotteryListFragment extends BaseFragment<ActivityLotteryDetailBindi
         return lotteryCatData;
     }
 
+    public void clearData(){
+        mAdapter.getData().clear();
+        callback.setPage(1);
+    }
+
     public void setLotteryCatData(LotteryCatTitleItem lotteryCatData) {
         this.lotteryCatData = lotteryCatData;
         mAdapter.setShowSingle(isLoadSingle);
@@ -81,10 +85,10 @@ public class LotteryListFragment extends BaseFragment<ActivityLotteryDetailBindi
                 if(isLoadSingle){
                     binding.swipeRefreshLayout.setEnabled(false);
                 }else{
-                if (mAdapter.getData() != null && mAdapter.getData().size() > 0)
-                    setUIStatus(ShowStat.NORMAL);
-                else
-                    setUIStatus(ShowStat.NODATA);
+//                    if (mAdapter.getData() != null && mAdapter.getData().size() > 0)
+//                        setUIStatus(ShowStat.NORMAL);
+//                    else
+//                        setUIStatus(ShowStat.NODATA);
                 }
             }
         };

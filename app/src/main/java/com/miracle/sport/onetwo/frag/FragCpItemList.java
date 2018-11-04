@@ -1,6 +1,7 @@
 package com.miracle.sport.onetwo.frag;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
@@ -16,9 +17,11 @@ import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZPageLoadCallback;
 import com.miracle.base.util.ContextHolder;
 import com.miracle.databinding.FragmentCategoryDetailBinding;
+import com.miracle.sport.home.activity.SimpleWebCommentActivity;
 import com.miracle.sport.onetwo.adapter.CpListItemAdapter;
 import com.miracle.sport.onetwo.inter.CallBackListener;
 import com.miracle.sport.onetwo.netbean.CPServer;
+import com.miracle.sport.onetwo.netbean.CpListItem;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
@@ -35,7 +38,7 @@ public class FragCpItemList extends com.miracle.base.BaseFragment<FragmentCatego
     public CpListItemAdapter mAdapter;
     public ZPageLoadCallback callBack;
     private com.youth.banner.Banner banner;
-    boolean showBanner = true;
+    public boolean showBanner = true;
     public String reqKey = "wycp";
 
     public CallBackListener callBackListener;
@@ -71,6 +74,7 @@ public class FragCpItemList extends com.miracle.base.BaseFragment<FragmentCatego
         //FootNewsPostActivity
 //        binding.tvCategoryTitle.setText(R.string.main_title_1);
 
+        setShowBanner(showBanner);
         initCallback();
         loadData();
     }
@@ -171,15 +175,18 @@ public class FragCpItemList extends com.miracle.base.BaseFragment<FragmentCatego
         if (position > adapter.getData().size())
             return;
 
-//        Object o = adapter.getData().get(position);
-//        if (o instanceof CpListItem) {
-//            CpListItem pd = (CpListItem) o;
-//            if (pd.getId() != 0) {
+        Object o = adapter.getData().get(position);
+        if (o instanceof CpListItem) {
+            CpListItem pd = (CpListItem) o;
+            if (pd.getId() != 0) {
 //                Intent pdAct = new Intent(getActivity(), FootNewsPostActivity.class);
 //                pdAct.putExtra(FootNewsPostActivity.EXTRA_KEY_POSTID, pd.getId());
 //                startActivity(pdAct);
-//            }
-//        }
+                Intent pdAct = new Intent(getActivity(), SimpleWebCommentActivity.class);
+                pdAct.putExtra("id", pd.getId());
+                startActivity(pdAct);
+            }
+        }
     }
 
     @Override

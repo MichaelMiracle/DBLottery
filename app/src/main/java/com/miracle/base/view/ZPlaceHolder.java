@@ -15,6 +15,10 @@ import com.miracle.databinding.ZPlaceholderBinding;
  */
 public class ZPlaceHolder extends LinearLayout {
     private ZPlaceholderBinding binding;
+    public static final int STATUS_LOADING = 1;
+    public static final int STATUS_EMPTY = 2;
+    public static final int STATUS_ERR = 3;
+    private int status = STATUS_LOADING;
 
     public ZPlaceHolder(Context context) {
         this(context, null);
@@ -29,18 +33,24 @@ public class ZPlaceHolder extends LinearLayout {
         binding.progressBar.setVisibility(VISIBLE);
         binding.ivEmpty.setVisibility(GONE);
         binding.tvMessage.setText("加载中...");
+        status = STATUS_LOADING;
     }
 
     public void setEmpty() {
         binding.progressBar.setVisibility(GONE);
         binding.ivEmpty.setVisibility(VISIBLE);
         binding.tvMessage.setText("暂无数据，点击重试");
+        status = STATUS_EMPTY;
     }
 
     public void setError() {
         binding.progressBar.setVisibility(GONE);
         binding.ivEmpty.setVisibility(VISIBLE);
         binding.tvMessage.setText("加载失败，点击重试");
+        status = STATUS_ERR;
     }
 
+    public int getStatus() {
+        return status;
+    }
 }

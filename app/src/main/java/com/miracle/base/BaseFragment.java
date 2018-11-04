@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,7 +21,11 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment i
     public Context mContext;
     public B binding;
     public FragmentBaseBinding mBaseBinding;
+
+//    public View.OnClickListener leftListener;
+    public String title = "";
     public boolean isShowTitle;
+    public boolean isShowBack = true;
 
     public enum ShowStat{
         LOADING,
@@ -36,17 +41,21 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment i
             case LOADING:
                 mBaseBinding.placeHolder.setLoading();
                 mBaseBinding.placeHolder.setVisibility(View.VISIBLE);
+                mBaseBinding.baseFragContainer.setVisibility(View.VISIBLE);
                 break;
             case NODATA:
                 mBaseBinding.placeHolder.setEmpty();
                 mBaseBinding.placeHolder.setVisibility(View.VISIBLE);
+                mBaseBinding.baseFragContainer.setVisibility(View.VISIBLE);
                 break;
             case ERR:
                 mBaseBinding.placeHolder.setError();
                 mBaseBinding.placeHolder.setVisibility(View.VISIBLE);
+                mBaseBinding.baseFragContainer.setVisibility(View.GONE);
                 break;
             case NORMAL:
                 mBaseBinding.placeHolder.setVisibility(View.GONE);
+                mBaseBinding.baseFragContainer.setVisibility(View.VISIBLE);
                 break;
         }
     }
@@ -82,6 +91,7 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment i
             binding = DataBindingUtil.inflate(getActivity().getLayoutInflater(), getLayout(), null, false);
             mBaseBinding.baseFragContainer.addView(binding.getRoot());
 
+            initTitleBar();
             initUIStatus();
 
             initView();
@@ -115,6 +125,20 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment i
 
     }
 
+    public void initTitleBar(){
+//        setLeftClickListener(leftListener);
+        if(!TextUtils.isEmpty(title))
+            setTitle(title);
+        setShowTitle(isShowTitle);
+        setShowTitleBack(isShowBack);
+    }
+
+//    public void setLeftClickListener(View.OnClickListener listener) {
+//        leftListener = listener;
+//        if(mBaseBinding != null && mBaseBinding.titlebar != null && leftListener != null)
+//            mBaseBinding.titlebar.setLeftClickListener(listener);
+//    }
+
     public void setShowTitle(boolean isShowTitle){
         this.isShowTitle = isShowTitle;
         if(mBaseBinding != null && mBaseBinding.titlebarFrag != null){
@@ -122,15 +146,27 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment i
                 mBaseBinding.getRoot().findViewById(R.id.titlebar_frag).setVisibility(View.VISIBLE);
             else
                 mBaseBinding.getRoot().findViewById(R.id.titlebar_frag).setVisibility(View.GONE);
-
         }
     }
 
+    public void showTitle(){
+        setShowTitle(true);
+    }
+
     public void setTitle(String title){
-        ((TitleBar)mBaseBinding.getRoot().findViewById(R.id.titlebar_frag)).setTitle(title);
+        this.title = title;
+        if(mBaseBinding != null) {
+            ((TitleBar) mBaseBinding.getRoot().findViewById(R.id.titlebar_frag)).setTitle(title);
+        }
     }
 
     public TitleBar getTitleBar(){
         return ((TitleBar)mBaseBinding.getRoot().findViewById(R.id.titlebar_frag));
+    }
+
+    public void setShowTitleBack(boolean isShow){
+        isShowBack = isShow;
+        if(mBaseBinding != null)
+            ((TitleBar)mBaseBinding.getRoot().findViewById(R.id.titlebar_frag)).showLeft(isShow);
     }
 }

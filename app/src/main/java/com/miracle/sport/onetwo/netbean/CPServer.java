@@ -33,6 +33,7 @@ public interface CPServer {
     ////////////////////////////////
 
     //彩票分类接口
+    @Headers({"BaseUrl:zh"})
     @POST("home/caipiao/index")
     Call<ZResponse<List<LotteryCatTitleItem>>> lotteryCategory();
 
@@ -42,6 +43,7 @@ public interface CPServer {
     Call<ZResponse<List<LotteryCatListItem>>> lotteryCategoryList(@Query("page") int page, @Query("pageSize") int limit, @Query("class_id") int class_id);
 
     //列表
+    @Headers({"BaseUrl:zh"})
     @POST("home/index/cp_list")
     Call<ZResponse<List<CpTitleItem>>> cpTitleList();
 

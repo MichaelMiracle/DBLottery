@@ -22,15 +22,20 @@
                 app:TitleBar_Title="" />
 
             <FrameLayout
-                android:id="@+id/baseFragContainer"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-        </LinearLayout>
+                android:layout_height="match_parent">
+                <FrameLayout
+                    android:id="@+id/baseFragContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
 
-        <com.miracle.base.view.ZPlaceHolder
-            android:id="@+id/placeHolder"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+                <!-- 點擊範圍不覆蓋titlebar -->
+                <com.miracle.base.view.ZPlaceHolder
+                    android:id="@+id/placeHolder"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </FrameLayout>
+        </LinearLayout>
 
     </FrameLayout>
 

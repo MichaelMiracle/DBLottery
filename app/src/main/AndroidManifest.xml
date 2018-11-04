@@ -70,6 +70,16 @@
 
         </activity>
         <activity
+            android:name="com.miracle.sport.onetwo.act.OneFragActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+            android:name="com.miracle.sport.onetwo.act.ChannelSelectActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+        <activity
             android:name=".michael.football.activity.FootballClubDetailActivity"
             android:screenOrientation="portrait" />
         <activity

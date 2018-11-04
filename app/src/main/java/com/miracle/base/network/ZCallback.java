@@ -105,18 +105,20 @@ public abstract class ZCallback<T> implements Callback<T> {
     }
 
     public void handlePlaceHolder(int code) {
-        if (mBaseActivity == null) return;
-        if (code == 200) {
-            mBaseActivity.showContent();
-        } else {
-            mBaseActivity.showEmpty();
+        if (mBaseActivity != null){
+            if (code == 200) {
+                mBaseActivity.showContent();
+            } else {
+                mBaseActivity.showEmpty();
+            }
         }
 
-        if (mNetStatusUI == null) return;
-        if (code == 200) {
-            mNetStatusUI.showContent();
-        } else {
-            mNetStatusUI.showEmpty();
+        if (mNetStatusUI != null) {
+            if (code == 200) {
+                mNetStatusUI.showContent();
+            } else {
+                mNetStatusUI.showEmpty();
+            }
         }
     }
 

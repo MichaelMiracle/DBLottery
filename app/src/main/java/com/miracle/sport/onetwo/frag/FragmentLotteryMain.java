@@ -1,6 +1,7 @@
 package com.miracle.sport.onetwo.frag;
 
 import android.content.Context;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextSwitcher;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -18,12 +20,15 @@ import com.miracle.base.im.ui.MainActivity;
 import com.miracle.base.util.ContextHolder;
 import com.miracle.base.view.CircleImageView;
 import com.miracle.databinding.FragmentCpMainTopBinding;
+import com.miracle.sport.onetwo.act.OneFragActivity;
 import com.miracle.sport.onetwo.inter.CallBackListener;
 import com.miracle.sport.onetwo.netbean.CpListItem;
 import com.miracle.sport.onetwo.netbean.LotteryCatTitleItem;
+import com.miracle.sport.onetwo.util.RandUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,7 +56,7 @@ public class FragmentLotteryMain extends BaseFragment<FragmentCpMainTopBinding>{
         topBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(), R.layout.fragment_cp_main_top, null, false);
         initBanner();
         initMard();
-//        initHSuserBar();
+        initHSuserBar();
         initTicket();
         initButtons();
 
@@ -87,37 +92,44 @@ public class FragmentLotteryMain extends BaseFragment<FragmentCpMainTopBinding>{
     }
 
     private void initButtons() {
-        View.OnClickListener subTitleClick = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(getActivity() instanceof MainActivity)
-                {
-                    MainActivity mainActivity = (MainActivity) getActivity();
-//                    mainActivity.switchTabIndex(2);
-                }
-            }
-        };
-        topBinding.mainFragMore1.setOnClickListener(subTitleClick);
-        topBinding.mainFragMore2.setOnClickListener(subTitleClick);
+//        View.OnClickListener subTitleClick = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(getActivity() instanceof MainActivity)
+//                {
+//                    MainActivity mainActivity = (MainActivity) getActivity();
+////                    mainActivity.switchTabIndex(2);
+//                }
+//            }
+//        };
+//        topBinding.mainFragMore1.setOnClickListener(subTitleClick);
+//        topBinding.mainFragMore2.setOnClickListener(subTitleClick);
 
         //
         topBinding.getRoot().findViewById(R.id.main_farg_tryrand).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity mainActivity = (MainActivity) getActivity();
-//                mainActivity.switchTabIndex(1);
+                Intent intent = new Intent(getActivity(),OneFragActivity.class);
+                intent.putExtra(OneFragActivity.EXTRA_KEY_FRAG_CLASS, RandomNumFragment.class);
+                startActivity(intent);
             }
         });
 
-        //
         topBinding.getRoot().findViewById(R.id.main_frag_more3).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getActivity() instanceof MainActivity)
-                {
-                    MainActivity mainActivity = (MainActivity) getActivity();
-//                    mainActivity.startMenuAct(MainActivity.M_2);
-                }
+                Intent intent = new Intent(getActivity(), OneFragActivity.class);
+                intent.putExtra(OneFragActivity.EXTRA_KEY_FRAG_CLASS, Fragment1cp.class);
+                startActivity(intent);
+            }
+        });
+
+        topBinding.getRoot().findViewById(R.id.main_frag_more2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), OneFragActivity.class);
+                intent.putExtra(OneFragActivity.EXTRA_KEY_FRAG_CLASS, Fragment2cpChannelPager.class);
+                startActivity(intent);
             }
         });
     }
@@ -142,29 +154,29 @@ public class FragmentLotteryMain extends BaseFragment<FragmentCpMainTopBinding>{
         LinearLayout main_frag_hs_ll = topBinding.getRoot().findViewById(R.id.main_frag_hs_ll);
         List<Bitmap> bitmaps = null;
         List<String> userName = null;
-//        try {
-//            bitmaps = RandUtils.randImgs(mContext,7);
-//            userName = RandUtils.randUserName(mContext, 7);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try {
+            bitmaps = RandUtils.randImgs(mContext,7);
+            userName = RandUtils.randUserName(mContext, 7);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-        View.OnClickListener onClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if(getActivity() != null && getActivity() instanceof MainActivity)
-                {
-                    MainActivity mainActivity = (MainActivity) getActivity();
+//        View.OnClickListener onClickListener = new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(getActivity() != null && getActivity() instanceof MainActivity)
+//                {
+//                    MainActivity mainActivity = (MainActivity) getActivity();
 //                    mainActivity.showChatAct(getActivity());
-                }
-            }
-        };
+//                }
+//            }
+//        };
         for(int i = 0; i < bitmaps.size(); i++){
             View view = getLayoutInflater().inflate(R.layout.main_frag_hs1_item, null);
             CircleImageView iv = (CircleImageView)view.findViewById(R.id.main_farg_hs1_iv);
             ((TextView)view.findViewById(R.id.main_farg_hs1_tv1)).setText(userName.get(i));
             iv.setImageBitmap(bitmaps.get(i));
-            view.setOnClickListener(onClickListener);
+//            view.setOnClickListener(onClickListener);
             main_frag_hs_ll.addView(view);
         }
     }
@@ -173,8 +185,8 @@ public class FragmentLotteryMain extends BaseFragment<FragmentCpMainTopBinding>{
         Mardatas.add("新中奖号码已更新");
 //        Mardatas.add("评论员:["+RandUtils.randUserName(mContext,1).get(0)+"]预测帝再次预测到90%的中奖号码");
         SimpleMF<String> marqueeFactory2 = new SimpleMF(mContext);
-        marqueeFactory2.setData(Mardatas);
         topBinding.marqueeView3.setMarqueeFactory(marqueeFactory2);
+        marqueeFactory2.setData(Mardatas);
         topBinding.marqueeView3.startFlipping();
     }
 
