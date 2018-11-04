@@ -25,7 +25,7 @@ public class PostListAdapter extends RecyclerViewAdapter<PostBean> {
 
     public PostListAdapter() {
         super(R.layout.item_post);
-        params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
+        params = new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
         params.setMargins(2, 0, 2, 0);
         colorLike = CommonUtils.getColor(R.color.red_ball);
         colorDislike = CommonUtils.getColor(R.color.main_color_grey);
@@ -54,7 +54,8 @@ public class PostListAdapter extends RecyclerViewAdapter<PostBean> {
             for (String url : thumbs) {
                 ImageView imageView = new ImageView(ContextHolder.getContext());
                 imageView.setLayoutParams(params);
-                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                imageView.setAdjustViewBounds(true);
+                imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 GlideApp.with(ContextHolder.getContext()).load(url)
                         .placeholder(R.mipmap.defaule_img)
                         .error(R.mipmap.empty)
