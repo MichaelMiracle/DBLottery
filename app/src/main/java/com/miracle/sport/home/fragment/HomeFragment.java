@@ -48,7 +48,7 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements O
     private List<Channel> mSelectedChannels = new ArrayList<>();
     private List<Channel> mUnSelectedChannels = new ArrayList<Channel>();
     private List<ChannerlKey> mNetChannels = new ArrayList<>();
-    private List<ChannelHomeFragment> mChannelFragments = new ArrayList<>();
+    private List<BaseFragment> mChannelFragments = new ArrayList<>();
     private ChannelPagerAdapter mChannelPagerAdapter;
     private Gson mGson = new Gson();
     private String[] mChannelCodes;
@@ -252,13 +252,26 @@ public class HomeFragment extends BaseFragment<FragmentHomeBinding> implements O
     private void initChannelFragments() {
 //        KLog.e("initChannelFragments");
 //        mChannelCodes = m;
-        for (Channel channel : mSelectedChannels) {
-            ChannelHomeFragment newsFragment = new ChannelHomeFragment();
-            Bundle bundle = new Bundle();
-            bundle.putString(Constant.CHANNEL_CODE, channel.id);
+//        for (Channel channel : mSelectedChannels) {
+        for (int i=0; i<mSelectedChannels.size();i++) {
+            if(0==i){
+                ChannelHomeFristFragment newsFragment = new ChannelHomeFristFragment();
+                Bundle bundle = new Bundle();
+//            bundle.putString(Constant.CHANNEL_CODE, channel.id);
+                bundle.putString(Constant.CHANNEL_CODE, mSelectedChannels.get(i).id);
 //            bundle.putBoolean(Constant.IS_VIDEO_LIST, channel.id.equals(mChannelCodes[1]));//是否是视频列表页面,根据判断频道号是否是视频
-            newsFragment.setArguments(bundle);
-            mChannelFragments.add(newsFragment);//添加到集合中
+                newsFragment.setArguments(bundle);
+                mChannelFragments.add(newsFragment);//添加到集合中
+            }else{
+                ChannelHomeFragment newsFragment  = new ChannelHomeFragment();
+                Bundle bundle = new Bundle();
+//            bundle.putString(Constant.CHANNEL_CODE, channel.id);
+                bundle.putString(Constant.CHANNEL_CODE, mSelectedChannels.get(i).id);
+//            bundle.putBoolean(Constant.IS_VIDEO_LIST, channel.id.equals(mChannelCodes[1]));//是否是视频列表页面,根据判断频道号是否是视频
+                newsFragment.setArguments(bundle);
+                mChannelFragments.add(newsFragment);//添加到集合中
+            }
+
         }
     }
 

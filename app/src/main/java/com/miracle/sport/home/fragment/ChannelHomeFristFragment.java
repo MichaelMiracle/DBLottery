@@ -5,40 +5,26 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.lzy.okgo.OkGo;
-import com.lzy.okgo.cache.CacheMode;
-import com.lzy.okgo.model.Response;
 import com.miracle.R;
 import com.miracle.base.BaseFragment;
 import com.miracle.base.Constant;
-import com.miracle.base.http.Common.EncryptCallback;
-import com.miracle.base.http.model.bean.ResultForJob;
-import com.miracle.base.network.PageLoadDataCallback;
 import com.miracle.base.network.RequestUtil;
 import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZPageLoadCallback;
-import com.miracle.base.network.ZPageLoadDataCallback;
 import com.miracle.base.network.ZResponse;
-import com.miracle.base.util.ToastUtil;
 import com.miracle.databinding.FragmentCategoryHomeBinding;
 import com.miracle.sport.SportService;
-import com.miracle.sport.common.constant.CacheContents;
-import com.miracle.sport.common.constant.UrlConstants;
 import com.miracle.sport.home.activity.SimpleWebCommentActivity;
 import com.miracle.sport.home.adapter.HomeListAdapter;
 import com.miracle.sport.home.bean.Football;
-import com.miracle.sport.home.bean.HomeBean;
 
-import java.util.HashMap;
 import java.util.List;
-
-import okhttp3.CacheControl;
 
 /**
  * Created by Administrator on 2018/3/5.
  */
 
-public class ChannelHomeFragment extends BaseFragment<FragmentCategoryHomeBinding>{
+public class ChannelHomeFristFragment extends BaseFragment<FragmentCategoryHomeBinding>{
 
 
     private HomeListAdapter mAdapter;
@@ -78,6 +64,7 @@ public class ChannelHomeFragment extends BaseFragment<FragmentCategoryHomeBindin
 //        binding.recyclerView.setHasFixedSize(true);
         binding.tvCategoryTitle.setText("社会");
         initCallback();
+        callBack.onRefresh();
 
     }
 

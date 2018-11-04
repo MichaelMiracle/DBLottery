@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.miracle.base.BaseFragment;
 import com.miracle.sport.home.bean.Channel;
 import com.miracle.sport.home.fragment.ChannelHomeFragment;
 
@@ -19,12 +20,12 @@ import java.util.List;
 
 public class ChannelPagerAdapter extends FragmentStatePagerAdapter {
 
-    private List<ChannelHomeFragment> mFragments;
+    private List<BaseFragment> mFragments;
     private List<Channel> mChannels;
 
-    public ChannelPagerAdapter(List<ChannelHomeFragment> fragmentList, List<Channel> channelList, FragmentManager fm) {
+    public ChannelPagerAdapter(List<BaseFragment> fragmentList, List<Channel> channelList, FragmentManager fm) {
         super(fm);
-        mFragments = fragmentList != null ? fragmentList : new ArrayList<ChannelHomeFragment>();
+        mFragments = fragmentList != null ? fragmentList : new ArrayList<BaseFragment>();
         mChannels = channelList != null ? channelList : new ArrayList<Channel>();
 
     }
