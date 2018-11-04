@@ -44,6 +44,7 @@ public class ChatActivity extends BaseActivity<EmActivityChatBinding> {
     @Override
     public void initView() {
         hideTitle();
+        showContent();
         activityInstance = this;
         //get user id or group id
         toChatUsername = getIntent().getExtras().getString("userId");
