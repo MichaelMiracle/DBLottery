@@ -28,6 +28,7 @@ public class DDZMyPostActivity extends BaseActivity<SwipeRecyclerBinding> {
     public void initView() {
         showLoadingDialog();
         setTitle("我的发帖");
+        showContent();
         binding.recyclerView.setAdapter(mAdapter = new PostListAdapter());
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         initCallback();

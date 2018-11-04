@@ -21,6 +21,7 @@ public class AboutUsActivity extends BaseActivity<ActivityAboutUsBinding> {
     @Override
     public void initView() {
         setTitle("关于我们");
+        showContent();
         binding.tvAppName.setText(CommonUtils.getAppName(mContext));
         binding.tvVersion.setText(MessageFormat.format("版本号：{0}", CommonUtils.getVersionName(mContext)));
     }

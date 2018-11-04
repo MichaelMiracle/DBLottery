@@ -34,6 +34,7 @@ public class DDZMyCircleActivity extends BaseActivity<SwipeRecyclerBinding> {
     @Override
     public void initView() {
         setTitle("我的圈子");
+        showContent();
         setRight(CommonUtils.getString(R.string.icon_add), CommonUtils.getColor(R.color.white));
         setRightClickListener(new View.OnClickListener() {
             @Override
@@ -66,6 +67,7 @@ public class DDZMyCircleActivity extends BaseActivity<SwipeRecyclerBinding> {
                 startActivity(new Intent(mContext, CommunityActivity.class).putExtra("MyCircle", mAdapter.getItem(position)));
             }
         });
+
     }
 
     @Override

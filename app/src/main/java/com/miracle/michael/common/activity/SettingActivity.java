@@ -40,6 +40,7 @@ public class SettingActivity extends BaseActivity<ActivitySettingBinding> {
     @Override
     public void initView() {
         setTitle("设置");
+        showContent();
         binding.swAutoLogin.setChecked(autoLogin = SQLiteUtil.getBoolean(SQLiteKey.AUTOLOGIN + CommonUtils.getUserId()));
         binding.swFingerprintLogin.setChecked(fingerprintLogin = SQLiteUtil.getBoolean(SQLiteKey.FINGERPRINT_LOGIN + CommonUtils.getUserId()));
         handler = new SHandler(this);

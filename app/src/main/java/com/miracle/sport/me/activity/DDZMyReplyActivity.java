@@ -27,6 +27,7 @@ public class DDZMyReplyActivity extends BaseActivity<SwipeRecyclerBinding> {
     @Override
     public void initView() {
         setTitle("我的回帖");
+        showContent();
         binding.recyclerView.setAdapter(mAdapter = new LotteryMyCollectionAdapter(mContext));
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         initCallback();
