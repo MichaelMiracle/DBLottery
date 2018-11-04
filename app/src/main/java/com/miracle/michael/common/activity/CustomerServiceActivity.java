@@ -29,6 +29,7 @@ public class CustomerServiceActivity extends BaseActivity<ActivityCustomerServic
     @Override
     public void initView() {
         setTitle("联系客服");
+        showContent();
         reqData();
     }
 
