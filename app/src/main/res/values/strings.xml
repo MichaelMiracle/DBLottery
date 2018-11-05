@@ -2,10 +2,10 @@
 
     <!--inconfont-->
     <string name="icon_back">&#xe625;</string>
-    <string name="icon_tab_home">&#xe635;</string>
+    <string name="icon_tab_home">&#xe6d1;</string>
     <string name="icon_tab_category">&#xe636;</string>
     <string name="icon_tab_auction">&#xeef4;</string>
-    <string name="icon_tab_me">&#xe634;</string>
+    <string name="icon_tab_me">&#xe921;</string>
     <string name="icon_right_arrow">&#xe631;</string>
     <string name="icon_order_manage">&#xe647;</string>
     <string name="icon_bail_manage">&#xe69d;</string>
@@ -17,7 +17,7 @@
     <string name="icon_contact_customer_service">&#xe60d;</string>
     <string name="icon_qq">&#xe61c;</string>
     <string name="icon_wechat">&#xe600;</string>
-    <string name="icon_chatroom">&#xe60e;</string>
+    <string name="icon_chatroom">&#xe64b;</string>
     <string name="icon_clear_cache">&#xe660;</string>
     <string name="icon_check_update">&#xe601;</string>
     <string name="icon_share">&#xe624;</string>
@@ -33,9 +33,9 @@
     <!--评论-->
     <string name="icon_comment">&#xe643;</string>
     <!--奖杯-->
-    <string name="icon_cup">&#xe604;</string>
+    <string name="icon_cup">&#xe8a9;</string>
     <!--社区-->
-    <string name="icon_community">&#xe603;</string>
+    <string name="icon_community">&#xe60a;</string>
     <!--加号，添加图片-->
     <string name="icon_add">&#xe663;</string>
     <!--删除X-->

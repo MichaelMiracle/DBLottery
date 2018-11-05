@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#F00</color>
-    <color name="colorPrimaryDark">#980100</color>
+    <color name="colorPrimaryDark">#E43B32</color>
     <color name="colorAccent">#FF4081</color>
     <color name="base_activity_bg">#F2F2F2</color>
 
@@ -27,6 +27,7 @@
     <color name="dark_red_pressed">#982020</color>
     <color name="golden_color">#c5996c</color>
     <color name="main_color_grey">#999999</color>
+    <color name="m999999">#999999</color>
     <color name="main_divider_color">#E3E3E3</color>
     <!--<color name="main_text_color">@color/white</color>-->
     <color name="main_text_color">#333333</color>
