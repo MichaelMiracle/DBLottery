@@ -50,7 +50,11 @@ public class LatestPostFragment extends BaseFragment<FragmentHotpostBinding> {
         callBack = new ZPageLoadCallback<ZResponse<List<PostBean>>>(mAdapter, binding.recyclerView) {
             @Override
             public void requestAction(int page, int pageSize) {
-                RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getPostList(null, circleId, page, pageSize), this);
+                if (isCommunityActivity) {
+                    ZClient.getService(SportService.class).getPostList(null, circleId, page, pageSize).enqueue(this);
+                } else {
+                    RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getPostList(null, circleId, page, pageSize), this);
+                }
             }
         };
         callBack.setCachKey("LatestPostFragment");
