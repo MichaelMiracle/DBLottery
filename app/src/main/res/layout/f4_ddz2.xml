@@ -5,9 +5,9 @@
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeLayout"
-        android:background="#fff"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#fff">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -23,134 +23,147 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:TitleBar_LeftText="@string/icon_side_menu"
-                    app:TitleBar_Title="我的" />
-
-                <android.support.v7.widget.CardView
-                    android:layout_marginTop="13dp"
-                    android:layout_marginLeft="13dp"
-                    android:layout_marginRight="13dp"
-                    android:layout_width="match_parent"
-                    app:cardElevation="6dp"
-                    app:cardCornerRadius="6dp"
-                    app:cardBackgroundColor="#e5e5e5"
-                    android:layout_height="76dp">
-
-                    <LinearLayout
-                        android:padding="6dp"
-                        android:id="@+id/llMe"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center_vertical"
-                        >
-
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:orientation="horizontal">
-
-
-                            <RelativeLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent">
-
-                                <com.miracle.base.view.CircleImageView
-                                    android:id="@+id/ivHeadImg"
-                                    android:adjustViewBounds="false"
-                                    android:layout_width="60dp"
-                                    android:layout_height="60dp"
-                                    android:layout_centerInParent="true"
-                                    android:src="@mipmap/default_head" />
-                            </RelativeLayout>
-
-                            <LinearLayout
-                                android:layout_marginLeft="8dp"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="设置昵称"
-                                    android:textColor="#000"
-                                    android:textSize="12sp" />
-
-                                <TextView
-                                    android:id="@+id/tvName"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:ellipsize="end"
-                                    android:gravity="center_horizontal"
-                                    android:maxLines="1"
-                                    android:text="--"
-                                    android:textColor="#ff7200"
-                                    android:textSize="12sp" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <com.miracle.base.view.IconFontTextView
-                            android:id="@+id/bianji_btn"
-                            android:background="@mipmap/bianji_iocn"
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:textColor="@color/white"
-                            android:textSize="22sp" />
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
+                    app:TitleBar_Title="我的"
+                    android:visibility="gone"
+                    />
 
 
                 <LinearLayout
-                    android:layout_marginTop="20dp"
-                    android:orientation="horizontal"
+                    android:id="@+id/llMe"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="match_parent"
+                    android:background="@mipmap/me_backgroud"
+                    android:padding="6dp">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            >
+
+                            <TextView
+                                android:id="@+id/bianji_btn"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:drawableLeft="@mipmap/bianji_iocn"
+                                android:drawablePadding="6dp"
+                                android:padding="10dp"
+                                android:text="编辑"
+                                android:textColor="@color/white" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="1dp"
+                                android:orientation="vertical">
+
+                                <com.miracle.base.view.CircleImageView
+                                    android:id="@+id/ivHeadImg"
+                                    android:layout_width="80dp"
+                                    android:layout_height="80dp"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginTop="10dp"
+                                    android:adjustViewBounds="false"
+                                    android:src="@mipmap/default_head" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="设置昵称"
+                                        android:textColor="#000"
+                                        android:textSize="12sp"
+                                        android:visibility="gone" />
+
+                                    <TextView
+                                        android:id="@+id/tvName"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:ellipsize="end"
+                                        android:gravity="center_horizontal"
+                                        android:maxLines="1"
+                                        android:text="--"
+                                        android:textColor="@color/white"
+                                        android:textSize="16sp" />
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:id="@+id/ibmyPost"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        >
+                        android:orientation="vertical">
+
                         <ImageView
-                            android:src="@mipmap/jiemian001_07"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/jiemian001_07" />
 
                         <TextView
-                            android:text="我的发帖"
-                            android:textSize="12sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
-                            />
+                            android:text="我的发帖"
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ibmyCircle"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        >
+                        android:orientation="vertical">
+
                         <ImageView
-                            android:src="@mipmap/jiemian001_05"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/jiemian001_05" />
 
                         <TextView
-                            android:text="我的圈子"
-                            android:textSize="12sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
-                            />
+                            android:text="我的圈子"
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 
@@ -158,23 +171,22 @@
                     <LinearLayout
                         android:id="@+id/ibBailManage"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        >
+                        android:orientation="vertical">
+
                         <ImageView
-                            android:src="@mipmap/jiemian001_03"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/jiemian001_03" />
 
                         <TextView
-                            android:text="我的收藏"
-                            android:textSize="12sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
-                            />
+                            android:text="我的收藏"
+                            android:textSize="12sp" />
 
                     </LinearLayout>
 
@@ -189,214 +201,205 @@
                         />-->
 
 
-
-
                     <LinearLayout
                         android:id="@+id/ibShare"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        >
+                        android:orientation="vertical">
+
                         <ImageView
-                            android:src="@mipmap/jiemian001_16"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/jiemian001_16" />
 
                         <TextView
-                            android:text="分享"
                             android:layout_width="wrap_content"
-                            android:textSize="12sp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
-                            />
+                            android:text="分享"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
-                    android:layout_height="wrap_content">
+                    android:orientation="horizontal">
 
                     <LinearLayout
                         android:id="@+id/ibSettings"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        >
+                        android:orientation="vertical">
+
                         <ImageView
-                            android:src="@mipmap/jiemian001_17"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/jiemian001_17" />
 
                         <TextView
-                            android:text="@string/text_settings"
                             android:layout_width="wrap_content"
-                            android:textSize="12sp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
-                            />
+                            android:text="@string/text_settings"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ibCustomerService"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        >
+                        android:orientation="vertical">
+
                         <ImageView
-                            android:src="@mipmap/jiemian001_15"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/jiemian001_15" />
 
                         <TextView
-                            android:text="客服"
-                            android:textSize="12sp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
-                            />
+                            android:text="客服"
+                            android:textSize="12sp" />
                     </LinearLayout>
-
 
 
                     <LinearLayout
                         android:id="@+id/ibAboutUs"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center"
-                        android:orientation="vertical"
-                        >
+                        android:orientation="vertical">
+
                         <ImageView
-                            android:src="@mipmap/jiemian001_18"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/jiemian001_18" />
 
                         <TextView
-                            android:text="@string/text_about_us"
                             android:layout_width="wrap_content"
-                            android:textSize="12sp"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
-                            />
+                            android:text="@string/text_about_us"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
 
                     <LinearLayout
-                        android:visibility="invisible"
                         android:id="@+id/ibmyReply"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical"
-                        >
+                        android:visibility="invisible">
+
                         <ImageView
-                            android:src="@mipmap/jiemian001_09"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/jiemian001_09" />
 
                         <TextView
-                            android:text="我的回帖"
                             android:layout_width="wrap_content"
-                            android:textSize="12sp"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:text="我的回帖"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
+                    android:layout_height="54dp"
                     android:layout_marginTop="20dp"
-                    android:layout_height="54dp">
+                    android:orientation="horizontal">
+
                     <LinearLayout
-                        android:visibility="invisible"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical"
-                        >
+                        android:visibility="invisible">
+
                         <com.miracle.base.view.zradiogroup.ZRadioButton
-                            android:visibility="visible"
-                            app:ZRadioButton_Text="赛事分析"
-                            app:ZRadioButton_Icon="@string/icon_order_manage"
                             android:id="@+id/ibOrderManage"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:visibility="visible"
+                            app:ZRadioButton_Icon="@string/icon_order_manage"
                             app:ZRadioButton_IconTextSize="22sp"
-                            app:ZRadioButton_TextSize="12sp"
-                            >
-                        </com.miracle.base.view.zradiogroup.ZRadioButton>
+                            app:ZRadioButton_Text="赛事分析"
+                            app:ZRadioButton_TextSize="12sp"></com.miracle.base.view.zradiogroup.ZRadioButton>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:visibility="invisible"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical"
-                        >
+                        android:visibility="invisible">
 
                         <com.miracle.base.view.IconFontTextView
                             android:id="@+id/ibGroupChat"
-                            app:ZRadioButton_Text="聊天室"
-                            app:ZRadioButton_Icon="@string/icon_chatroom"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            app:ZRadioButton_Icon="@string/icon_chatroom"
                             app:ZRadioButton_IconTextSize="22sp"
-                            app:ZRadioButton_TextSize="12sp"
-                            />
+                            app:ZRadioButton_Text="聊天室"
+                            app:ZRadioButton_TextSize="12sp" />
 
                     </LinearLayout>
+
                     <LinearLayout
-                        android:visibility="invisible"
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical"
-                        >
+                        android:visibility="invisible">
+
                         <ImageView
-                            android:src="@mipmap/jiemian001_17"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/jiemian001_17" />
 
                         <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:text="@string/text_settings"
-                            android:layout_width="wrap_content"
-                            android:textSize="12sp"
-                            android:layout_height="wrap_content" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="0dp"
-                        android:visibility="invisible"
-                        android:layout_weight="1"
                         android:layout_height="match_parent"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical"
-                        >
+                        android:visibility="invisible">
+
                         <ImageView
-                            android:src="@mipmap/jiemian001_18"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:src="@mipmap/jiemian001_18" />
 
                         <TextView
-                            android:text="@string/text_about_us"
                             android:layout_width="wrap_content"
-                            android:textSize="12sp"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:text="@string/text_about_us"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                 </LinearLayout>

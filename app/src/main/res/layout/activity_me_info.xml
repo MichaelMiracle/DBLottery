@@ -55,6 +55,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            app:ItemBar_Left_Icon="修改密码" />
+            app:ItemBar_Left_Icon="修改密码"
+            android:visibility="gone"
+            />
     </LinearLayout>
 </layout>
