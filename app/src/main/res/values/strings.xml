@@ -46,6 +46,10 @@
     <string name="icon_select_on">&#xe63d;</string>
     <!--发送-->
     <string name="icon_send">&#xe621;</string>
+    <!--空心-->
+    <string name="icon_empty_heart">&#xe711;</string>
+    <!--实心-->
+    <string name="icon_full_heart">&#xe64c;</string>
 
 
     <!--登录 注册-->

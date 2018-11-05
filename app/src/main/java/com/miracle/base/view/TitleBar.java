@@ -82,6 +82,11 @@ public class TitleBar extends LinearLayout {
                 case R.styleable.TitleBar_TitleBar_RightText:
                     binding.tvRight.setText(ta.getString(attr));
                     break;
+                case R.styleable.TitleBar_TitleBar_RightBackground:
+                    binding.ivRight.setBackground(ta.getDrawable(attr));
+                    binding.ivRight.setVisibility(VISIBLE);
+                    binding.tvRight.setVisibility(GONE);
+                    break;
                 case R.styleable.TitleBar_TitleBar_RightTextColor:
                     binding.tvRight.setTextColor(ta.getColor(attr, Color.BLACK));
                     break;

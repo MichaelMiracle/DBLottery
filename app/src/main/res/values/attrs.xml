@@ -41,6 +41,7 @@
         <attr name="TitleBar_Title" format="string|reference" />
         <attr name="TitleBar_LeftText" format="string|reference" />
         <attr name="TitleBar_RightText" format="string|reference" />
+        <attr name="TitleBar_RightBackground" format="reference" />
         <attr name="TitleBar_Background" format="reference" />
         <attr name="TitleBar_BackgroundColor" format="color" />
         <attr name="TitleBar_BackgroundResource" format="reference" />

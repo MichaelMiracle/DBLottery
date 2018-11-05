@@ -38,17 +38,22 @@
             android:id="@+id/rlRight"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:gravity="center"
             android:minWidth="48dp">
 
             <com.miracle.base.view.IconFontTextView
                 android:id="@+id/tv_right"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
+                android:layout_centerInParent="true"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
+            <ImageView
+                android:id="@+id/ivRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone" />
         </RelativeLayout>
 
     </LinearLayout>
