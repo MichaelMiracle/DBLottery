@@ -28,7 +28,9 @@
                         android:layout_height="wrap_content"
                         android:paddingTop="10dp"
                         android:paddingBottom="10dp"
-                        android:background="@drawable/bottom_line">
+                        android:background="@drawable/bottom_line"
+                        android:orientation="vertical"
+                        >
 
 
                         <RelativeLayout
@@ -49,18 +51,35 @@
 
                         <TextView
                             android:id="@+id/tvTitle"
-                            android:layout_width="0dp"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:textColor="@color/main_text_color"
                             android:paddingLeft="6dp"
-                            android:textSize="18sp" />
+                            android:paddingRight="6dp"
+                            android:textSize="18sp"
+                            android:textStyle="bold"
+                            />
+
+                        <TextView
+                            android:id="@+id/tv_time"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:textColor="@color/m666666"
+                            android:paddingLeft="6dp"
+                            android:textSize="14sp"
+                            android:gravity="left"
+                            android:paddingTop="6dp"
+                            />
 
                         <RelativeLayout
                             android:id="@+id/rlRight"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:minWidth="48dp">
+                            android:minWidth="48dp"
+                            android:visibility="gone"
+                            >
 
                             <CheckBox
                                 android:id="@+id/cbRight"

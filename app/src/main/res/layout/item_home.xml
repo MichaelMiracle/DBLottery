@@ -133,39 +133,14 @@
 
     </LinearLayout>
 
+
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:gravity="right"
         android:orientation="horizontal"
         >
-
-        <TextView
-            android:id="@+id/im_comment_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingLeft="1dp"
-            android:text="6"
-            android:drawableLeft="@mipmap/message_open"
-            android:drawablePadding="5dp"
-            android:paddingRight="16dp"
-            />
-
-        <TextView
-            android:id="@+id/im_click_num"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@mipmap/good"
-            android:text="600"
-            android:drawablePadding="5dp"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp">
 
         <TextView
             android:id="@+id/tvAuthor"
@@ -173,14 +148,48 @@
             android:layout_height="wrap_content"
             android:gravity="bottom|left"
             android:paddingLeft="1dp"
+            android:textColor="@color/m666666"
+            android:visibility="gone"
             />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:orientation="horizontal"
+            >
+
+            <TextView
+                android:id="@+id/im_comment_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="1dp"
+                android:text="6"
+                android:drawableLeft="@mipmap/message_open"
+                android:textColor="@color/m666666"
+                android:drawablePadding="5dp"
+                android:paddingRight="16dp"
+                />
+
+            <TextView
+                android:id="@+id/im_click_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/good"
+                android:text="600"
+                android:drawablePadding="5dp"
+                android:textColor="@color/m666666"
+                />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tvTime"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="bottom|right"
-            android:text="2017/12/11" />
+            android:text="2017/12/11"
+            android:textColor="@color/m666666"
+            />
     </LinearLayout>
 
 </LinearLayout>

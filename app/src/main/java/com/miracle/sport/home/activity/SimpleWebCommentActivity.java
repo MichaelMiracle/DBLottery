@@ -30,6 +30,8 @@ import com.miracle.sport.SportService;
 import com.miracle.sport.home.adapter.ArticleListAdapter;
 import com.wx.goodview.GoodView;
 
+import org.w3c.dom.Comment;
+
 import retrofit2.Call;
 
 
@@ -44,6 +46,9 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
     private CommonDialog commonDialog;
     private int deletePosition;
 
+    private String emptyHear;
+    private String fullHear;
+
 
     @Override
     public int getLayout() {
@@ -54,6 +59,8 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
     public void initView() {
         showLoadingDialog();
         setTitle("资讯详情");
+        emptyHear = CommonUtils.getString(R.string.icon_empty_heart);
+        fullHear = CommonUtils.getString(R.string.icon_full_heart);
         initDialog();
         id = getIntent().getIntExtra("id", 0);
         binding.webView.setWebViewClient(new WebViewClient() {
@@ -117,21 +124,26 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
 //        });
 //    }
 
-    /**对评论点赞*/
-    private void reqClick(final int position){
-        ZClient.getService(SportService.class).setClickClass(mAdapter.getItem(position).getComment_id(),1,"0").enqueue(new ZCallback<ZResponse<String>>() {
+    /**
+     * 对评论点赞
+     */
+    private void reqClick(final int position) {
+        ZClient.getService(SportService.class).setClickClass(mAdapter.getItem(position).getComment_id(), 1, "0").enqueue(new ZCallback<ZResponse<String>>() {
             @Override
             public void onSuccess(ZResponse<String> data) {
-               int clickNum = mAdapter.getItem(position).getComment_click_num();
-                mAdapter.getItem(position).setComment_click_num(clickNum+1);
+                int clickNum = mAdapter.getItem(position).getComment_click_num();
+                mAdapter.getItem(position).setComment_click_num(clickNum + 1);
                 mAdapter.getItem(position).setClick(1);
                 mAdapter.notifyDataSetChanged();
             }
         });
     }
-    /**对文章点赞*/
-    private void  reqClassClick(){
-        ZClient.getService(SportService.class).setClickClass(id,1,"1").enqueue(new ZCallback<ZResponse<String>>() {
+
+    /**
+     * 对文章点赞
+     */
+    private void reqClassClick() {
+        ZClient.getService(SportService.class).setClickClass(id, 1, "1").enqueue(new ZCallback<ZResponse<String>>() {
             @Override
             public void onSuccess(ZResponse<String> data) {
                 goodView.setImage(getResources().getDrawable(R.mipmap.good_checked_big));
@@ -143,14 +155,16 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
         });
     }
 
-    /**删除评论*/
-    private void reqClickDelete(final int position){
-        ZClient.getService(SportService.class).setClickDelete(id,mAdapter.getItem(position).getComment_id(),"1").enqueue(new ZCallback<ZResponse<String>>(this) {
+    /**
+     * 删除评论
+     */
+    private void reqClickDelete(final int position) {
+        ZClient.getService(SportService.class).setClickDelete(id, mAdapter.getItem(position).getComment_id(), "1").enqueue(new ZCallback<ZResponse<String>>(this) {
             @Override
             public void onSuccess(ZResponse<String> data) {
                 mAdapter.remove(position);
                 mAdapter.notifyDataSetChanged();
-                binding.includeSendComment.tvCommentCount.setText(mAdapter.getItemCount()+"");
+                binding.includeSendComment.tvCommentCount.setText(mAdapter.getItemCount() + "");
                 ToastUtil.toast(data.getMessage().toString());
             }
 
@@ -165,6 +179,24 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
 
     @Override
     public void initListener() {
+        setRightClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!TextUtils.isEmpty(CommonUtils.getUserId())) {
+                    final int coin = newsDetailBean.getCoin() == 0 ? 1 : 0;
+                    ZClient.getService(SportService.class).likeOrDislike(id, coin + "").enqueue(new ZCallback<ZResponse<String>>() {
+                        @Override
+                        public void onSuccess(ZResponse<String> data) {
+                            setRight(newsDetailBean.getCoin() == 1 ? emptyHear : fullHear, Color.WHITE, 18);
+                            newsDetailBean.setCion(coin);
+                            ToastUtil.toast(data.getMessage());
+                        }
+                    });
+                } else {
+                    GOTO.LoginActivity(mContext);
+                }
+            }
+        });
         binding.rlLeft.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,16 +207,16 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
         binding.cbRight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!TextUtils.isEmpty(SQLiteUtil.getString(SQLiteKey.USER))){
-                    final int coin = newsDetailBean.getCoin() == 0?1:0;
-                    ZClient.getService(SportService.class).likeOrDislike(id,coin+"").enqueue(new ZCallback<ZResponse<String>>() {
+                if (!TextUtils.isEmpty(SQLiteUtil.getString(SQLiteKey.USER))) {
+                    final int coin = newsDetailBean.getCoin() == 0 ? 1 : 0;
+                    ZClient.getService(SportService.class).likeOrDislike(id, coin + "").enqueue(new ZCallback<ZResponse<String>>() {
                         @Override
                         public void onSuccess(ZResponse<String> data) {
                             newsDetailBean.setCion(coin);
                             ToastUtil.toast(data.getMessage());
                         }
                     });
-                }else{
+                } else {
                     GOTO.LoginActivity(mContext);
                 }
 
@@ -204,18 +236,18 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (view.getId()){
+                switch (view.getId()) {
                     case R.id.im_click_num:
                         if (CommonUtils.getUser() == null) {
                             GOTO.LoginActivity(mContext);
                             return;
                         }
-                        if(0 == mAdapter.getItem(position).getClick()){
+                        if (0 == mAdapter.getItem(position).getClick()) {
                             goodView.setImage(getResources().getDrawable(R.mipmap.good_checked));
 //                goodView.setText("+1");
                             goodView.show(view);
                             reqClick(position);
-                        }else{
+                        } else {
                             ToastUtil.toast("已给评论点过赞");
                         }
                         break;
@@ -227,7 +259,7 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
                         }
                         commentId = mAdapter.getItem(position).getComment_id();
 //                        final EditText editText = binding.includeSendComment.etCommentContent;
-                        CommonUtils.showSoftInput(binding.includeSendComment.etCommentContent.getContext(),binding.includeSendComment.etCommentContent);
+                        CommonUtils.showSoftInput(binding.includeSendComment.etCommentContent.getContext(), binding.includeSendComment.etCommentContent);
 //                        ZClient.getService(SportService.class).sendCommentCommet(mAdapter.getItem(position).getComment_id(),editText.getText().toString(),"","0").enqueue(new ZCallback<ZResponse<String>>() {
 //                            @Override
 //                            public void onSuccess(ZResponse<String> data) {
@@ -259,11 +291,11 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
                     return;
                 }
 
-               if(1 == newsDetailBean.getClick()){
-                   ToastUtil.toast("已给文章点过赞");
-               }else{
-                   reqClassClick();
-               }
+                if (1 == newsDetailBean.getClick()) {
+                    ToastUtil.toast("已给文章点过赞");
+                } else {
+                    reqClassClick();
+                }
             }
         });
 
@@ -274,7 +306,7 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
                     GOTO.LoginActivity(mContext);
                     return;
                 }
-                CommonUtils.showSoftInput(binding.includeSendComment.etCommentContent.getContext(),binding.includeSendComment.etCommentContent);
+                CommonUtils.showSoftInput(binding.includeSendComment.etCommentContent.getContext(), binding.includeSendComment.etCommentContent);
                 commentId = id;
                 toUser = toUserid;
             }
@@ -287,14 +319,15 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
         ZClient.getService(SportService.class).getCommentDetail(id).enqueue(new ZCallback<ZResponse<ArticleDetailBean>>(this) {
             @Override
             public void onSuccess(ZResponse<ArticleDetailBean> data) {
-                binding.cbRight.setChecked(data.getData().getCoin() == 1);
+                setRight(data.getData().getCoin() == 1 ? fullHear : emptyHear, Color.WHITE, 18);
                 binding.tvTitle.setText(data.getData().getTitle());
+                binding.tvTime.setText(CommonUtils.getAppName(mContext) + "        " + data.getData().getTime());
                 binding.webView.loadDataWithBaseURL(null, CommonUtils.getHtmlData(data.getData().getContent()), "text/html", "utf-8", null);
-                binding.includeSendComment.tvCommentCount.setText(data.getData().getComment_num()+"");
-                newsDetailBean= data.getData();
-                if(1 == data.getData().getClick()){
+                binding.includeSendComment.tvCommentCount.setText(data.getData().getComment_num() + "");
+                newsDetailBean = data.getData();
+                if (1 == data.getData().getClick()) {
                     binding.includeSendComment.commentClick.setImageResource(R.mipmap.good_checked_big);
-                }else{
+                } else {
                     binding.includeSendComment.commentClick.setImageResource(R.mipmap.good_big);
                 }
 //                reqCommentData();
@@ -321,11 +354,11 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.iv_good:
                 if (CommonUtils.getUser() == null) {
                     GOTO.LoginActivity(mContext);
-                }else{
+                } else {
                     goodView.setTextInfo("+1", Color.parseColor("#f66467"), 14);
                     goodView.show(v);
                 }
@@ -337,17 +370,17 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
                 }
                 int sendId = 0;
                 String type = "";
-                if(0 == commentId){
+                if (0 == commentId) {
                     sendId = id;
                     type = "1";
-                }else{
+                } else {
                     sendId = commentId;
                     type = "";
                 }
 
-                if(TextUtils.isEmpty(binding.includeSendComment.etCommentContent.getText())){
+                if (TextUtils.isEmpty(binding.includeSendComment.etCommentContent.getText())) {
                     ToastUtil.toast("内容不能空");
-                }else{
+                } else {
                     showLoadingDialog();
 //                    ZClient.getService(SportService.class).sendHomeCommet(id , binding.includeSendComment.etCommentContent.getText().toString()).enqueue(new ZCallback<ZResponse<String>>(loadingDialog) {
 //                        @Override
@@ -359,14 +392,14 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
 //                        }
 //                    });
                     final EditText editText = binding.includeSendComment.etCommentContent;
-                    ZClient.getService(SportService.class).sendCommentCommet(sendId,editText.getText().toString(),toUser,type).enqueue(new ZCallback<ZResponse<ArticleCommentBean>>(this) {
+                    ZClient.getService(SportService.class).sendCommentCommet(sendId, editText.getText().toString(), toUser, type).enqueue(new ZCallback<ZResponse<ArticleCommentBean>>(this) {
                         @Override
                         public void onSuccess(ZResponse<ArticleCommentBean> data) {
                             ToastUtil.toast("评论成功");
                             commentId = 0;
                             toUser = "";
                             editText.setText("");
-                            CommonUtils.hideSoftInput(editText.getContext(),binding.includeSendComment.etCommentContent);
+                            CommonUtils.hideSoftInput(editText.getContext(), binding.includeSendComment.etCommentContent);
                             loadData();
                         }
                     });
@@ -377,8 +410,8 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
             case R.id.fl_comment_icon:
                 if (CommonUtils.getUser() == null) {
                     GOTO.LoginActivity(mContext);
-                }else{
-                    GOTO.CommentListActivity(mContext , newsDetailBean);
+                } else {
+                    GOTO.CommentListActivity(mContext, newsDetailBean);
                 }
 
                 break;
