@@ -75,6 +75,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             app:ZRadioButton_Text="热门"
+                            app:ZRadioButton_TextSize="16sp"
                             app:ZRadioButton_indicator_position="bottom" />
 
                         <com.miracle.base.view.zradiogroup.ZRadioButton
@@ -82,6 +83,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             app:ZRadioButton_Text="最新"
+                            app:ZRadioButton_TextSize="16sp"
                             app:ZRadioButton_indicator_position="bottom" />
                     </com.miracle.base.view.zradiogroup.ZRadioGroup>
 

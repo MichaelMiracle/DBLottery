@@ -10,6 +10,7 @@ import com.miracle.base.adapter.RecyclerViewAdapter;
 import com.miracle.base.network.GlideApp;
 import com.miracle.base.util.CommonUtils;
 import com.miracle.base.util.ContextHolder;
+import com.miracle.base.util.DisplayUtil;
 import com.miracle.sport.community.bean.PostBean;
 
 import java.util.List;
@@ -55,6 +56,7 @@ public class PostListAdapter extends RecyclerViewAdapter<PostBean> {
                 ImageView imageView = new ImageView(ContextHolder.getContext());
                 imageView.setLayoutParams(params);
                 imageView.setAdjustViewBounds(true);
+                imageView.setMaxHeight((int) DisplayUtil.dip2px(ContextHolder.getContext(),200));
                 imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 GlideApp.with(ContextHolder.getContext()).load(url)
                         .placeholder(R.mipmap.defaule_img)
