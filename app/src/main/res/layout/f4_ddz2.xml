@@ -66,10 +66,12 @@
 
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_marginTop="1dp"
-                                android:orientation="vertical">
+                                android:orientation="vertical"
+                                android:gravity="center_horizontal"
+                                >
 
                                 <com.miracle.base.view.CircleImageView
                                     android:id="@+id/ivHeadImg"
@@ -102,9 +104,12 @@
                                         android:ellipsize="end"
                                         android:gravity="center_horizontal"
                                         android:maxLines="1"
-                                        android:text="--"
+                                        android:text="请登录"
                                         android:textColor="@color/white"
-                                        android:textSize="16sp" />
+                                        android:textSize="16sp"
+                                        android:paddingLeft="16dp"
+                                        android:paddingRight="16dp"
+                                        />
                                 </LinearLayout>
 
 
