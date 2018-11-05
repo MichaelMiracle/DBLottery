@@ -6,7 +6,7 @@
         android:id="@+id/rootView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white"
+        android:background="@mipmap/login_bg"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingLeft="35dp"
@@ -18,27 +18,30 @@
         <ImageView
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:scaleType="fitXY"
             android:layout_marginBottom="30dp"
+            android:scaleType="fitXY"
             android:src="@mipmap/alogo" />
 
         <com.miracle.base.view.XEditText
             android:id="@+id/etAccount"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:background="@drawable/bottom_line"
+            android:background="@drawable/login_input_bg"
             android:textColor="@color/main_text_color"
             android:textSize="14sp"
             app:XEditText_Hint="用户名/手机号/邮箱"
             app:XEditText_PaddingLeft="10dp"
-            app:XEditText_PaddingRight="10dp" />
+            app:XEditText_PaddingRight="10dp"
+            app:XEditText_TextColor="@color/white"
+            app:XEditText_TextColorHint="@color/withdraw_grey" />
 
 
         <com.miracle.base.view.XEditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="44dp"
-            android:background="@drawable/bottom_line"
+            android:layout_marginTop="@dimen/dp_10"
+            android:background="@drawable/login_input_bg"
             android:inputType="textPassword"
             android:textColor="@color/main_text_color"
             android:textSize="14sp"
@@ -46,7 +49,9 @@
             app:XEditText_IsPassword="true"
             app:XEditText_PaddingLeft="10dp"
             app:XEditText_PaddingRight="10dp"
-            app:XEditText_ShowEyes="true" />
+            app:XEditText_ShowEyes="true"
+            app:XEditText_TextColor="@color/white"
+            app:XEditText_TextColorHint="@color/withdraw_grey" />
 
         <Button
             android:id="@+id/btLogin"
@@ -68,7 +73,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="忘记密码？"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/tvRegister"
@@ -76,7 +81,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="right"
                 android:text="新用户注册"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
         </LinearLayout>
 
     </LinearLayout>

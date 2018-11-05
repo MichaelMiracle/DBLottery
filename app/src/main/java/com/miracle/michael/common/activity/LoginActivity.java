@@ -37,7 +37,9 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        CommonUtils.setFullScrseen(this);
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
