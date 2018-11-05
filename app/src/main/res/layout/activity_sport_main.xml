@@ -52,7 +52,7 @@
                 android:layout_weight="1"
                 app:ZRadioButton_Icon="@string/icon_cup"
                 app:ZRadioButton_IconTextSize="22sp"
-                app:ZRadioButton_Text="赛程" />
+                app:ZRadioButton_Text="资讯" />
 
             <com.miracle.base.view.zradiogroup.ZRadioButton
                 android:layout_width="0dp"
