@@ -13,11 +13,15 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.miracle.R;
+import com.miracle.base.network.RequestUtil;
 import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZPageLoadCallback;
 import com.miracle.base.util.ContextHolder;
 import com.miracle.databinding.FragmentCategoryDetailBinding;
+import com.miracle.sport.SportService;
 import com.miracle.sport.home.activity.SimpleWebCommentActivity;
+import com.miracle.sport.home.adapter.HomeListAdapter;
+import com.miracle.sport.home.bean.Football;
 import com.miracle.sport.onetwo.adapter.CpListItemAdapter;
 import com.miracle.sport.onetwo.inter.CallBackListener;
 import com.miracle.sport.onetwo.netbean.CPServer;
@@ -35,7 +39,8 @@ import retrofit2.Call;
  */
 
 public class FragCpItemList extends com.miracle.base.BaseFragment<FragmentCategoryDetailBinding> implements BaseQuickAdapter.OnItemClickListener {
-    public CpListItemAdapter mAdapter;
+//    public CpListItemAdapter mAdapter;
+    public HomeListAdapter mAdapter;
     public ZPageLoadCallback callBack;
     private com.youth.banner.Banner banner;
     public boolean showBanner = true;
@@ -63,7 +68,7 @@ public class FragCpItemList extends com.miracle.base.BaseFragment<FragmentCatego
     @Override
     public void initView() {
         Log.i("TAG", "initView: xxxxxxxxxxx 2");
-        mAdapter = new CpListItemAdapter(mContext);
+        mAdapter = new HomeListAdapter(mContext);
         mAdapter.addHeaderView(initBanner());
         mAdapter.setOnItemClickListener(this);
 
@@ -97,7 +102,8 @@ public class FragCpItemList extends com.miracle.base.BaseFragment<FragmentCatego
         callBack = new ZPageLoadCallback(mAdapter, binding.recyclerView, this) {
             @Override
             public void requestAction(int page, int pageSize) {
-                ZClient.getService(CPServer.class).cpList(page, pageSize, "cp", reqKey).enqueue(this);
+//                ZClient.getService(CPServer.class).cpList(page, pageSize, "cp", reqKey).enqueue(this);
+                RequestUtil.cacheUpdate(ZClient.getService(SportService.class).getNewsList(5, page, pageSize),callBack);
                 if(callBackListener != null)
                     callBackListener.onStart();
             }
@@ -176,8 +182,8 @@ public class FragCpItemList extends com.miracle.base.BaseFragment<FragmentCatego
             return;
 
         Object o = adapter.getData().get(position);
-        if (o instanceof CpListItem) {
-            CpListItem pd = (CpListItem) o;
+        if (o instanceof Football) {
+            Football pd = (Football) o;
             if (pd.getId() != 0) {
 //                Intent pdAct = new Intent(getActivity(), FootNewsPostActivity.class);
 //                pdAct.putExtra(FootNewsPostActivity.EXTRA_KEY_POSTID, pd.getId());
