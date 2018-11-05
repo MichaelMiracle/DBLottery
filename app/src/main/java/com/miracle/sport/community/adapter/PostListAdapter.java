@@ -1,5 +1,6 @@
 package com.miracle.sport.community.adapter;
 
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -11,6 +12,7 @@ import com.miracle.base.network.GlideApp;
 import com.miracle.base.util.CommonUtils;
 import com.miracle.base.util.ContextHolder;
 import com.miracle.base.util.DisplayUtil;
+import com.miracle.base.view.ZImagePreviewer;
 import com.miracle.sport.community.bean.PostBean;
 
 import java.util.List;
@@ -33,7 +35,7 @@ public class PostListAdapter extends RecyclerViewAdapter<PostBean> {
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, PostBean item) {
+    protected void convert(BaseViewHolder helper, final PostBean item) {
         helper.addOnClickListener(R.id.tvLike);
 
         helper.setText(R.id.tvUserName, item.getNickname());
@@ -52,16 +54,24 @@ public class PostListAdapter extends RecyclerViewAdapter<PostBean> {
         List<String> thumbs = item.getThumb();
         if (thumbs != null && !thumbs.isEmpty()) {
             helper.setGone(R.id.llPics, true);
-            for (String url : thumbs) {
+            for (int i = 0; i < thumbs.size(); i++) {
                 ImageView imageView = new ImageView(ContextHolder.getContext());
                 imageView.setLayoutParams(params);
                 imageView.setAdjustViewBounds(true);
-                imageView.setMaxHeight((int) DisplayUtil.dip2px(ContextHolder.getContext(),200));
+                imageView.setMaxHeight((int) DisplayUtil.dip2px(ContextHolder.getContext(), 200));
                 imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                GlideApp.with(ContextHolder.getContext()).load(url)
+                GlideApp.with(ContextHolder.getContext()).load(thumbs.get(i))
                         .placeholder(R.mipmap.defaule_img)
                         .error(R.mipmap.empty)
                         .into(imageView);
+
+                final int finalI = i;
+                imageView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        ZImagePreviewer.getInstance(mContext).show(item.getThumb(), finalI);
+                    }
+                });
                 container.addView(imageView);
             }
         } else {
