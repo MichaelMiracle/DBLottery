@@ -86,7 +86,8 @@ public class PublicChatRoomsActivity extends BaseActivity {
 		title.setText(getResources().getString(R.string.chat_room));
 		chatRoomList = new ArrayList<EMChatRoom>();
 		
-		View footView = getLayoutInflater().inflate(R.layout.em_listview_footer_view, listView, false);
+//		View footView = getLayoutInflater().inflate(R.layout.em_listview_footer_view, listView, false);
+		View footView = LayoutInflater.from(this).inflate(R.layout.em_listview_footer_view,listView,false);
         footLoadingLayout = (LinearLayout) footView.findViewById(R.id.loading_layout);
         footLoadingPB = (ProgressBar)footView.findViewById(R.id.loading_bar);
         footLoadingText = (TextView) footView.findViewById(R.id.loading_text);

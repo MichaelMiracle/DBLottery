@@ -88,7 +88,8 @@ public abstract class BaseFragment<B extends ViewDataBinding> extends Fragment i
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         if (mBaseBinding == null) {
             mBaseBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_base, null, false);
-            binding = DataBindingUtil.inflate(getActivity().getLayoutInflater(), getLayout(), null, false);
+//            binding = DataBindingUtil.inflate(getActivity().getLayoutInflater(), getLayout(), null, false);
+            binding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), getLayout(), null, false);
             mBaseBinding.baseFragContainer.addView(binding.getRoot());
 
             initTitleBar();

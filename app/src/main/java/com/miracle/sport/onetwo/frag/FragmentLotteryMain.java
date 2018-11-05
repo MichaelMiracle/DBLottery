@@ -8,6 +8,7 @@ import android.os.Message;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
@@ -65,8 +66,8 @@ public class FragmentLotteryMain extends HandleFragment<FragmentCpMainTopBinding
         setShowTitle(true);
         setTitle(getString(R.string.tab_name_home));
         getTitleBar().showLeft(false);
-
-        topBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(), R.layout.fragment_cp_main_top, null, false);
+//        topBinding = DataBindingUtil.inflate(getActivity().getLayoutInflater(), R.layout.fragment_cp_main_top, null, false);
+        topBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.fragment_cp_main_top, null, false);
         initTopHeader();
 
         subFrag = (FragCpItemList) getActivity().getSupportFragmentManager().findFragmentById(R.id.list_frag);
@@ -197,7 +198,8 @@ public class FragmentLotteryMain extends HandleFragment<FragmentCpMainTopBinding
     }
 
     private void addToHS(final String str, final int key, String picUrl){
-        View view = getLayoutInflater().inflate(R.layout.main_frag_hs1_item, null);
+//        View view = getLayoutInflater().inflate(R.layout.main_frag_hs1_item, null);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.main_frag_hs1_item,null);
         CircleImageView iv = (CircleImageView)view.findViewById(R.id.main_farg_hs1_iv);
         ((TextView)view.findViewById(R.id.main_farg_hs1_tv1)).setText(str);
         GlideApp.with(mContext).load(picUrl).placeholder(R.mipmap.defaule_img).into(iv);
@@ -246,7 +248,8 @@ public class FragmentLotteryMain extends HandleFragment<FragmentCpMainTopBinding
 //            }
 //        };
         for(int i = 0; i < bitmaps.size(); i++){
-            View view = getLayoutInflater().inflate(R.layout.main_frag_hs1_item, null);
+//            View view = getLayoutInflater().inflate(R.layout.main_frag_hs1_item, null);
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.main_frag_hs1_item,null);
             CircleImageView iv = (CircleImageView)view.findViewById(R.id.main_farg_hs1_iv);
             ((TextView)view.findViewById(R.id.main_farg_hs1_tv1)).setText(userName.get(i));
             iv.setImageBitmap(bitmaps.get(i));

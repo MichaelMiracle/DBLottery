@@ -3,6 +3,7 @@ package com.miracle.sport.schedule.fragment;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
 
 import com.miracle.R;
@@ -68,7 +69,8 @@ public class FragClubePostSS extends HandleFragment<FragClubePostBinding> {
     @Override
     public void initView() {
         adapter = new ClubePostSSAdapter(mContext);
-        View head = getLayoutInflater().inflate(R.layout.club_post_head_ss, null);
+//        View head = getLayoutInflater().inflate(R.layout.club_post_head_ss, null);
+        View head = LayoutInflater.from(getActivity()).inflate(R.layout.club_post_head_ss,null);
         adapter.addHeaderView(head);
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));

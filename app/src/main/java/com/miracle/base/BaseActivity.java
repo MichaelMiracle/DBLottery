@@ -36,7 +36,8 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
 //        getWindow().getDecorView().setBackgroundColor(CommonUtils.getColor(R.color.main_bg_color));
         mContext = this;
         mBaseBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_base, null, false);
-        binding = DataBindingUtil.inflate(getLayoutInflater(), getLayout(), null, false);
+//        binding = DataBindingUtil.inflate(getLayoutInflater(), getLayout(), null, false);
+        binding = DataBindingUtil.inflate(LayoutInflater.from(this), getLayout(), null, false);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         binding.getRoot().setLayoutParams(params);
         mBaseBinding.baseContainer.addView(binding.getRoot());
