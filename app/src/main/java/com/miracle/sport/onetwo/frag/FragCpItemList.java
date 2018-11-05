@@ -23,10 +23,7 @@ import com.miracle.sport.SportService;
 import com.miracle.sport.home.activity.SimpleWebCommentActivity;
 import com.miracle.sport.home.adapter.HomeListAdapter;
 import com.miracle.sport.home.bean.Football;
-import com.miracle.sport.onetwo.adapter.CpListItemAdapter;
 import com.miracle.sport.onetwo.inter.CallBackListener;
-import com.miracle.sport.onetwo.netbean.CPServer;
-import com.miracle.sport.onetwo.netbean.CpListItem;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;

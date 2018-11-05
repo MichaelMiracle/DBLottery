@@ -21,15 +21,18 @@ import retrofit2.Call;
 
 public class LotteryListFragment extends HandleFragment<ActivityLotteryDetailBinding> {
     public static final int WHAT_KEY_SETLOTTERYCATDATA = 1;
-    boolean isLoadSingle = false;
+    boolean isShowSingle = false;
     LotteryCatTitleItem lotteryCatData;
     LotteryCategoryListAdapter mAdapter;
     ZPageLoadCallback<ZResponse<List<LotteryCatListItem>>> callback;
 
     public void setShowSingle(boolean isLoadSingle){
-        this.isLoadSingle = isLoadSingle;
-        if(mAdapter != null)
+        this.isShowSingle = isLoadSingle;
+        if(mAdapter != null) {
             mAdapter.setShowSingle(isLoadSingle);
+            int px4 = this.isShowSingle ? 0 : Util.dp2Px(getActivity(), 4);
+            binding.recyclerView.setPadding(px4,px4,px4,px4);
+        }
     }
 
     @Override
@@ -42,15 +45,11 @@ public class LotteryListFragment extends HandleFragment<ActivityLotteryDetailBin
         mAdapter = new LotteryCategoryListAdapter(mContext);
         binding.recyclerView.setAdapter(mAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        if(!isLoadSingle){
-            int px4 = Util.dp2Px(getActivity(), 4);
-            binding.recyclerView.setPadding(px4,px4,px4,px4);
-        }
 
         callback = new ZPageLoadCallback<ZResponse<List<LotteryCatListItem>>>(mAdapter, binding.recyclerView, this) {
             @Override
             public void requestAction(int page, int limit) {
-                if(isLoadSingle)
+                if(isShowSingle)
                     ZClient.getService(CPServer.class).lotteryCategoryList(1, 1, lotteryCatData.getId()).enqueue(this);
                 else
                     ZClient.getService(CPServer.class).lotteryCategoryList(page, limit, lotteryCatData.getId()).enqueue(this);
@@ -59,7 +58,7 @@ public class LotteryListFragment extends HandleFragment<ActivityLotteryDetailBin
             @Override
             public void onFinish(Call<ZResponse<List<LotteryCatListItem>>> call) {
                 super.onFinish(call);
-                if(isLoadSingle){
+                if(isShowSingle){
                     binding.swipeRefreshLayout.setEnabled(false);
                 }else{
 //                    if (mAdapter.getData() != null && mAdapter.getData().size() > 0)
@@ -70,6 +69,8 @@ public class LotteryListFragment extends HandleFragment<ActivityLotteryDetailBin
             }
         };
         callback.initSwipeRefreshLayout(binding.swipeRefreshLayout);
+
+        setShowSingle(this.isShowSingle);
         loadData();
     }
 
@@ -94,8 +95,8 @@ public class LotteryListFragment extends HandleFragment<ActivityLotteryDetailBin
 
     public void setLotteryCatData(LotteryCatTitleItem lotteryCatData) {
         this.lotteryCatData = lotteryCatData;
-        mAdapter.setShowSingle(isLoadSingle);
-        if(isLoadSingle){
+        mAdapter.setShowSingle(isShowSingle);
+        if(isShowSingle){
             binding.swipeRefreshLayout.setSize(0);
         }
     }

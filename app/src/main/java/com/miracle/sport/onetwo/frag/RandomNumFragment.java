@@ -54,6 +54,7 @@ public class RandomNumFragment extends HandleFragment<FragmentRandNumBinding> {
     int redNum = 6;
     int blueNum = 1;
     int radius = Util.dp2px(14);
+    int radius_popup = Util.dp2px(14);
     int colums = 6;
     Point point;
 
@@ -74,6 +75,8 @@ public class RandomNumFragment extends HandleFragment<FragmentRandNumBinding> {
         WindowManager windowManager = (WindowManager) mContext.getSystemService(Context.WINDOW_SERVICE);
         point = new Point();
         windowManager.getDefaultDisplay().getSize(point);
+        radius = (int) (getResources().getDimension(R.dimen.ball_size) / 2);
+        radius_popup = radius + 4;
 
         bmb = (BoomMenuButton) binding.getRoot().findViewById(R.id.bmb4);
         bmb.setShowDelay(200);
@@ -136,11 +139,11 @@ public class RandomNumFragment extends HandleFragment<FragmentRandNumBinding> {
         point = bmb.getCoordinateOrigin();
 
         redNumList = RBRandNum.randRed();
-        fillBall(getResources().getColor(R.color.red_ball_dark), binding.redRv , radius + 4, redNumList);
+        fillBall(getResources().getColor(R.color.red_ball_dark), binding.redRv , radius_popup, redNumList);
         Log.i("TAG", "randNewNum: red " + redNumList.toString());
 
         blueNumList = RBRandNum.randBlue();
-        fillBall(getResources().getColor(R.color.blue_ball_dark), binding.blueRv , radius + 4, blueNumList);
+        fillBall(getResources().getColor(R.color.blue_ball_dark), binding.blueRv , radius_popup, blueNumList);
         Log.i("TAG", "randNewNum: blue " + blueNumList.toString());
 
         bmb.toLayout();
@@ -193,21 +196,22 @@ public class RandomNumFragment extends HandleFragment<FragmentRandNumBinding> {
     private void fillBall(int color, RecyclerView rv, int radius, List<Integer> numList) {
         for (int i = 0; i < numList.size(); i++) {
             CustomBitTextCButton.Builder b = new CustomBitTextCButton.Builder();
-            b.normalText(""+numList.get(i));
+            String ballText = "" + ((numList.get(i) / 10 == 0) ? "0"+numList.get(i) : numList.get(i));
+            b.normalText(ballText);
             b.setUnable(false);
             b.imageRect(new Rect(0,0,0,0));
             b.imagePadding(new Rect(0,0,0,0));
             b.normalColor(color);
             b.textGravity(Gravity.CENTER);
             b.goneImg(true);
-            b.buttonRadius(radius);
+            b.buttonRadius(radius_popup);
             bmb.addBuilder(b);
 
 //            int bmWidth = b.button().getMeasuredWidth();
 //            bmb.getCustomPiecePlacePositions().add(new PointF(0,0));
             PointF pointF = numToPointF(numList.get(i), rv);
-            pointF.x += radius;
-            pointF.y += radius;
+            pointF.x += radius_popup;
+            pointF.y += radius_popup;
             bmb.getCustomButtonPlacePositions().add(pointF);
         }
     }

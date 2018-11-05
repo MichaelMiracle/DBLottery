@@ -39,7 +39,8 @@ public class RandBallAdapter extends RecyclerViewAdapter<RandBallEntity> {
     protected void convert(BaseViewHolder helper, RandBallEntity item) {
         FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(buttonDim, buttonDim);
         helper.getView(R.id.button).setLayoutParams(layoutParams);
-        ((TextView)helper.getView(R.id.inner_tv)).setText(""+item.getBallNum());
+        String ballText = "" + ((item.getBallNum() / 10 == 0) ? "0"+item.getBallNum() : item.getBallNum());
+        ((TextView)helper.getView(R.id.inner_tv)).setText(ballText);
 
         helper.getView(R.id.button).setTag(item.getBallNum());
         helper.getView(R.id.button).setBackground(Util.getOvalStateListBitmapDrawable(

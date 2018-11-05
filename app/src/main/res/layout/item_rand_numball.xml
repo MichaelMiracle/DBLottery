@@ -21,8 +21,8 @@
             <FrameLayout
                 android:layout_gravity="center"
                 android:id="@+id/button"
-                android:layout_width="@dimen/default_bmb_text_inside_circle_width"
-                android:layout_height="@dimen/default_bmb_text_inside_circle_height"
+                android:layout_width="@dimen/ball_size"
+                android:layout_height="@dimen/ball_size"
                 android:clickable="true">
 
                 <TextView
@@ -30,6 +30,8 @@
                     android:layout_gravity="center"
                     android:gravity="center"
                     android:id="@+id/inner_tv"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
                     android:textColor="#DDD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
