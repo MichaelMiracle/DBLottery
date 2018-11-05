@@ -1,7 +1,7 @@
 package com.miracle.base.switcher;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
+import android.annotation.TargetApi;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -10,17 +10,22 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
+
+import com.miracle.R;
+import com.miracle.base.BaseActivity;
+import com.miracle.databinding.ActivityGameBinding;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -31,34 +36,49 @@ import java.util.Date;
  * Created by Administrator on 2018/5/10.
  */
 
-public class GameActivity extends Activity {
+public class GameActivity extends BaseActivity<ActivityGameBinding> {
     /**
      * 拍照/选择文件请求码
      */
     private static final int REQ_CAMERA = 1;
     private static final int REQ_CHOOSE = REQ_CAMERA + 1;
     public static File tempFile;
-    private WebView mWebView;
     private ValueCallback<Uri> mUploadMessage;
     private ValueCallback<Uri[]> mUploadMessageArray;
 
+    private String mUrl;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mWebView = new WebView(this);
-        WebSettings settings = mWebView.getSettings();
+    public int getLayout() {
+        return R.layout.activity_game;
+    }
+
+    @Override
+    public void initView() {
+        hideTitle();
+        WebSettings settings = binding.webView.getSettings();
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
         settings.setJavaScriptEnabled(true);
         settings.setDomStorageEnabled(true);
         if (Build.VERSION.SDK_INT > Build.VERSION_CODES.LOLLIPOP) {
             settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
         }
-        mWebView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
-        mWebView.setWebViewClient(new MyWebViewClient());
-        mWebView.setWebChromeClient(new MyChromeClient());
-        mWebView.loadUrl(getIntent().getStringExtra("url"));
-        setContentView(mWebView);
+        binding.webView.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
+        binding.webView.setWebViewClient(new MyWebViewClient());
+        binding.webView.setWebChromeClient(new MyChromeClient());
+        mUrl = getIntent().getStringExtra("url");
+
+    }
+
+    @Override
+    public void initListener() {
+
+    }
+
+    @Override
+    public void loadData() {
+        loadingDialog.show();
+        binding.webView.loadUrl(mUrl);
     }
 
 
@@ -191,8 +211,8 @@ public class GameActivity extends Activity {
     }
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
-            mWebView.goBack();
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && binding.webView.canGoBack()) {
+            binding.webView.goBack();
             return true;
         } else {
             finish();
@@ -241,6 +261,11 @@ public class GameActivity extends Activity {
         }
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
+
     private final class MyChromeClient extends WebChromeClient {
         // For Android >=3.0
         public void openFileChooser(ValueCallback<Uri> uploadMsg, String acceptType) {
@@ -283,6 +308,13 @@ public class GameActivity extends Activity {
             return true;
         }
 
+        @Override
+        public void onProgressChanged(WebView view, int newProgress) {
+            super.onProgressChanged(view, newProgress);
+            if (newProgress == 100) {
+                loadingDialog.dismiss();
+            }
+        }
     }
 
 
@@ -330,6 +362,34 @@ public class GameActivity extends Activity {
                 return true;
             }
             return super.shouldOverrideUrlLoading(view, url);
+        }
+
+        /**
+         * 这里进行无网络或错误处理，具体可以根据errorCode的值进行判断，做跟详细的处理。
+         *
+         * @param view
+         */
+        // 旧版本，会在新版本中也可能被调用，所以加上一个判断，防止重复显示
+        @Override
+        public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+            super.onReceivedError(view, errorCode, description, failingUrl);
+            //Log.e(TAG, "onReceivedError: ----url:" + error.getDescription());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                return;
+            }
+            // 在这里显示自定义错误页
+            showError();
+        }
+
+        // 新版本，只会在Android6及以上调用
+        @TargetApi(Build.VERSION_CODES.M)
+        @Override
+        public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+            super.onReceivedError(view, request, error);
+            if (request.isForMainFrame()) { // 或者： if(request.getUrl().toString() .equals(getUrl()))
+                // 在这里显示自定义错误页
+                showError();
+            }
         }
     }
 
