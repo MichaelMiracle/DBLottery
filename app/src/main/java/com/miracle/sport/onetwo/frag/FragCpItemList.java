@@ -16,6 +16,7 @@ import com.miracle.R;
 import com.miracle.base.network.RequestUtil;
 import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZPageLoadCallback;
+import com.miracle.base.network.ZResponse;
 import com.miracle.base.util.ContextHolder;
 import com.miracle.databinding.FragmentCategoryDetailBinding;
 import com.miracle.sport.SportService;
@@ -29,6 +30,7 @@ import com.miracle.sport.onetwo.netbean.CpListItem;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 
@@ -99,7 +101,7 @@ public class FragCpItemList extends com.miracle.base.BaseFragment<FragmentCatego
     }
 
     private void initCallback() {
-        callBack = new ZPageLoadCallback(mAdapter, binding.recyclerView, this) {
+        callBack = new ZPageLoadCallback<ZResponse<List<Football>>>(mAdapter, binding.recyclerView, this) {
             @Override
             public void requestAction(int page, int pageSize) {
 //                ZClient.getService(CPServer.class).cpList(page, pageSize, "cp", reqKey).enqueue(this);
@@ -120,6 +122,7 @@ public class FragCpItemList extends com.miracle.base.BaseFragment<FragmentCatego
                     callBackListener.onFinish(mAdapter.getData());
             }
         };
+        callBack.setCachKey("FragCpItemListzx");
         callBack.initSwipeRefreshLayout(binding.swipeRefreshLayout);
     }
 

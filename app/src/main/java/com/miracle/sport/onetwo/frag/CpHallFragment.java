@@ -78,7 +78,8 @@ public class CpHallFragment extends BaseFragment<ActivityLotteryDetailBinding> {
 //                    setUIStatus(ShowStat.NODATA);
             }
         };
-        callback.setSwipeRefreshLayout(binding.swipeRefreshLayout);
+//        callback.setSwipeRefreshLayout(binding.swipeRefreshLayout);
+        callback.initSwipeRefreshLayout(binding.swipeRefreshLayout);
     }
 
     @Override
