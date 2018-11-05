@@ -39,7 +39,7 @@ public class CPHallListAdapter extends RecyclerViewAdapter<CpHall> {
     @Override
     protected void convert(BaseViewHolder helper, CpHall item) {
         //双色球
-        helper.setText(R.id.tvLdName, item.getCai_name());
+        helper.setText(R.id.tvLdName, item.getName());
         helper.setText(R.id.tvLdTime, item.getOpen_time());
         helper.setText(R.id.tvLdNum, item.getPeriod());
 

@@ -114,8 +114,10 @@
     <color name="color_ECECEC">#ECECEC</color>
     <color name="qqBlue">#359FED</color>
     <color name="weChatGreen">#4FC351</color>
-    <color name="blue_ball">#4787D7</color>
-    <color name="red_ball">#D95764</color>
+    <color name="blue_ball">#3e74d7</color>
+    <color name="red_ball">#d02e26</color>
+    <color name="blue_ball_dark">#00A</color>
+    <color name="red_ball_dark">#A00</color>
 
     <color name="lottery_title_color">#ff222222</color>
     <color name="trend_list_odd">#ffedecea</color>

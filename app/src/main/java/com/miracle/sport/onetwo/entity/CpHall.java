@@ -4,7 +4,7 @@ public class CpHall {
 
     /**
      * id : 1
-     * cai_name : 双色球
+     * name : 双色球
      * period : 第2018119期
      * open_time : 昨天(周四)
      * red_num : 03 13 14 16 25 27
@@ -13,7 +13,7 @@ public class CpHall {
      */
 
     private int id;
-    private String cai_name;
+    private String name;
     private String period;
     private String open_time;
     private String red_num;
@@ -46,12 +46,12 @@ public class CpHall {
         this.id = id;
     }
 
-    public String getCai_name() {
-        return cai_name;
+    public String getName() {
+        return name;
     }
 
-    public void setCai_name(String cai_name) {
-        this.cai_name = cai_name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPeriod() {

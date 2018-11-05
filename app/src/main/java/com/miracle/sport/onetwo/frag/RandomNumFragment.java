@@ -94,8 +94,8 @@ public class RandomNumFragment extends HandleFragment<FragmentRandNumBinding> {
         }
         redBallAdapter = new RandBallAdapter();
         blueBallAdapter = new RandBallAdapter();
-        initballList(redBallAdapter, Color.RED, redBallList, binding.redRv);
-        initballList(blueBallAdapter, Color.BLUE, blueBallList, binding.blueRv);
+        initballList(redBallAdapter, getResources().getColor(R.color.red_ball), redBallList, binding.redRv);
+        initballList(blueBallAdapter,  getResources().getColor(R.color.blue_ball), blueBallList, binding.blueRv);
 
         bmb.setUserocl(new BoomMenuButton.OnClickListener() {
             long lastClick;
@@ -136,11 +136,11 @@ public class RandomNumFragment extends HandleFragment<FragmentRandNumBinding> {
         point = bmb.getCoordinateOrigin();
 
         redNumList = RBRandNum.randRed();
-        fillBall(Color.RED, binding.redRv , radius + 4, redNumList);
+        fillBall(getResources().getColor(R.color.red_ball_dark), binding.redRv , radius + 4, redNumList);
         Log.i("TAG", "randNewNum: red " + redNumList.toString());
 
         blueNumList = RBRandNum.randBlue();
-        fillBall(Color.BLUE, binding.blueRv , radius + 4, blueNumList);
+        fillBall(getResources().getColor(R.color.blue_ball_dark), binding.blueRv , radius + 4, blueNumList);
         Log.i("TAG", "randNewNum: blue " + blueNumList.toString());
 
         bmb.toLayout();

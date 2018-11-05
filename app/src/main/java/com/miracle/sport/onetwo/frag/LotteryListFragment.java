@@ -4,8 +4,8 @@ import android.os.Message;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 
+import com.gongwen.marqueen.util.Util;
 import com.miracle.R;
-import com.miracle.base.BaseFragment;
 import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZPageLoadCallback;
 import com.miracle.base.network.ZResponse;
@@ -42,6 +42,10 @@ public class LotteryListFragment extends HandleFragment<ActivityLotteryDetailBin
         mAdapter = new LotteryCategoryListAdapter(mContext);
         binding.recyclerView.setAdapter(mAdapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        if(!isLoadSingle){
+            int px4 = Util.dp2Px(getActivity(), 4);
+            binding.recyclerView.setPadding(px4,px4,px4,px4);
+        }
 
         callback = new ZPageLoadCallback<ZResponse<List<LotteryCatListItem>>>(mAdapter, binding.recyclerView, this) {
             @Override
@@ -109,7 +113,7 @@ public class LotteryListFragment extends HandleFragment<ActivityLotteryDetailBin
         {
             LotteryCatTitleItem lcti = new LotteryCatTitleItem();
             lcti.setId(msg.arg1);
-            lcti.setName((String) msg.obj);
+            lcti.setName(msg.obj == null ? "" : (String) msg.obj);
             setLotteryCatData(lcti);
             loadData();
         }

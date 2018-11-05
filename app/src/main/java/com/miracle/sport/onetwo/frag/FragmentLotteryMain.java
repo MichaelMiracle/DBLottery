@@ -206,14 +206,15 @@ public class FragmentLotteryMain extends HandleFragment<FragmentCpMainTopBinding
             @Override
             public void onClick(View v) {
 //                key
-                Intent i = new Intent(getActivity(), OneFragActivity.class);
-                i.putExtra(OneFragActivity.EXTRA_KEY_FRAG_CLASS, LotteryListFragment.class);
+                int tmpkey = key;
+                String tmpString = str.toString();
                 Message msg = new Message();
                 msg.what = LotteryListFragment.WHAT_KEY_SETLOTTERYCATDATA;
-                LotteryCatTitleItem item = new LotteryCatTitleItem();
-                item.setName(str);
-                item.setId(key);
-                msg.obj = item;
+                msg.arg1 = tmpkey;
+//                msg.obj = tmpString;
+
+                Intent i = new Intent(getActivity(), OneFragActivity.class);
+                i.putExtra(OneFragActivity.EXTRA_KEY_FRAG_CLASS, LotteryListFragment.class);
                 i.putExtra(OneFragActivity.EXTRA_KEY_MSG, msg);
                 startActivity(i);
             }
