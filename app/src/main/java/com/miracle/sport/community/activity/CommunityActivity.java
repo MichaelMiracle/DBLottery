@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.miracle.R;
 import com.miracle.base.BaseActivity;
+import com.miracle.base.Constant;
 import com.miracle.base.network.GlideApp;
 import com.miracle.base.util.ContextHolder;
 import com.miracle.databinding.ActivityCommunityBinding;
@@ -36,7 +37,7 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding> {
     @Override
     public void initView() {
         binding.zRadiogroup.setUp(getSupportFragmentManager(), R.id.containerCommunity, hotPostFragment = new HotPostFragment().setParent(true), latestPostFragment = new LatestPostFragment().setParent(true));
-        MyCircleBean circleBean = (MyCircleBean) getIntent().getSerializableExtra("MyCircle");
+        MyCircleBean circleBean = (MyCircleBean) getIntent().getSerializableExtra(Constant.MY_CIRCLE);
         setTitle(circleBean.getName());
         hotPostFragment.setCircleId(circleBean.getId());
         latestPostFragment.setCircleId(circleBean.getId());
@@ -45,11 +46,11 @@ public class CommunityActivity extends BaseActivity<ActivityCommunityBinding> {
 
     private void initBanner() {
         images = new ArrayList<>();
-        images.add("file:///android_asset/football/16.jpg");
-        images.add("file:///android_asset/football/17.jpg");
-        images.add("file:///android_asset/football/18.jpg");
-        images.add("file:///android_asset/football/19.jpg");
-        images.add("file:///android_asset/football/20.jpg");
+        images.add("file:///android_asset/lottery/1.png");
+        images.add("file:///android_asset/lottery/2.png");
+        images.add("file:///android_asset/lottery/3.png");
+        images.add("file:///android_asset/lottery/4.png");
+        images.add("file:///android_asset/lottery/5.png");
         binding.banner.setImages(images).setImageLoader(new ImageLoader() {
             @Override
             public void displayImage(Context context, Object path, ImageView imageView) {

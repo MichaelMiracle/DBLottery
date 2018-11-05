@@ -33,6 +33,7 @@ public interface Constant {
 
 
     String POST_ID = "post_id";
+    String MY_CIRCLE = "MyCircle";
     String USER_ID = "";
     String USER_INFO = "user_info";
     String COMMENT_LIST = "comment_list";
