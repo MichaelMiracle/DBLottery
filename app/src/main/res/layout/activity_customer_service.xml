@@ -14,6 +14,7 @@
             android:layout_height="wrap_content"
             app:ItemBar_Left_Icon="@string/icon_qq"
             app:ItemBar_Left_TextColor="@color/qqBlue"
+            app:ItemBar_Left_TextSize="26sp"
             app:ItemBar_Text="联系QQ客服" />
 
         <com.miracle.base.view.ItemBar
@@ -23,6 +24,7 @@
             android:layout_marginTop="10dp"
             app:ItemBar_Left_Icon="@string/icon_wechat"
             app:ItemBar_Left_TextColor="@color/weChatGreen"
+            app:ItemBar_Left_TextSize="26sp"
             app:ItemBar_Text="复制并添加微信添加客服" />
     </LinearLayout>
 </layout>
