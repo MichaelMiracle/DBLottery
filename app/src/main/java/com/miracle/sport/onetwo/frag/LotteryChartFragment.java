@@ -87,6 +87,7 @@ public class LotteryChartFragment extends BaseFragment implements DDTrendChart.I
 //           e.printStackTrace();
 //       }
 
+        setUIStatus(ShowStat.LOADING);
         Request request = new Request.Builder()
                 .url(url)
                 .build();

@@ -120,7 +120,7 @@
                         android:padding="2dp"
                         android:clickable="false"
                         android:focusable="false"
-                        android:src="@mipmap/icon_happypoker" />
+                        android:src="@mipmap/icon_homemain_oprea_kaijiang" />
 
                     <LinearLayout
                         android:clickable="false"
@@ -136,7 +136,7 @@
                             android:id="@+id/main_title_tv1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="摇号擂台"
+                            android:text="彩票大厅"
                             android:textColor="#000"
                             android:textSize="16sp" />
 
@@ -146,7 +146,7 @@
                             android:clickable="false"
                             android:focusable="false"
                             android:layout_height="wrap_content"
-                            android:text="做摇主一起好运"
+                            android:text="多彩种资讯汇集"
                             android:textColor="#666" />
                     </LinearLayout>
                 </LinearLayout>
@@ -226,10 +226,10 @@
                 android:padding="4dp">
 
                 <View
-                    android:layout_width="6dp"
+                    android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_marginLeft="8dp"
-                    android:background="#800" />
+                    android:background="@color/colorPrimary" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -277,10 +277,10 @@
                 android:padding="4dp">
 
                 <View
-                    android:layout_width="6dp"
+                    android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_marginLeft="8dp"
-                    android:background="#800" />
+                    android:background="@color/colorPrimary" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -298,6 +298,7 @@
                     android:gravity="right"
                     android:paddingRight="4dp"
                     android:text="查看历史"
+                    android:visibility="gone"
                     android:textColor="#55e"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -345,10 +346,10 @@
                 android:padding="4dp">
 
                 <View
-                    android:layout_width="6dp"
+                    android:layout_width="12dp"
                     android:layout_height="12dp"
                     android:layout_marginLeft="8dp"
-                    android:background="#800" />
+                    android:background="@color/colorPrimary" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -360,6 +361,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:visibility="gone"
                     android:id="@+id/main_frag_more2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -18,13 +18,8 @@ import java.util.List;
 
 //left type chose, right list
 public class Fragment1cp extends BaseFragment<Fragment1cpBinding> {
-
-//    private LCTItemListAdapter mAdapter;
-//    private PageLoadCallback callBack;
-
     LotteryListFragment fragment;
     private LCTIndexAdapter indexAdapter;
-//    private List<String> images;
 
     @Override
     public int getLayout() {
@@ -43,6 +38,7 @@ public class Fragment1cp extends BaseFragment<Fragment1cpBinding> {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 fragment.clearData();
                 fragment.setLotteryCatData(indexAdapter.getDatas().get(position));
+                fragment.loadData();
                 indexAdapter.setSelectPosition(position);
             }
         });
@@ -64,8 +60,10 @@ public class Fragment1cp extends BaseFragment<Fragment1cpBinding> {
             public void onSuccess(ZResponse<List<LotteryCatTitleItem>> data) {
                 indexAdapter.update(data.getData());
                 indexAdapter.notifyDataSetChanged();
-                if(data.getData() != null && data.getData().size() > 0)
+                if(data.getData() != null && data.getData().size() > 0){
                     fragment.setLotteryCatData(indexAdapter.getDatas().get(0));
+                    fragment.loadData();
+                }
             }
 
 //            @Override

@@ -1,4 +1,4 @@
-package com.miracle.sport.onetwo.set.channel.helper;
+package com.miracle.sport.onetwo.util.channel.helper;
 
 /**
  * ViewHolder 被选中 以及 拖拽释放 触发监听器

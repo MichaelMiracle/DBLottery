@@ -1,4 +1,4 @@
-package com.miracle.sport.onetwo.set;
+package com.miracle.sport.onetwo.util;
 
 import org.litepal.LitePal;
 import org.litepal.util.BaseUtility;

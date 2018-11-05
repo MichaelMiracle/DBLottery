@@ -14,21 +14,11 @@ public class RandUtils {
     public static long FIXED_RAN_SEED = 589348934L;
     public static Random fixedRan = new Random(FIXED_RAN_SEED);
     public static Random random = new Random();
-    public static long lastTimeSeed;
     public static Random hourRandom;
 
     public static void initFixedRan(long seed){
         RandUtils.FIXED_RAN_SEED = seed;
         RandUtils.fixedRan = new Random(RandUtils.FIXED_RAN_SEED);
-    }
-
-    public static Random getFixedHourRandom(){
-        long hour = System.currentTimeMillis() / (1000 * 60 * 60 * 1);
-        if(hour - lastTimeSeed > (1000 * 60 * 60 * 1) || hourRandom == null){
-            lastTimeSeed = hour;
-            hourRandom = new Random(RandUtils.FIXED_RAN_SEED + hour);
-        }
-        return hourRandom;
     }
 
     public static int rand(int[] arr) {
@@ -93,10 +83,6 @@ public class RandUtils {
 
     public static List<Bitmap> randImgs(Context context, int pickNum) throws IOException {
         return randImgs(context, pickNum, "imgs");
-    }
-
-    public static float randFixedHourPer(String msg){
-        return getFixedHourRandom().nextFloat();
     }
 
     public static List<String> randUserName(Context context, int pickNum){

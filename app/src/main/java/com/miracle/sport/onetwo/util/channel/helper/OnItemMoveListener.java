@@ -1,4 +1,4 @@
-package com.miracle.sport.onetwo.set.channel.helper;
+package com.miracle.sport.onetwo.util.channel.helper;
 
 /**
  * Item移动后 触发

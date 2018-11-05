@@ -1,4 +1,4 @@
-package com.miracle.sport.onetwo.set.channel.helper;
+package com.miracle.sport.onetwo.util.channel.helper;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;

@@ -12,13 +12,13 @@ import com.miracle.base.network.ZCallback;
 import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZResponse;
 import com.miracle.databinding.ChannelActivityBinding;
-import com.miracle.sport.onetwo.set.channel.ChannelAdapter;
+import com.miracle.sport.onetwo.util.channel.ChannelAdapter;
 import com.miracle.sport.onetwo.netbean.CPServer;
 import com.miracle.sport.onetwo.netbean.CpTitleItem;
 import com.miracle.sport.onetwo.operation.CollectionUtil;
-import com.miracle.sport.onetwo.set.channel.ChannelEntity;
-import com.miracle.sport.onetwo.set.channel.helper.ItemDragHelperCallback;
-import com.miracle.sport.onetwo.set.channel.helper.OnEditChangeListener;
+import com.miracle.sport.onetwo.util.channel.ChannelEntity;
+import com.miracle.sport.onetwo.util.channel.helper.ItemDragHelperCallback;
+import com.miracle.sport.onetwo.util.channel.helper.OnEditChangeListener;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,7 +4,7 @@ import android.content.ContentValues;
 
 import com.miracle.sport.onetwo.entity.CollecableAbs;
 import com.miracle.sport.onetwo.netbean.CpTitleItem;
-import com.miracle.sport.onetwo.set.LitePalUtil;
+import com.miracle.sport.onetwo.util.LitePalUtil;
 
 import org.litepal.crud.DataSupport;
 

@@ -1,6 +1,7 @@
 package com.miracle.sport.onetwo.netbean;
 
 import com.miracle.base.network.ZResponse;
+import com.miracle.sport.onetwo.entity.CpHall;
 
 import java.util.List;
 
@@ -52,11 +53,13 @@ public interface CPServer {
     @POST("home/index/index")
     Call<ZResponse<List<CpListItem>>> cpList(@Query("page") int page, @Query("pageSize") int limit, @Query("bigtype") String bigtype, @Query("smalltype") String smalltype);
 
+
+    //大厅接口
+    @Headers({"BaseUrl:zh"})
+    @POST("home/caipiao/hall")
+    Call<ZResponse<List<CpHall>>> cpHall();
     //////////////////
 
-//    //大厅接口
-//    @POST("home/caipiao/hall")
-//    Call<ZResponse<List<CpHall>>> cpHall();
 
     ///////////////////////////////
 

@@ -1,4 +1,4 @@
-package com.miracle.sport.onetwo.set.channel;
+package com.miracle.sport.onetwo.util.channel;
 
 /**
  * 频道实体类

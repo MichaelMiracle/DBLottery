@@ -5,12 +5,14 @@ import java.io.Serializable;
 public class LotteryCatTitleItem implements Serializable {
     int id;
     String name;
+    String pic;
 
     @Override
     public String toString() {
         return "LotteryCatTitleItem{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", pic='" + pic + '\'' +
                 '}';
     }
 
@@ -28,5 +30,13 @@ public class LotteryCatTitleItem implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
     }
 }

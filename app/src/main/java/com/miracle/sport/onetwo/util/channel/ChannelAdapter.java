@@ -1,4 +1,4 @@
-package com.miracle.sport.onetwo.set.channel;
+package com.miracle.sport.onetwo.util.channel;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -18,9 +18,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.miracle.R;
-import com.miracle.sport.onetwo.set.channel.helper.OnDragVHListener;
-import com.miracle.sport.onetwo.set.channel.helper.OnEditChangeListener;
-import com.miracle.sport.onetwo.set.channel.helper.OnItemMoveListener;
+import com.miracle.sport.onetwo.util.channel.helper.OnDragVHListener;
+import com.miracle.sport.onetwo.util.channel.helper.OnEditChangeListener;
+import com.miracle.sport.onetwo.util.channel.helper.OnItemMoveListener;
 
 import java.util.List;
 
