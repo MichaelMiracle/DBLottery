@@ -63,7 +63,7 @@
             android:id="@+id/ibClearCache"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1dp"
+            android:layout_marginTop="10dp"
             app:ItemBar_Left_Icon="@string/icon_clear_cache"
             app:ItemBar_Text="清理缓存" />
 

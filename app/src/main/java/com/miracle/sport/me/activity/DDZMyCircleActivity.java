@@ -7,6 +7,7 @@ import android.view.View;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.miracle.R;
 import com.miracle.base.BaseActivity;
+import com.miracle.base.Constant;
 import com.miracle.base.network.ZCallback;
 import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZResponse;
@@ -64,7 +65,7 @@ public class DDZMyCircleActivity extends BaseActivity<SwipeRecyclerBinding> {
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                startActivity(new Intent(mContext, CommunityActivity.class).putExtra("MyCircle", mAdapter.getItem(position)));
+                startActivity(new Intent(mContext, CommunityActivity.class).putExtra(Constant.MY_CIRCLE, mAdapter.getItem(position)));
             }
         });
 
