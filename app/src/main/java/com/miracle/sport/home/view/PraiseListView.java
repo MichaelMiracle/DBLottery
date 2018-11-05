@@ -105,7 +105,7 @@ public class PraiseListView extends TextView {
     private SpannableString setImageSpan(){
         String text = "  ";
         SpannableString imgSpanText = new SpannableString(text);
-        imgSpanText.setSpan(new ImageSpan(App.getApp(), R.mipmap.good_big, DynamicDrawableSpan.ALIGN_BASELINE),
+        imgSpanText.setSpan(new ImageSpan(App.getApp(), R.mipmap.good, DynamicDrawableSpan.ALIGN_BASELINE),
                 0 , 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return imgSpanText;
     }

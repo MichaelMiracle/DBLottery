@@ -77,6 +77,7 @@
     <color name="title_color">@color/colorPrimaryDark</color>
     <color name="gray_color_button">#a6a4a4</color>
     <color name="withdraw_blue">#4A90E2</color>
+    <color name="withdraw_name">#DC9C30</color>
     <color name="withdraw_grey">#F9FAFB</color>
     <color name="tv_green_color">#36c023</color>
 

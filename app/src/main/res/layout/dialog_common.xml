@@ -16,7 +16,9 @@
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:scaleType="centerInside"
-            android:src="@mipmap/register_success" />
+            android:src="@mipmap/register_success"
+            android:visibility="gone"
+            />
 
         <TextView
             android:id="@+id/tvTitle"
@@ -30,6 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:gravity="center_horizontal"
             android:textColor="@color/main_hint_color"
             android:textSize="14sp" />
@@ -37,12 +40,12 @@
         <Button
             android:id="@+id/btNext"
             android:layout_width="168dp"
-            android:layout_height="44dp"
+            android:layout_height="40dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="30dp"
             android:background="@drawable/shape_base_btn"
             android:text="确定"
-            android:textColor="@color/main_text_color"
-            android:textSize="18sp" />
+            android:textColor="@color/white"
+            android:textSize="16sp" />
     </LinearLayout>
 </layout>

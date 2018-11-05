@@ -30,7 +30,7 @@
         android:layout_weight="1"
         android:ellipsize="end"
         android:text="名称"
-        android:textColor="@color/withdraw_blue"
+        android:textColor="@color/withdraw_name"
         android:gravity="center_vertical"
         android:paddingLeft="4dp"
         android:paddingRight="2dp"
@@ -62,7 +62,7 @@
             android:id="@+id/im_delete"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:drawableLeft="@mipmap/add_channels_close_press"
+            android:drawableLeft="@mipmap/adapter_delete"
             android:text="删除"
             android:gravity="center"
             android:drawablePadding="5dp"
@@ -75,7 +75,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:paddingLeft="40dp"
         android:orientation="vertical"
         >
@@ -85,7 +84,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="left"
-            android:paddingLeft="1dp"
+            android:paddingLeft="2dp"
             android:layout_marginRight="6dp"
             android:textColor="#333333"
             />

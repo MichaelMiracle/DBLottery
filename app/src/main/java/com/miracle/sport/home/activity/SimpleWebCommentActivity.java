@@ -106,6 +106,42 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
     protected void onResume() {
         super.onResume();
 
+        reqDetail();
+
+    }
+
+    private void reqDetail() {
+        ZClient.getService(SportService.class).getCommentDetail(id).enqueue(new ZCallback<ZResponse<ArticleDetailBean>>(this) {
+            @Override
+            public void onSuccess(ZResponse<ArticleDetailBean> data) {
+                setRight(data.getData().getCoin() == 1 ? fullHear : emptyHear, Color.WHITE, 22);
+                binding.tvTitle.setText(data.getData().getTitle());
+                if(data.getData().getComment_num()==0){
+                    binding.commentDetail.setVisibility(View.GONE);
+                }else{
+                    binding.commentDetail.setVisibility(View.VISIBLE);
+                }
+                binding.tvTime.setText(CommonUtils.getAppName(mContext) + "        " + data.getData().getTime());
+                binding.webView.loadDataWithBaseURL(null, CommonUtils.getHtmlData(data.getData().getContent()), "text/html", "utf-8", null);
+                binding.includeSendComment.tvCommentCount.setText(data.getData().getComment_num() + "");
+                newsDetailBean = data.getData();
+                if (1 == data.getData().getClick()) {
+                    binding.includeSendComment.commentClick.setImageResource(R.mipmap.good_checked_big);
+                } else {
+                    binding.includeSendComment.commentClick.setImageResource(R.mipmap.good_big);
+                }
+//                reqCommentData();
+                mAdapter.setNewData(data.getData().getComment());
+            }
+
+            @Override
+            protected void onFinish(Call<ZResponse<ArticleDetailBean>> call) {
+                super.onFinish(call);
+                dismissLoadingDialog();
+                binding.swipeRefreshLayout.setRefreshing(false);
+                loadingDialog.dismiss();
+            }
+        });
     }
 
 //    private void reqCommentData(){
@@ -187,7 +223,7 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
                     ZClient.getService(SportService.class).likeOrDislike(id, coin + "").enqueue(new ZCallback<ZResponse<String>>() {
                         @Override
                         public void onSuccess(ZResponse<String> data) {
-                            setRight(newsDetailBean.getCoin() == 1 ? emptyHear : fullHear, Color.WHITE, 18);
+                            setRight(newsDetailBean.getCoin() == 1 ? emptyHear : fullHear, Color.WHITE, 22);
                             newsDetailBean.setCion(coin);
                             ToastUtil.toast(data.getMessage());
                         }
@@ -197,35 +233,11 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
                 }
             }
         });
-        binding.rlLeft.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
 
-        binding.cbRight.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!TextUtils.isEmpty(SQLiteUtil.getString(SQLiteKey.USER))) {
-                    final int coin = newsDetailBean.getCoin() == 0 ? 1 : 0;
-                    ZClient.getService(SportService.class).likeOrDislike(id, coin + "").enqueue(new ZCallback<ZResponse<String>>() {
-                        @Override
-                        public void onSuccess(ZResponse<String> data) {
-                            newsDetailBean.setCion(coin);
-                            ToastUtil.toast(data.getMessage());
-                        }
-                    });
-                } else {
-                    GOTO.LoginActivity(mContext);
-                }
-
-            }
-        });
         binding.swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadData();
+                reqDetail();
             }
         });
 
@@ -316,32 +328,7 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
 
     @Override
     public void loadData() {
-        ZClient.getService(SportService.class).getCommentDetail(id).enqueue(new ZCallback<ZResponse<ArticleDetailBean>>(this) {
-            @Override
-            public void onSuccess(ZResponse<ArticleDetailBean> data) {
-                setRight(data.getData().getCoin() == 1 ? fullHear : emptyHear, Color.WHITE, 18);
-                binding.tvTitle.setText(data.getData().getTitle());
-                binding.tvTime.setText(CommonUtils.getAppName(mContext) + "        " + data.getData().getTime());
-                binding.webView.loadDataWithBaseURL(null, CommonUtils.getHtmlData(data.getData().getContent()), "text/html", "utf-8", null);
-                binding.includeSendComment.tvCommentCount.setText(data.getData().getComment_num() + "");
-                newsDetailBean = data.getData();
-                if (1 == data.getData().getClick()) {
-                    binding.includeSendComment.commentClick.setImageResource(R.mipmap.good_checked_big);
-                } else {
-                    binding.includeSendComment.commentClick.setImageResource(R.mipmap.good_big);
-                }
-//                reqCommentData();
-                mAdapter.setNewData(data.getData().getComment());
-            }
 
-            @Override
-            protected void onFinish(Call<ZResponse<ArticleDetailBean>> call) {
-                super.onFinish(call);
-                dismissLoadingDialog();
-                binding.swipeRefreshLayout.setRefreshing(false);
-                loadingDialog.dismiss();
-            }
-        });
     }
 
 //    private ZCallback<String> likeCallback = new ZCallback<ZResponse>() {
@@ -400,7 +387,7 @@ public class SimpleWebCommentActivity extends BaseActivity<ActivityHomeWebCommen
                             toUser = "";
                             editText.setText("");
                             CommonUtils.hideSoftInput(editText.getContext(), binding.includeSendComment.etCommentContent);
-                            loadData();
+                            reqDetail();
                         }
                     });
                 }
