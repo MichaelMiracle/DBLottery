@@ -7,7 +7,6 @@ import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.constraint.Placeholder;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,7 +32,7 @@ public abstract class BaseActivity<B extends ViewDataBinding> extends AppCompatA
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-//        getWindow().getDecorView().setBackgroundColor(CommonUtils.getColor(R.color.main_bg_color));
+        getWindow().getDecorView().setBackgroundColor(CommonUtils.getColor(R.color.main_bg_color));
         mContext = this;
         mBaseBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_base, null, false);
 //        binding = DataBindingUtil.inflate(getLayoutInflater(), getLayout(), null, false);

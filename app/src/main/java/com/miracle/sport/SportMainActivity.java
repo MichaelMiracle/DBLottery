@@ -29,6 +29,11 @@ public class SportMainActivity extends BaseActivity<ActivitySportMainBinding> {
     }
 
     @Override
+    public void overridePendingTransition(int enterAnim, int exitAnim) {
+//        super.overridePendingTransition(enterAnim, exitAnim);
+    }
+
+    @Override
     public void initListener() {
         binding.tvContactCustomerService.setOnClickListener(this);
         binding.rlGroupChat.setOnClickListener(this);

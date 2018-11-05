@@ -28,6 +28,7 @@ import com.miracle.base.util.GsonUtil;
 import com.miracle.base.util.sqlite.SQLiteKey;
 import com.miracle.base.util.sqlite.SQLiteUtil;
 import com.miracle.michael.common.fingerprint.FingerPrintDialog;
+import com.yanzhenjie.sofia.Sofia;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -54,6 +55,7 @@ public class WelcomeActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        Sofia.with(this).invasionStatusBar();
         LinearLayout linearLayout = new LinearLayout(this);
         linearLayout.setBackgroundResource(R.mipmap.astart);
         setContentView(linearLayout);
@@ -78,6 +80,12 @@ public class WelcomeActivity extends Activity {
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
+
+    @Override
+    public void finish() {
+        super.finish();
+        overridePendingTransition(0, 0);
+    }
 
     private void reqData() {
         Retrofit retrofit = new Retrofit.Builder()

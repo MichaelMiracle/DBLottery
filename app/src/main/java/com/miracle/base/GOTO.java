@@ -1,5 +1,6 @@
 package com.miracle.base;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -38,6 +39,7 @@ public class GOTO {
     public static void MainActivity(Context context) {
         App.getApp().finishAllActivity();
         context.startActivity(new Intent(context, AppConfig.mainClass));
+        ((Activity) context).overridePendingTransition(0, 0);
     }
 
     public static void RegisterActivity(Context context) {
@@ -116,6 +118,7 @@ public class GOTO {
     public static void PostDetailActivity(Context context, int id) {
         context.startActivity(new Intent(context, PostDetailActivity.class).putExtra(Constant.POST_ID, id));
     }
+
     public static void PostCommentListActivity(Context context, int id) {
         context.startActivity(new Intent(context, PostCommentListActivity.class).putExtra(Constant.POST_ID, id));
     }

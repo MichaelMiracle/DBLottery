@@ -8,7 +8,7 @@
         <!--colorPrimaryDark 应用的主要暗色调，statusBarColor默认使用该颜色-->
         <item name="colorPrimaryDark">@color/main_color</item>
         <!--windowBackground 窗口背景颜色-->
-        <item name="android:windowBackground">@color/main_bg_color</item>
+        <item name="android:windowBackground">@mipmap/astart</item>
         <!--colorAccent CheckBox，RadioButton，SwitchCompat等一般控件的选中效果默认采用该颜色-->
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:statusBarColor">@color/mystatus_bar_color</item>
