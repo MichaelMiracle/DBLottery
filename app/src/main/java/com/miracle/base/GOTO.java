@@ -102,7 +102,7 @@ public class GOTO {
         if (CommonUtils.getUser() == null) {
             LoginActivity(context);
         } else if (TextUtils.isEmpty(AppConfig.groupId)) {
-            ToastUtil.toast("聊天室登录中,请稍后再试");
+            ToastUtil.toast("聊天室登录中,请稍后！");
             UserBean user = CommonUtils.getUser();
             if (user == null)
                 return;
