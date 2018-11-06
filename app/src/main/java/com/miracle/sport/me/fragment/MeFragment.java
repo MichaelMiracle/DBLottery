@@ -1,13 +1,16 @@
 package com.miracle.sport.me.fragment;
 
+import android.Manifest;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 
 import com.miracle.R;
 import com.miracle.base.BaseFragment;
+import com.miracle.base.Constant;
 import com.miracle.base.GOTO;
 import com.miracle.base.bean.UserInfoBean;
 import com.miracle.base.network.GlideApp;
@@ -16,17 +19,28 @@ import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZResponse;
 import com.miracle.base.network.ZService;
 import com.miracle.base.util.CommonUtils;
+import com.miracle.base.util.ToastUtil;
+import com.miracle.base.zxing.activity.CaptureActivity;
 import com.miracle.databinding.F4Ddz2Binding;
-import com.miracle.databinding.F4DdzBinding;
 import com.miracle.sport.me.activity.DDZMyCircleActivity;
 import com.miracle.sport.me.activity.DDZMyPostActivity;
 import com.miracle.sport.me.activity.DDZMyReplyActivity;
 import com.miracle.sport.me.activity.MyCollectionsActivity;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 import com.wx.goodview.GoodView;
+
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
+
+import static android.app.Activity.RESULT_OK;
 
 public class MeFragment extends BaseFragment<F4Ddz2Binding> {
     private UserInfoBean userInfo;
     private GoodView goodView;
+    private RxPermissions rxPermission;
+    private Disposable subscribe;
+    private boolean isGranted;
 
     @Override
     public int getLayout() {
@@ -37,7 +51,34 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
     public void initView() {
         binding.titleBar.showLeft(drawerLayout != null);
         goodView = new GoodView(mContext);
+
+        rxPermission = new RxPermissions(getActivity());
     }
+
+    private void requestCameraPermission() {
+        subscribe = rxPermission.requestEach(Manifest.permission.CAMERA)
+                .subscribe(new Consumer<Permission>() {
+                    @Override
+                    public void accept(Permission permission) throws Exception {
+                        if (permission.granted) {
+                            // 用户已经同意该权限
+                            Log.d("ZZZ", permission.name + " is granted.");
+                            isGranted = true;
+
+                        } else if (permission.shouldShowRequestPermissionRationale) {
+                            // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
+                            Log.d("ZZZ", permission.name + " is denied. More info should be provided.");
+                            isGranted = false;
+                        } else {
+                            // 用户拒绝了该权限，并且选中『不再询问』
+                            Log.d("ZZZ", permission.name + " is denied.");
+                            isGranted = false;
+                        }
+                    }
+                });
+
+    }
+
 
     private void reqData() {
         if (CommonUtils.getUser() != null)
@@ -57,7 +98,7 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
         binding.ibOrderManage.setOnClickListener(this);
         binding.ibmyCircle.setOnClickListener(this);
         binding.ibmyPost.setOnClickListener(this);
-        binding.ibmyReply.setOnClickListener(this);
+        binding.ibScan.setOnClickListener(this);
         binding.ibBailManage.setOnClickListener(this);
         binding.ibSettings.setOnClickListener(this);
         binding.ibGroupChat.setOnClickListener(this);
@@ -93,7 +134,7 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
                 if (CommonUtils.getUser() == null) {
                     GOTO.LoginActivity(mContext);
                 } else {
-                    GOTO.MeInfoActivity(mContext,userInfo);
+                    GOTO.MeInfoActivity(mContext, userInfo);
                 }
                 break;
             case R.id.ibOrderManage:
@@ -157,9 +198,25 @@ public class MeFragment extends BaseFragment<F4Ddz2Binding> {
                 GOTO.AboutUsActivity(mContext);
                 break;
 
+            case R.id.ibScan:
+                if (isGranted) {
+                    startActivityForResult(new Intent(mContext, CaptureActivity.class), Constant.REQUSET_CODE_SCAN);
+                } else {
+                    requestCameraPermission();
+                }
+                break;
+
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == Constant.REQUSET_CODE_SCAN && resultCode == RESULT_OK) {
+            ToastUtil.toast(data.getStringExtra(Constant.INTENT_KEY_SCAN_RESULT));
+        }
+
+
+    }
 
     private DrawerLayout drawerLayout;
 

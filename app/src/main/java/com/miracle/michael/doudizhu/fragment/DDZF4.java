@@ -17,8 +17,6 @@ import com.miracle.base.network.ZResponse;
 import com.miracle.base.network.ZService;
 import com.miracle.base.util.CommonUtils;
 import com.miracle.databinding.F4Ddz2Binding;
-import com.miracle.databinding.F4DdzBinding;
-import com.miracle.michael.doudizhu.activity.DDZMyCollectionsActivity;
 import com.miracle.sport.me.activity.DDZMyCircleActivity;
 import com.miracle.sport.me.activity.DDZMyPostActivity;
 import com.miracle.sport.me.activity.DDZMyReplyActivity;
@@ -59,7 +57,7 @@ public class DDZF4 extends BaseFragment<F4Ddz2Binding> {
         binding.ibOrderManage.setOnClickListener(this);
         binding.ibmyCircle.setOnClickListener(this);
         binding.ibmyPost.setOnClickListener(this);
-        binding.ibmyReply.setOnClickListener(this);
+        binding.ibScan.setOnClickListener(this);
         binding.ibBailManage.setOnClickListener(this);
         binding.ibSettings.setOnClickListener(this);
         binding.ibGroupChat.setOnClickListener(this);

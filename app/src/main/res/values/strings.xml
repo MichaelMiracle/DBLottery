@@ -50,6 +50,8 @@
     <string name="icon_empty_heart">&#xe711;</string>
     <!--实心-->
     <string name="icon_full_heart">&#xe64c;</string>
+    <!--扫一扫-->
+    <string name="icon_scan">&#xe633;</string>
 
 
     <!--登录 注册-->

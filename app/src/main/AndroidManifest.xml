@@ -503,6 +503,9 @@
         <activity
             android:name=".sport.community.activity.PostCommentListActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".base.zxing.activity.CaptureActivity"
+            android:screenOrientation="portrait" />
 
         <!-- 开机自启动服务 -->
         <receiver android:name=".base.im.receiver.StartServiceReceiver">

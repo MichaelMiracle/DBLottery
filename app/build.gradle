@@ -96,6 +96,8 @@ dependencies {
     implementation 'org.litepal.android:core:1.6.1'
     implementation project(':marqueelibrary')
     compile project(path: ':boommenu')
+    //zxing
+    implementation 'com.google.zxing:core:3.3.0'
 }
 // ADD THIS AT THE BOTTOM
 apply plugin: 'com.google.gms.google-services'
