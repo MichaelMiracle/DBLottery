@@ -11,7 +11,6 @@ import com.miracle.R;
 import com.miracle.base.adapter.RecyclerViewAdapter;
 import com.miracle.base.network.GlideApp;
 import com.miracle.base.util.CommonUtils;
-import com.miracle.base.util.ContextHolder;
 import com.miracle.base.util.DisplayUtil;
 import com.miracle.base.view.ZImagePreviewer;
 import com.miracle.sport.community.bean.PostBean;
@@ -44,7 +43,7 @@ public class PostListAdapter extends RecyclerViewAdapter<PostBean> {
         helper.addOnClickListener(R.id.tvLike);
 
         helper.setText(R.id.tvUserName, item.getNickname());
-        GlideApp.with(ContextHolder.getContext()).load(item.getImg()).placeholder(R.mipmap.defaule_img).into((ImageView) helper.getView(R.id.ivUserImg));
+        GlideApp.with(context).load(item.getImg()).placeholder(R.mipmap.defaule_img).into((ImageView) helper.getView(R.id.ivUserImg));
 
         helper.setText(R.id.tvTitle, item.getTitle());
         helper.setText(R.id.tvComment, item.getComment_num() + "");
@@ -60,10 +59,10 @@ public class PostListAdapter extends RecyclerViewAdapter<PostBean> {
         if (thumbs != null && !thumbs.isEmpty()) {
             helper.setGone(R.id.llPics, true);
             for (int i = 0; i < thumbs.size(); i++) {
-                ImageView imageView = new ImageView(ContextHolder.getContext());
+                ImageView imageView = new ImageView(context);
                 imageView.setLayoutParams(params);
                 imageView.setAdjustViewBounds(true);
-                imageView.setMaxHeight((int) DisplayUtil.dip2px(ContextHolder.getContext(), 200));
+                imageView.setMaxHeight((int) DisplayUtil.dip2px(context, 200));
                 imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 GlideApp.with(context).load(thumbs.get(i))
                         .placeholder(R.mipmap.defaule_img)
