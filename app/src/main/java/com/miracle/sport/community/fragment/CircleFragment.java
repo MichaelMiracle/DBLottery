@@ -27,6 +27,8 @@ public class CircleFragment extends BaseFragment<RecyclerBinding> {
 
     private CircleChildAdapter mAdapter;
 
+    private boolean isFromPublishPostActivity;
+
     @Override
     public int getLayout() {
         return R.layout.recycler;
@@ -48,13 +50,17 @@ public class CircleFragment extends BaseFragment<RecyclerBinding> {
                 }
             }
         });
+
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent data = new Intent();
-                data.putExtra("ChildBean", mAdapter.getItem(position));
-                getActivity().setResult(Activity.RESULT_OK, data);
-                getActivity().finish();
+                if (isFromPublishPostActivity) {
+                    Intent data = new Intent();
+                    data.putExtra("ChildBean", mAdapter.getItem(position));
+                    getActivity().setResult(Activity.RESULT_OK, data);
+                    getActivity().finish();
+                }
+
             }
         });
     }
@@ -77,6 +83,7 @@ public class CircleFragment extends BaseFragment<RecyclerBinding> {
     }
 
     public void setBoolean(boolean isFromPublishPostActivity) {
+        this.isFromPublishPostActivity = isFromPublishPostActivity;
         mAdapter.setBoolean(isFromPublishPostActivity);
     }
 }
