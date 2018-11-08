@@ -7,16 +7,11 @@
     </data>
 
     <LinearLayout
+        android:background="#fff"
         android:visibility="visible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-
-        <LinearLayout
-            android:background="#fff"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
 
             <FrameLayout
                 android:layout_width="match_parent"
@@ -311,18 +306,14 @@
                 android:paddingRight="4dp"
                 android:gravity="center_vertical"
                 android:layout_height="wrap_content">
-                <LinearLayout
-                    android:orientation="vertical"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content">
                     <fragment
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+
                         android:id="@+id/main_farg_newnum_frag"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/ball_size"
                         android:background="#f00"
                         class="com.miracle.sport.onetwo.frag.LotteryListFragment"/>
-                </LinearLayout>
                 <Button
                     android:id="@+id/main_farg_tryrand"
                     android:text="试试手气"
@@ -374,5 +365,4 @@
 
         </LinearLayout>
 
-    </LinearLayout>
 </layout>

@@ -17,10 +17,12 @@ public class OneFragActivity extends BaseActivity<ActivityOneFragLayoutBinding> 
     public static String EXTRA_KEY_FRAG_CLASS = "EXTRA_KEY_FRAG_CLASS";
     public static String EXTRA_KEY_SEARCH = "EXTRA_KEY_SEARCH";
     public static String EXTRA_KEY_MSG = "EXTRA_KEY_MSG";
+    public static String EXTRA_KEY_TITLE = "EXTRA_KEY_TITLE";
 
     BaseFragment fragment;
     String search;
     Message message;
+    String tmpTitle;
 
     public static interface OneFragCallBack extends Serializable {
         public void onFragPreInit();
@@ -54,6 +56,9 @@ public class OneFragActivity extends BaseActivity<ActivityOneFragLayoutBinding> 
             {
                 message = getIntent().getParcelableExtra(EXTRA_KEY_MSG);
             }
+            if(getIntent().getExtras().containsKey(EXTRA_KEY_TITLE)){
+                tmpTitle = getIntent().getStringExtra(EXTRA_KEY_TITLE);
+            }
 
             if(getIntent().getExtras().containsKey(EXTRA_KEY_FRAG_CLASS)) {
                 try {
@@ -65,22 +70,21 @@ public class OneFragActivity extends BaseActivity<ActivityOneFragLayoutBinding> 
                     return;
                 }
             }
+
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction tran = manager.beginTransaction();
             if(fragment != null)
                 tran.add(R.id.frag_continer, fragment);
             tran.commit();
 
-            //spec
-//            if(fragment instanceof FragFootNewsItemList)
-//            {
-//                FragFootNewsItemList ffnil = (FragFootNewsItemList) fragment;
-//                ffnil.setReqKey(search);
-//            }
+
         }
         if(message != null && fragment instanceof HandleFragment){
             HandleFragment hf = (HandleFragment) fragment;
             hf.uiHandler.sendMessage(message);
+        }
+        if(tmpTitle != null && fragment instanceof BaseFragment){
+            fragment.setTitle(tmpTitle);
         }
         showContent();
     }

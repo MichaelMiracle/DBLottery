@@ -213,9 +213,10 @@ public class FragmentLotteryMain extends HandleFragment<FragmentCpMainTopBinding
                 Message msg = new Message();
                 msg.what = LotteryListFragment.WHAT_KEY_SETLOTTERYCATDATA;
                 msg.arg1 = tmpkey;
-//                msg.obj = tmpString;
+
 
                 Intent i = new Intent(getActivity(), OneFragActivity.class);
+                i.putExtra(OneFragActivity.EXTRA_KEY_TITLE, tmpString);
                 i.putExtra(OneFragActivity.EXTRA_KEY_FRAG_CLASS, LotteryListFragment.class);
                 i.putExtra(OneFragActivity.EXTRA_KEY_MSG, msg);
                 startActivity(i);
