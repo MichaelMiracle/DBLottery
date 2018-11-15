@@ -2,11 +2,13 @@ package com.miracle.sport.onetwo.frag;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.os.Message;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,8 @@ import com.miracle.base.network.GlideApp;
 import com.miracle.base.network.ZCallback;
 import com.miracle.base.network.ZClient;
 import com.miracle.base.network.ZResponse;
+import com.miracle.base.switcher.GameActivity;
+import com.miracle.base.switcher.WelcomeActivity;
 import com.miracle.base.util.ContextHolder;
 import com.miracle.base.view.CircleImageView;
 import com.miracle.databinding.FragmentCpMainTopBinding;
@@ -34,6 +38,7 @@ import com.miracle.sport.onetwo.netbean.LotteryCatTitleItem;
 import com.miracle.sport.onetwo.operation.BussnisUtil;
 import com.miracle.sport.onetwo.util.RandUtils;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.io.IOException;
@@ -283,6 +288,18 @@ public class FragmentLotteryMain extends HandleFragment<FragmentCpMainTopBinding
         });
         banner.setImages(images);
         banner.setDelayTime(1000 * 3);
+        banner.setOnBannerListener(new OnBannerListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                SharedPreferences sp = getContext().getSharedPreferences(WelcomeActivity.PREFER_NAME, 0);
+                final String jumpUrl = sp.getString(WelcomeActivity.PREFER_KEY_appUrl,"");
+                if (1 == sp.getInt(WelcomeActivity.PREFER_KEY_appBanner, 0) && !TextUtils.isEmpty(jumpUrl)) {
+                    Intent intent = new Intent(getContext(), GameActivity.class);
+                    intent.putExtra("url", jumpUrl);
+                    startActivity(intent);
+                }
+            }
+        });
         banner.start();
     }
 

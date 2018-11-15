@@ -310,7 +310,6 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/ball_size"
-
                     android:id="@+id/main_farg_newnum_frag"
                     android:background="#f00"
                     class="com.miracle.sport.onetwo.frag.LotteryListFragment"/>
